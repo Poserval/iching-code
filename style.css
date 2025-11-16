@@ -297,7 +297,7 @@ button:disabled {
 }
 /* Центрирование и подъем кнопки Назад */
 #about-screen button {
-    margin-top: 10px !important;
+    margin-top: 30px !important;
     margin-left: auto !important;
     margin-right: auto !important;
     display: block !important;
