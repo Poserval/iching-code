@@ -68,7 +68,7 @@ body {
 /* Главное меню - кнопки внизу экрана */
 #main-menu {
     justify-content: flex-end;
-    padding-bottom: 100px;
+    padding-bottom: 80px;
 }
 
 .header {
@@ -182,17 +182,39 @@ button:disabled {
     display: none !important;
 }
 
-/* Стили для текстового контента */
+/* Рукописный шрифт для текста об Ицзин */
 .text-content {
-    text-align: left;
-    line-height: 1.6;
-    background: rgba(255,255,255,0.1);
-    padding: 20px;
-    border-radius: 10px;
-    margin: 15px 0;
-    backdrop-filter: blur(10px);
+    font-family: 'Dancing Script', 'Segoe Script', 'Brush Script MT', cursive;
+    text-align: justify;
+    line-height: 1.8;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 25px;
+    border-radius: 15px;
+    margin: 20px 0;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     flex-grow: 1;
     overflow-y: auto;
+    font-weight: 500;
+}
+
+.text-content p {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    color: #e6e6e6;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.text-content strong {
+    color: #ffd700;
+    font-weight: 600;
+    font-size: 1.3em;
+}
+
+.text-content em {
+    color: #c0c0c0;
+    font-style: italic;
 }
 
 /* Стили для линий гексаграммы */
