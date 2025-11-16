@@ -5,12 +5,36 @@
     box-sizing: border-box;
 }
 
+/* Статичный фон для мобильных - БЕЗ ОБРЕЗКИ */
+#static-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: -2;
+    opacity: 0.4;
+    background: #1a1a2e;
+}
+
+/* Затемнение для читаемости текста */
+#static-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     color: #e6e6e6;
     min-height: 100vh;
     padding: 20px;
+    position: relative;
 }
 
 /* Контейнер приложения */
@@ -61,6 +85,12 @@ button:hover {
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
 /* Контейнер для монет */
 .coins-container {
     display: flex;
@@ -70,9 +100,20 @@ button:hover {
 }
 
 .coin {
-    width: 60px;
-    height: 60px;
-    transition: transform 0.5s ease;
+    width: 64px;
+    height: 64px;
+    transition: all 0.3s ease;
+}
+
+/* Анимации для монет */
+@keyframes coinFlip {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(90deg); }
+    100% { transform: rotateY(0deg); }
+}
+
+.coin.animating {
+    animation: coinFlip 0.6s ease-in-out;
 }
 
 /* Контейнер для гексаграммы */
@@ -82,6 +123,7 @@ button:hover {
     border: 1px solid #333;
     border-radius: 10px;
     padding: 20px;
+    background: rgba(255,255,255,0.05);
 }
 
 /* Утилитарный класс для скрытия элементов */
@@ -99,41 +141,6 @@ button:hover {
     margin: 20px 0;
 }
 
-/* Анимации для монет */
-@keyframes coinFlip {
-    0% { transform: rotateY(0deg); }
-    50% { transform: rotateY(90deg); }
-    100% { transform: rotateY(0deg); }
-}
-
-.coin {
-    width: 64px;
-    height: 64px;
-    transition: all 0.3s ease;
-}
-
-.coin.animating {
-    animation: coinFlip 0.6s ease-in-out;
-}
-
-/* Стили для линий гексаграммы */
-.hexagram-line {
-    margin: 5px 0;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.yang-line {
-    color: #ffd700; /* Золотой для Ян */
-    background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent);
-    padding: 5px;
-}
-
-.yin-line {
-    color: #c0c0c0; /* Серебряный для Инь */
-    background: linear-gradient(90deg, transparent, rgba(192,192,192,0.2), transparent);
-    padding: 5px;
-}
 /* Стили для линий гексаграммы */
 .hexagram-line {
     margin: 8px 0;
@@ -186,37 +193,6 @@ button:hover {
         opacity: 1;
         transform: translateX(0);
     }
-    /* Анимированный фон для мобильных */
-#animated-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -2;
-    opacity: 0.3; /* Настрой прозрачность */
-}
-
-/* Затемнение для читаемости */
-#animated-bg::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: -1;
-}
-
-/* Основной фон */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #e6e6e6;
-    min-height: 100vh;
-    padding: 20px;
-    position: relative;
 }
 
 .hexagram-line {
