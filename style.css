@@ -72,7 +72,7 @@ body {
 }
 
 .header {
-    margin-top: 60px;
+    margin-top: 30px;
     flex-shrink: 0;
     position: absolute
     top: 30px
