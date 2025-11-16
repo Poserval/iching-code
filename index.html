@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гадание Ицзин</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+
+        <!-- ЭКРАН 1: Главное меню -->
+        <div id="main-menu" class="screen active">
+            <h1>Книга Перемен</h1>
+            <button onclick="showScreen('about-screen')">О Ицзин</button>
+            <button onclick="showScreen('warning-screen')">Предупреждение</button>
+            <button onclick="showScreen('divination-screen')">Начнём</button>
+        </div>
+
+        <!-- ЭКРАН 2: Об Ицзин -->
+        <div id="about-screen" class="screen">
+            <h1>О гадании Ицзин</h1>
+            <div class="text-content">
+                <!-- Сюда вставишь тот прекрасный текст, что я написал ранее -->
+                <p>Ицзин (Книга Перемен) — это древнекитайский...</p>
+            </div>
+            <button onclick="showScreen('main-menu')">Назад</button>
+        </div>
+
+        <!-- ЭКРАН 3: Предупреждение -->
+        <div id="warning-screen" class="screen">
+            <h1>⚠️ Предупреждение</h1>
+            <div class="text-content">
+                <p>Ицзин — это не игра. Подходи к гаданию с уважением и серьезными намерениями...</p>
+                <!-- Текст предупреждения -->
+            </div>
+            <button onclick="showScreen('main-menu')">Понятно</button>
+        </div>
+
+        <!-- ЭКРАН 4: Процесс гадания -->
+        <div id="divination-screen" class="screen">
+            <h2>Задайте свой вопрос мысленно</h2>
+
+            <!-- Контейнер для монет -->
+            <div class="coins-container">
+                <img id="coin1" class="coin" src="assets/coins/coin-tails.png" alt="Монета 1">
+                <img id="coin2" class="coin" src="assets/coins/coin-tails.png" alt="Монета 2">
+                <img id="coin3" class="coin" src="assets/coins/coin-tails.png" alt="Монета 3">
+            </div>
+
+            <!-- Кнопка броска -->
+            <button id="throw-button" onclick="throwCoins()">Бросить монеты</button>
+
+            <!-- Область для построения гексаграммы (снизу вверх) -->
+            <div id="hexagram-lines" class="hexagram-container">
+                <!-- Здесь JavaScript будет рисовать линии -->
+            </div>
+
+            <!-- Кнопка результата (появляется после 6 бросков) -->
+            <button id="result-button" class="hidden" onclick="showResult()">Показать результат</button>
+
+            <button onclick="showScreen('main-menu')">Назад в меню</button>
+        </div>
+
+        <!-- ЭКРАН 5: Результат -->
+        <div id="result-screen" class="screen">
+            <h1>Ваша гексаграмма</h1>
+            <div id="final-hexagram"></div>
+            <div id="interpretation-text"></div>
+            <button onclick="resetDivination()">Гадать снова</button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
