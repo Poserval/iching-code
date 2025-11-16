@@ -190,13 +190,11 @@ button:disabled {
     background: rgba(255, 255, 255, 0.08);
     padding: 25px;
     border-radius: 15px;
-    margin: 20px 0;
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 215, 0, 0.2);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    flex-grow: 1;
-    overflow-y: auto;
     font-weight: 500;
+    overflow-y: auto;
 }
 
 .text-content p {
@@ -215,6 +213,26 @@ button:disabled {
 .text-content em {
     color: #c0c0c0;
     font-style: italic;
+}
+
+/* Стили для заголовков внутри текстового контента */
+.text-content h3 {
+    color: #ffd700;
+    margin: 25px 0 15px 0;
+    font-size: 1.4em;
+    text-align: center;
+    font-weight: 600;
+}
+
+.text-content ol, .text-content ul {
+    margin: 15px 0;
+    padding-left: 25px;
+    text-align: left;
+}
+
+.text-content li {
+    margin-bottom: 8px;
+    font-size: 1.1em;
 }
 
 /* Стили для линий гексаграммы */
@@ -278,27 +296,32 @@ button:disabled {
 
 /* Стили для экрана О Ицзин */
 #about-screen {
-    padding: 20px;
-    justify-content: flex-start;
-    gap: 10px;
+    padding: 15px;
+    justify-content: space-between;
+    gap: 0;
 }
 
 #about-screen h1 {
-    margin-top: 10px;
+    margin-top: 5px;
     margin-bottom: 10px;
+    flex-shrink: 0;
 }
 
 #about-screen .text-content {
-    flex-grow: 1;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    max-height: 70vh;
+    overflow-y: auto;
     margin: 10px 0;
 }
 
 #about-screen button {
-    margin-top: 20px;
+    margin-top: 10px;
     align-self: center;
     width: 80%;
     max-width: 300px;
-    margin-bottom: 20px;
+    flex-shrink: 0;
 }
 
 /* Стили для других экранов */
@@ -317,23 +340,4 @@ button:disabled {
     width: 80%;
     max-width: 300px;
     margin-bottom: 20px;
-}
-/* Стили для заголовков внутри текстового контента */
-.text-content h3 {
-    color: #ffd700;
-    margin: 25px 0 15px 0;
-    font-size: 1.4em;
-    text-align: center;
-    font-weight: 600;
-}
-
-.text-content ol, .text-content ul {
-    margin: 15px 0;
-    padding-left: 25px;
-    text-align: left;
-}
-
-.text-content li {
-    margin-bottom: 8px;
-    font-size: 1.1em;
 }
