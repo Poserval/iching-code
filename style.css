@@ -318,3 +318,22 @@ button:disabled {
     max-width: 300px;
     margin-bottom: 20px;
 }
+/* Стили для заголовков внутри текстового контента */
+.text-content h3 {
+    color: #ffd700;
+    margin: 25px 0 15px 0;
+    font-size: 1.4em;
+    text-align: center;
+    font-weight: 600;
+}
+
+.text-content ol, .text-content ul {
+    margin: 15px 0;
+    padding-left: 25px;
+    text-align: left;
+}
+
+.text-content li {
+    margin-bottom: 8px;
+    font-size: 1.1em;
+}
