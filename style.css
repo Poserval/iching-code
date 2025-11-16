@@ -295,3 +295,12 @@ button:disabled {
     margin-top: auto;
     margin-bottom: 20px;
 }
+/* Центрирование и подъем кнопки Назад */
+#about-screen button {
+    margin-top: 10px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+    width: 80% !important;
+    max-width: 300px !important;
+}
