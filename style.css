@@ -1,0 +1,100 @@
+/* Базовый сброс стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #e6e6e6;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Контейнер приложения */
+.app-container {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Стили для всех экранов */
+.screen {
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* Заголовки */
+h1 {
+    color: #f0f0f0;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+h2 {
+    color: #cccccc;
+    margin-bottom: 20px;
+}
+
+/* Кнопки */
+button {
+    background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Контейнер для монет */
+.coins-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.coin {
+    width: 60px;
+    height: 60px;
+    transition: transform 0.5s ease;
+}
+
+/* Контейнер для гексаграммы */
+.hexagram-container {
+    margin: 20px 0;
+    min-height: 200px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* Утилитарный класс для скрытия элементов */
+.hidden {
+    display: none !important;
+}
+
+/* Стили для текстового контента */
+.text-content {
+    text-align: left;
+    line-height: 1.6;
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
