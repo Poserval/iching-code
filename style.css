@@ -304,3 +304,7 @@ button:disabled {
     width: 80% !important;
     max-width: 300px !important;
 }
+/* Заголовок в разделе "О Ицзин" */
+#about-screen h1 {
+    margin-top: 10px;
+}
