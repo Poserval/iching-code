@@ -294,8 +294,3 @@ button:disabled {
     margin-top: auto;
     margin-bottom: 20px;
 }
-
-/* Заголовок в разделе "О Ицзин" */
-#about-screen h1 {
-    margin-top: 20px;
-}
