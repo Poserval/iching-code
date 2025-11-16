@@ -68,7 +68,7 @@ body {
 /* Главное меню - кнопки внизу экрана */
 #main-menu {
     justify-content: flex-end;
-    padding-bottom: 80px;
+    padding-bottom: 100px;
 }
 
 .header {
