@@ -14,10 +14,15 @@
 
         <!-- ЭКРАН 1: Главное меню -->
         <div id="main-menu" class="screen active">
-            <h1>Код Ицзин</h1>
-            <button onclick="showScreen('about-screen')">О Ицзин</button>
-            <button onclick="showScreen('warning-screen')">Предупреждение</button>
-            <button onclick="showScreen('divination-screen')">Начнём</button>
+            <div class="header">
+                <h1>Код Ицзин</h1>
+            </div>
+            
+            <div class="menu-buttons">
+                <button onclick="showScreen('about-screen')">О Ицзин</button>
+                <button onclick="showScreen('warning-screen')">Предупреждение</button>
+                <button onclick="showScreen('divination-screen')">Начнём</button>
+            </div>
         </div>
 
         <!-- ЭКРАН 2: Об Ицзин -->
