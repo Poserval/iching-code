@@ -150,4 +150,125 @@ button:disabled {
     width: 64px;
     height: 64px;
     transition: all 0.3s ease;
-    flex-shrink:
+    flex-shrink: 0;
+}
+
+/* Анимации для монет */
+@keyframes coinFlip {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(90deg); }
+    100% { transform: rotateY(0deg); }
+}
+
+.coin.animating {
+    animation: coinFlip 0.6s ease-in-out;
+}
+
+/* Контейнер для гексаграммы */
+.hexagram-container {
+    margin: 15px 0;
+    min-height: 150px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 15px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+/* Утилитарный класс для скрытия элементов */
+.hidden {
+    display: none !important;
+}
+
+/* Стили для текстового контента */
+.text-content {
+    text-align: left;
+    line-height: 1.6;
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 15px 0;
+    backdrop-filter: blur(10px);
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+/* Стили для линий гексаграммы */
+.hexagram-line {
+    margin: 6px 0;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.yang-static {
+    background: linear-gradient(90deg, rgba(255,215,0,0.1), rgba(255,215,0,0.3));
+    color: #ffd700;
+    border-left: 4px solid #ffd700;
+}
+
+.yin-static {
+    background: linear-gradient(90deg, rgba(192,192,192,0.1), rgba(192,192,192,0.3));
+    color: #c0c0c0;
+    border-left: 4px solid #c0c0c0;
+}
+
+.yang-moving {
+    background: linear-gradient(90deg, rgba(255,100,0,0.1), rgba(255,100,0,0.3));
+    color: #ff6600;
+    border-left: 4px solid #ff6600;
+    animation: pulse 2s infinite;
+}
+
+.yin-moving {
+    background: linear-gradient(90deg, rgba(128,128,128,0.1), rgba(128,128,128,0.3));
+    color: #808080;
+    border-left: 4px solid #808080;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* Анимация появления линии */
+@keyframes lineAppear {
+    from { 
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.hexagram-line {
+    animation: lineAppear 0.5s ease-out;
+}
+
+/* Стили для экранов с контентом */
+#about-screen,
+#warning-screen,
+#divination-screen,
+#result-screen {
+    padding: 20px;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+#about-screen button,
+#warning-screen button,
+#divination-screen button,
+#result-screen button {
+    flex-shrink: 0;
+    margin-top: auto;
+    margin-bottom: 20px;
+}
