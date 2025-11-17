@@ -1,3 +1,299 @@
+/* Базовый сброс стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Отключаем скролл на всей странице */
+html, body {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+}
+
+/* Статичный фон - ЗАПОЛНЯЕТ ВЕСЬ ЭКРАН */
+#static-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    background: #1a1a2e;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #e6e6e6;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    overflow: hidden;
+}
+
+/* Контейнер приложения */
+.app-container {
+    width: 100%;
+    height: 100vh;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* Стили для всех экранов */
+.screen {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* Главное меню - кнопки внизу экрана */
+#main-menu {
+    justify-content: flex-end;
+    padding-bottom: 80px;
+}
+
+.header {
+    position: absolute;
+    top: 60px;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.menu-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.menu-buttons-container button {
+    width: 80%;
+    max-width: 300px;
+    margin: 0;
+}
+
+/* Заголовки */
+h1 {
+    color: #f0f0f0;
+    margin-bottom: 20px;
+    font-size: 2em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    flex-shrink: 0;
+}
+
+h2 {
+    color: #cccccc;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    flex-shrink: 0;
+}
+
+/* Кнопки */
+button {
+    background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px;
+    width: 80%;
+    max-width: 300px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    flex-shrink: 0;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Контейнер для монет */
+.coins-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+    flex-shrink: 0;
+}
+
+.coin {
+    width: 64px;
+    height: 64px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+/* Анимации для монет */
+@keyframes coinFlip {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(90deg); }
+    100% { transform: rotateY(0deg); }
+}
+
+.coin.animating {
+    animation: coinFlip 0.6s ease-in-out;
+}
+
+/* Контейнер для гексаграммы */
+.hexagram-container {
+    margin: 15px 0;
+    min-height: 150px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 15px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+/* Утилитарный класс для скрытия элементов */
+.hidden {
+    display: none !important;
+}
+
+/* Красивый рукописный шрифт с поддержкой кириллицы */
+.text-content {
+    font-family: 'Caveat', 'Segoe Script', cursive;
+    text-align: justify;
+    line-height: 1.8;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 25px;
+    border-radius: 15px;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    font-weight: 500;
+    overflow-y: auto;
+}
+
+.text-content p {
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    color: #e6e6e6;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.text-content strong {
+    color: #ffd700;
+    font-weight: 600;
+    font-size: 1.4em;
+}
+
+.text-content em {
+    color: #c0c0c0;
+    font-style: italic;
+}
+
+/* Стили для заголовков внутри текстового контента */
+.text-content h3 {
+    color: #ffd700;
+    margin: 25px 0 15px 0;
+    font-size: 1.4em;
+    text-align: center;
+    font-weight: 600;
+}
+
+.text-content ol, .text-content ul {
+    margin: 15px 0;
+    padding-left: 25px;
+    text-align: left;
+}
+
+.text-content li {
+    margin-bottom: 8px;
+    font-size: 1.1em;
+}
+
+/* Стили для линий гексаграммы */
+.hexagram-line {
+    margin: 6px 0;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.yang-static {
+    background: linear-gradient(90deg, rgba(255,215,0,0.1), rgba(255,215,0,0.3));
+    color: #ffd700;
+    border-left: 4px solid #ffd700;
+}
+
+.yin-static {
+    background: linear-gradient(90deg, rgba(192,192,192,0.1), rgba(192,192,192,0.3));
+    color: #c0c0c0;
+    border-left: 4px solid #c0c0c0;
+}
+
+.yang-moving {
+    background: linear-gradient(90deg, rgba(255,100,0,0.1), rgba(255,100,0,0.3));
+    color: #ff6600;
+    border-left: 4px solid #ff6600;
+    animation: pulse 2s infinite;
+}
+
+.yin-moving {
+    background: linear-gradient(90deg, rgba(128,128,128,0.1), rgba(128,128,128,0.3));
+    color: #808080;
+    border-left: 4px solid #808080;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* Анимация появления линии */
+@keyframes lineAppear {
+    from { 
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.hexagram-line {
+    animation: lineAppear 0.5s ease-out;
+}
+
 /* Стили для экрана О Ицзин */
 #about-screen {
     padding: 15px;
@@ -24,4 +320,22 @@
     width: 80%;
     max-width: 300px;
     flex-shrink: 0;
+}
+
+/* Стили для других экранов */
+#warning-screen,
+#divination-screen,
+#result-screen {
+    padding: 20px;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+#warning-screen button,
+#divination-screen button,
+#result-screen button {
+    align-self: center;
+    width: 80%;
+    max-width: 300px;
+    margin-bottom: 20px;
 }
