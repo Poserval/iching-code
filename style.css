@@ -355,7 +355,7 @@ button:disabled {
 
 #warning-screen .text-content {
     flex: 0 1 auto;
-    max-height: 60vh;
+    max-height: 75vh;
     overflow-y: auto;
     margin: 0;
 }
