@@ -309,7 +309,7 @@ button:disabled {
 
 #about-screen .text-content {
     flex: 0 1 auto; /* 👈 ИЗМЕНИЛ НА auto */
-    max-height: 60vh; /* 👈 ПРОЦЕНТЫ ВМЕСТО calc */
+    max-height: 65vh; /* 👈 ПРОЦЕНТЫ ВМЕСТО calc */
     overflow-y: auto;
     margin: 0;
 }
