@@ -297,8 +297,8 @@ button:disabled {
 /* Стили для экрана О Ицзин */
 #about-screen {
     padding: 15px;
-    justify-content: space-between;
-    gap: 0;
+    justify-content: flex-start; /* 👈 ИЗМЕНИЛ НА flex-start */
+    gap: 10px;
 }
 
 #about-screen h1 {
@@ -308,14 +308,14 @@ button:disabled {
 }
 
 #about-screen .text-content {
-    flex: 1;
-    max-height: calc(100vh - 300px);
+    flex: 0 1 auto; /* 👈 ИЗМЕНИЛ НА auto */
+    max-height: 60vh; /* 👈 ПРОЦЕНТЫ ВМЕСТО calc */
     overflow-y: auto;
-    margin: 10px 0;
+    margin: 0;
 }
 
 #about-screen button {
-    margin: 10px 0;
+    margin: 0; /* 👈 УБРАЛ ВСЕ ОТСТУПЫ */
     align-self: center;
     width: 80%;
     max-width: 300px;
