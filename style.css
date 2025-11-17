@@ -367,3 +367,16 @@ button:disabled {
     max-width: 300px;
     flex-shrink: 0;
 }
+/* Стили для заголовка предупреждения */
+.warning-title {
+    font-size: 1.2em;
+    text-align: center;
+    margin-bottom: 10px !important;
+}
+
+.intro-text {
+    font-size: 1.1em;
+    text-align: center;
+    margin-bottom: 20px !important;
+    color: #c0c0c0;
+}
