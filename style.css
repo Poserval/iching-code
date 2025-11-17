@@ -309,7 +309,7 @@ button:disabled {
 
 #about-screen .text-content {
     flex: 1;
-    max-height: calc(100vh - 200px);
+    max-height: calc(100vh - 300px);
     overflow-y: auto;
     margin: 10px 0;
 }
