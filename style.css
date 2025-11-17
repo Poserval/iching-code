@@ -297,8 +297,8 @@ button:disabled {
 /* Стили для экрана О Ицзин */
 #about-screen {
     padding: 15px;
-    justify-content: flex-start; /* 👈 ИЗМЕНИЛ НА flex-start */
-    gap: 10px;
+    justify-content: space-between;
+    gap: 0;
 }
 
 #about-screen h1 {
@@ -308,43 +308,25 @@ button:disabled {
 }
 
 #about-screen .text-content {
-    flex: 0 1 auto; /* 👈 ИЗМЕНИЛ НА auto */
-    max-height: 75vh; /* 👈 ПРОЦЕНТЫ ВМЕСТО calc */
+    flex: 1;
+    max-height: calc(100vh - 200px);
     overflow-y: auto;
-    margin: 0;
+    margin: 10px 0;
 }
 
 #about-screen button {
-    margin: 0; /* 👈 УБРАЛ ВСЕ ОТСТУПЫ */
+    margin: 10px 0;
     align-self: center;
     width: 80%;
     max-width: 300px;
     flex-shrink: 0;
 }
 
-/* Стили для других экранов */
-#warning-screen,
-#divination-screen,
-#result-screen {
-    padding: 20px;
-    justify-content: flex-start;
-    gap: 15px;
-}
-
-#warning-screen button,
-#divination-screen button,
-#result-screen button {
-    align-self: center;
-    width: 80%;
-    max-width: 300px;
-    margin-bottom: 20px;
-}
-
 /* Стили для экрана Предупреждение */
 #warning-screen {
     padding: 15px;
-    justify-content: flex-start;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 0;
 }
 
 #warning-screen h1 {
@@ -354,29 +336,42 @@ button:disabled {
 }
 
 #warning-screen .text-content {
-    flex: 0 1 auto;
-    max-height: 75vh;
+    flex: 1;
+    max-height: calc(100vh - 200px);
     overflow-y: auto;
-    margin: 0;
+    margin: 10px 0;
 }
 
 #warning-screen button {
-    margin: 0;
+    margin: 10px 0;
     align-self: center;
     width: 80%;
     max-width: 300px;
     flex-shrink: 0;
 }
-/* Стили для заголовка предупреждения */
-.warning-title {
-    font-size: 1.2em;
-    text-align: center;
-    margin-bottom: 10px !important;
-}
 
-.intro-text {
-    font-size: 1.1em;
+/* Главное предупреждение */
+.main-warning {
+    font-size: 1.3em;
     text-align: center;
     margin-bottom: 20px !important;
-    color: #c0c0c0;
+    color: #ffd700;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Стили для других экранов */
+#divination-screen,
+#result-screen {
+    padding: 20px;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+#divination-screen button,
+#result-screen button {
+    align-self: center;
+    width: 80%;
+    max-width: 300px;
+    margin-bottom: 20px;
 }
