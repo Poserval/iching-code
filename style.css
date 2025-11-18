@@ -350,6 +350,34 @@ button:disabled {
     flex-shrink: 0;
 }
 
+/* Стили для экрана гадания */
+#divination-screen {
+    padding: 15px;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+#divination-screen h2 {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+#divination-screen .hexagram-container {
+    flex: 0 1 auto;
+    max-height: 75vh;
+    overflow-y: auto;
+    margin: 0;
+}
+
+#divination-screen button {
+    margin: 0;
+    align-self: center;
+    width: 80%;
+    max-width: 300px;
+    flex-shrink: 0;
+}
+
 /* Главное предупреждение */
 .main-warning {
     font-size: 1.3em;
