@@ -382,16 +382,6 @@ button:disabled {
     flex-shrink: 0;
 }
 
-/* Кнопка внизу экрана */
-.bottom-button {
-    margin-top: auto;
-    margin-bottom: 20px;
-    align-self: center;
-    width: 80%;
-    max-width: 300px;
-    flex-shrink: 0;
-}
-
 /* Стили для экрана гексаграммы */
 #result-screen {
     padding: 20px;
