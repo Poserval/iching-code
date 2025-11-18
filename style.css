@@ -425,8 +425,8 @@ button:disabled {
 
 /* Увеличиваем отступ между линиями для лучшей читаемости */
 .hexagram-line {
-    margin: 4px 0;
-    padding: 6px;
+    margin: 6px 0;
+    padding: 10px;
     border-radius: 6px;
     font-size: 1.1em;
     font-weight: bold;
