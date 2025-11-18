@@ -1,54 +1,194 @@
-/* Стили для отображения гексаграммы поверх картинки */
-.hexagram-overlay-container {
-    position: relative;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
+// Базовые переменные приложения
+let currentLines = [];
+
+// Функция переключения экранов
+function showScreen(screenId) {
+    console.log('Переключаем на:', screenId);
+    
+    // Скрываем все экраны
+    const screens = document.querySelectorAll('.screen');
+    screens.forEach(screen => {
+        screen.classList.remove('active');
+    });
+    
+    // Показываем нужный экран
+    const targetScreen = document.getElementById(screenId);
+    if (targetScreen) {
+        targetScreen.classList.add('active');
+        
+        // Если переходим на экран гадания - инициализируем
+        if (screenId === 'divination-screen') {
+            initializeRandomCoins();
+            resetDivinationState();
+        }
+    }
 }
 
-.hexagram-base-image {
-    width: 100%;
-    max-height: 400px;
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+// Функция инициализации монет
+function initializeRandomCoins() {
+    const coins = document.querySelectorAll('.coin');
+    const coinTypes = ['ruble', 'dollar', 'yuan'];
+    
+    coins.forEach((coin, index) => {
+        const isHeads = Math.random() > 0.5;
+        const coinType = coinTypes[index];
+        
+        if (isHeads) {
+            coin.src = `assets/coins/${coinType}-heads.png`;
+        } else {
+            coin.src = `assets/coins/${coinType}-tails.png`;
+        }
+        coin.alt = 'Монета';
+    });
 }
 
-.hexagram-lines-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: space-between;
-    align-items: center;
-    padding: 50px 30px; /* Этот параметр можно менять для точной подгонки */
+// Функция сброса состояния
+function resetDivinationState() {
+    currentLines = [];
+    const hexagramContainer = document.getElementById('hexagram-lines');
+    hexagramContainer.innerHTML = '<p>Бросьте монеты 6 раз чтобы построить гексаграмму</p>';
+    
+    const actionButton = document.getElementById('action-button');
+    actionButton.disabled = false;
+    actionButton.textContent = 'Бросить монеты (6 из 6)';
 }
 
-.overlay-line {
-    width: 80%; /* Общая ширина линии */
-    height: 12px;
-    margin: 8px 0;
+// Функция обработки действия
+function handleAction() {
+    if (currentLines.length < 6) {
+        throwCoins();
+    } else {
+        showResult();
+    }
 }
 
-.overlay-yang {
-    background: #000000;
-    border-radius: 6px;
+// Функция броска монет
+function throwCoins() {
+    const throwResult = calculateThrowResult();
+    currentLines.push(throwResult);
+    
+    // Анимация
+    const coins = document.querySelectorAll('.coin');
+    const actionButton = document.getElementById('action-button');
+    
+    actionButton.disabled = true;
+    coins.forEach((coin) => {
+        coin.classList.add('animating');
+        setTimeout(() => {
+            coin.classList.remove('animating');
+        }, 600);
+    });
+    
+    // Обновляем интерфейс
+    updateInterface();
+    
+    // Рисуем линию
+    setTimeout(() => {
+        drawHexagramLine(throwResult);
+        actionButton.disabled = false;
+    }, 800);
 }
 
-.overlay-yin {
-    background: transparent;
-    position: relative;
-    display: flex;
-    justify-content: space-between;
+// Функция расчета результата броска
+function calculateThrowResult() {
+    const coinTypes = ['ruble', 'dollar', 'yuan'];
+    const coins = document.querySelectorAll('.coin');
+    let eagles = 0;
+    
+    coins.forEach((coin, index) => {
+        const coinType = coinTypes[index];
+        const isHeads = Math.random() > 0.5;
+        
+        if (isHeads) {
+            coin.src = `assets/coins/${coinType}-heads.png`;
+            eagles++;
+        } else {
+            coin.src = `assets/coins/${coinType}-tails.png`;
+        }
+    });
+    
+    return eagles >= 2 ? 'yang' : 'yin';
 }
 
-.overlay-yin::before,
-.overlay-yin::after {
-    content: '';
-    width: 45%; /* Две короткие линии */
-    height: 12px;
-    background: #000000;
-    border-radius: 6px;
+// Функция отрисовки линии
+function drawHexagramLine(lineValue) {
+    const hexagramContainer = document.getElementById('hexagram-lines');
+    
+    if (currentLines.length === 1) {
+        hexagramContainer.innerHTML = '';
+    }
+    
+    const lineElement = document.createElement('div');
+    lineElement.className = `hexagram-line ${lineValue === 'yang' ? 'yang-static' : 'yin-static'}`;
+    lineElement.textContent = lineValue === 'yang' ? '⚊ Ян' : '⚋ Инь';
+    
+    hexagramContainer.appendChild(lineElement);
+    hexagramContainer.scrollTop = hexagramContainer.scrollHeight;
 }
+
+// Функция обновления интерфейса
+function updateInterface() {
+    const actionButton = document.getElementById('action-button');
+    const remainingThrows = 6 - currentLines.length;
+    
+    if (remainingThrows > 0) {
+        actionButton.textContent = `Бросить монеты (${remainingThrows} из 6)`;
+    } else {
+        actionButton.textContent = 'Показать результат';
+    }
+}
+
+// Функция показа результата - ТОЛЬКО 5-Й ЭКРАН
+function showResult() {
+    // Показываем экран гексаграммы
+    showScreen('result-screen');
+    
+    // Отображаем гексаграмму (передаем текущие линии)
+    showHexagram(currentLines);
+}
+
+// Функция отображения гексаграммы - КНОПКА В ГЛАВНОЕ МЕНЮ
+function showHexagram(lines) {
+    const hexagramContainer = document.getElementById('final-hexagram');
+    
+    // Создаем контейнер с картинкой-подложкой и overlay для линий
+    hexagramContainer.innerHTML = `
+        <div class="hexagram-overlay-container">
+            <!-- Картинка-подложка (рамка) -->
+            <img src="assets/hexagrams/hexagram-1.png" 
+                 alt="Основа гексаграммы" class="hexagram-base-image">
+            <!-- Контейнер для линий гексаграммы поверх картинки -->
+            <div class="hexagram-lines-overlay" id="hexagram-lines-overlay"></div>
+        </div>
+        <button onclick="showScreen('main-menu')" style="margin-top: 20px;">
+            В главное меню
+        </button>
+    `;
+    
+    // Отрисовываем линии гексаграммы поверх картинки
+    drawHexagramOverlay(lines);
+}
+
+// Функция отрисовки гексаграммы поверх картинки
+function drawHexagramOverlay(lines) {
+    const overlayContainer = document.getElementById('hexagram-lines-overlay');
+    
+    // Очищаем контейнер
+    overlayContainer.innerHTML = '';
+    
+    // Создаем линии (снизу вверх)
+    lines.forEach(line => {
+        const lineElement = document.createElement('div');
+        lineElement.className = `overlay-line ${line === 'yang' ? 'overlay-yang' : 'overlay-yin'}`;
+        overlayContainer.appendChild(lineElement);
+    });
+}
+
+// Делаем функции глобальными
+window.showScreen = showScreen;
+window.handleAction = handleAction;
+window.resetDivination = function() {
+    currentLines = [];
+    document.getElementById('final-hexagram').innerHTML = '';
+    showScreen('main-menu');
+};
