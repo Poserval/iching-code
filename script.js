@@ -15,16 +15,50 @@ function showScreen(screenId) {
     const targetScreen = document.getElementById(screenId);
     if (targetScreen) {
         targetScreen.classList.add('active');
+        
+        // Если переходим на экран гадания - инициализируем
+        if (screenId === 'divination-screen') {
+            initializeRandomCoins();
+            resetDivinationState();
+        }
     }
+}
+
+// Функция инициализации монет
+function initializeRandomCoins() {
+    const coins = document.querySelectorAll('.coin');
+    const coinTypes = ['ruble', 'dollar', 'yuan'];
+    
+    coins.forEach((coin, index) => {
+        const isHeads = Math.random() > 0.5;
+        const coinType = coinTypes[index];
+        
+        if (isHeads) {
+            coin.src = `assets/coins/${coinType}-heads.png`;
+        } else {
+            coin.src = `assets/coins/${coinType}-tails.png`;
+        }
+        coin.alt = 'Монета';
+    });
+}
+
+// Функция сброса состояния
+function resetDivinationState() {
+    currentLines = [];
+    const hexagramContainer = document.getElementById('hexagram-lines');
+    hexagramContainer.innerHTML = '<p>Бросьте монеты 6 раз чтобы построить гексаграмму</p>';
+    
+    const actionButton = document.getElementById('action-button');
+    actionButton.disabled = false;
+    actionButton.textContent = 'Бросить монеты (6 из 6)';
 }
 
 // Функция обработки действия
 function handleAction() {
-    console.log('Кнопка нажата');
     if (currentLines.length < 6) {
         throwCoins();
     } else {
-        alert('Гадание завершено!');
+        showResult();
     }
 }
 
@@ -35,6 +69,9 @@ function throwCoins() {
     
     // Анимация
     const coins = document.querySelectorAll('.coin');
+    const actionButton = document.getElementById('action-button');
+    
+    actionButton.disabled = true;
     coins.forEach((coin) => {
         coin.classList.add('animating');
         setTimeout(() => {
@@ -48,6 +85,7 @@ function throwCoins() {
     // Рисуем линию
     setTimeout(() => {
         drawHexagramLine(throwResult);
+        actionButton.disabled = false;
     }, 800);
 }
 
@@ -85,6 +123,7 @@ function drawHexagramLine(lineValue) {
     lineElement.textContent = lineValue === 'yang' ? '⚊ Ян' : '⚋ Инь';
     
     hexagramContainer.appendChild(lineElement);
+    hexagramContainer.scrollTop = hexagramContainer.scrollHeight;
 }
 
 // Функция обновления интерфейса
@@ -99,6 +138,56 @@ function updateInterface() {
     }
 }
 
+// Функция показа результата
+function showResult() {
+    const hexagramNumber = 1; // Пока тестовый номер
+    
+    // Показываем экран гексаграммы
+    showScreen('result-screen');
+    
+    // Отображаем гексаграмму
+    showHexagram(hexagramNumber);
+    
+    // Через 3 секунды переходим к толкованию
+    setTimeout(() => {
+        showInterpretationScreen(hexagramNumber);
+    }, 3000);
+}
+
+// Функция отображения гексаграммы
+function showHexagram(hexagramNumber) {
+    const hexagramContainer = document.getElementById('final-hexagram');
+    hexagramContainer.innerHTML = `
+        <div class="hexagram-image-container">
+            <img src="assets/hexagrams/hexagram-${hexagramNumber}.png" 
+                 alt="Гексаграмма ${hexagramNumber}" class="hexagram-image">
+        </div>
+    `;
+}
+
+// Функция перехода к экрану толкования
+function showInterpretationScreen(hexagramNumber) {
+    showScreen('interpretation-screen');
+    showMeaning(hexagramNumber);
+}
+
+// Функция отображения толкования
+function showMeaning(hexagramNumber) {
+    const interpretationContainer = document.getElementById('interpretation-content');
+    interpretationContainer.innerHTML = `
+        <div class="meaning-image-container">
+            <img src="assets/meanings/meaning-${hexagramNumber}.png" 
+                 alt="Толкование ${hexagramNumber}" class="meaning-image">
+        </div>
+    `;
+}
+
 // Делаем функции глобальными
 window.showScreen = showScreen;
 window.handleAction = handleAction;
+window.resetDivination = function() {
+    currentLines = [];
+    document.getElementById('final-hexagram').innerHTML = '';
+    document.getElementById('interpretation-content').innerHTML = '';
+    showScreen('main-menu');
+};
