@@ -38,6 +38,9 @@ function initializeRandomCoins() {
         } else {
             coin.src = `assets/coins/${coinType}-tails.png`;
         }
+        
+        // Убираем alt текст чтобы не показывалось при наведении
+        coin.alt = 'Монета';
     });
 }
 
@@ -50,22 +53,25 @@ function resetDivinationState() {
     const hexagramContainer = document.getElementById('hexagram-lines');
     hexagramContainer.innerHTML = '<p>Бросьте монеты 6 раз чтобы построить гексаграмму</p>';
     
-    // Скрываем кнопку результата
-    document.getElementById('result-button').classList.add('hidden');
-    
-    // Включаем кнопку броска и обновляем текст
-    const throwButton = document.getElementById('throw-button');
-    throwButton.disabled = false;
-    throwButton.textContent = `Бросить монеты (${6 - currentLines.length} из 6)`;
+    // Обновляем кнопку
+    const actionButton = document.getElementById('action-button');
+    actionButton.disabled = false;
+    actionButton.textContent = 'Бросить монеты (6 из 6)';
 }
 
-// ОСНОВНАЯ ФУНКЦИЯ - БРОСОК МОНЕТ
-function throwCoins() {
-    // Если уже сделали 6 бросков - выходим
-    if (currentLines.length >= 6) {
-        return;
+// ОСНОВНАЯ ФУНКЦИЯ - ОБРАБОТКА ДЕЙСТВИЯ
+function handleAction() {
+    if (currentLines.length < 6) {
+        // Если еще не все броски сделаны - бросаем монеты
+        throwCoins();
+    } else {
+        // Если все броски сделаны - показываем результат
+        showResult();
     }
+}
 
+// Функция броска монет
+function throwCoins() {
     // 1. Генерируем результат броска (6,7,8,9)
     const throwResult = calculateThrowResult();
     
@@ -81,11 +87,6 @@ function throwCoins() {
     // 5. Через небольшую задержку рисуем линию
     setTimeout(() => {
         drawHexagramLine(throwResult);
-        
-        // Если набрано 6 линий, показываем кнопку результата
-        if (currentLines.length === 6) {
-            document.getElementById('result-button').classList.remove('hidden');
-        }
     }, 800);
 }
 
@@ -109,17 +110,17 @@ function calculateThrowResult() {
 // Функция анимации броска монет
 function animateCoinThrow() {
     const coins = document.querySelectorAll('.coin');
-    const throwButton = document.getElementById('throw-button');
+    const actionButton = document.getElementById('action-button');
     
     // Блокируем кнопку на время анимации
-    throwButton.disabled = true;
+    actionButton.disabled = true;
     
     // Анимируем каждую монету
     coins.forEach((coin) => {
         // Добавляем класс анимации
         coin.classList.add('animating');
         
-        // После анимации устанавливаем финальное положение
+        // После анимации убираем класс
         setTimeout(() => {
             coin.classList.remove('animating');
         }, 600);
@@ -128,7 +129,7 @@ function animateCoinThrow() {
     // Обновляем отображение монет после анимации
     setTimeout(() => {
         updateCoinsDisplay();
-        throwButton.disabled = false;
+        actionButton.disabled = false;
     }, 800);
 }
 
@@ -203,14 +204,13 @@ function getLineInfo(lineValue) {
 
 // Функция обновления интерфейса
 function updateInterface() {
-    const throwButton = document.getElementById('throw-button');
+    const actionButton = document.getElementById('action-button');
     const remainingThrows = 6 - currentLines.length;
     
     if (remainingThrows > 0) {
-        throwButton.textContent = `Бросить монеты (${remainingThrows} из 6)`;
+        actionButton.textContent = `Бросить монеты (${remainingThrows} из 6)`;
     } else {
-        throwButton.textContent = 'Гадание завершено';
-        throwButton.disabled = true;
+        actionButton.textContent = 'Показать результат';
     }
 }
 
