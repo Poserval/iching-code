@@ -138,7 +138,7 @@ function updateInterface() {
     }
 }
 
-// Функция показа результата
+// Функция показа результата - ТОЛЬКО 5-Й ЭКРАН
 function showResult() {
     const hexagramNumber = 1; // Пока тестовый номер
     
@@ -147,14 +147,9 @@ function showResult() {
     
     // Отображаем гексаграмму
     showHexagram(hexagramNumber);
-    
-    // Через 3 секунды переходим к толкованию
-    setTimeout(() => {
-        showInterpretationScreen(hexagramNumber);
-    }, 3000);
 }
 
-// Функция отображения гексаграммы
+// Функция отображения гексаграммы - КНОПКА В ГЛАВНОЕ МЕНЮ
 function showHexagram(hexagramNumber) {
     const hexagramContainer = document.getElementById('final-hexagram');
     hexagramContainer.innerHTML = `
@@ -162,23 +157,9 @@ function showHexagram(hexagramNumber) {
             <img src="assets/hexagrams/hexagram-${hexagramNumber}.png" 
                  alt="Гексаграмма ${hexagramNumber}" class="hexagram-image">
         </div>
-    `;
-}
-
-// Функция перехода к экрану толкования
-function showInterpretationScreen(hexagramNumber) {
-    showScreen('interpretation-screen');
-    showMeaning(hexagramNumber);
-}
-
-// Функция отображения толкования
-function showMeaning(hexagramNumber) {
-    const interpretationContainer = document.getElementById('interpretation-content');
-    interpretationContainer.innerHTML = `
-        <div class="meaning-image-container">
-            <img src="assets/meanings/meaning-${hexagramNumber}.png" 
-                 alt="Толкование ${hexagramNumber}" class="meaning-image">
-        </div>
+        <button onclick="showScreen('main-menu')" style="margin-top: 20px;">
+            В главное меню
+        </button>
     `;
 }
 
@@ -188,6 +169,5 @@ window.handleAction = handleAction;
 window.resetDivination = function() {
     currentLines = [];
     document.getElementById('final-hexagram').innerHTML = '';
-    document.getElementById('interpretation-content').innerHTML = '';
     showScreen('main-menu');
 };
