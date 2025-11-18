@@ -381,13 +381,16 @@ button:disabled {
 /* Стили для экрана гексаграммы */
 #result-screen {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100vh;
     gap: 0;
 }
 
 #result-screen h1 {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     flex-shrink: 0;
 }
 
@@ -400,14 +403,17 @@ button:disabled {
 }
 
 .hexagram-image-container {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
 .hexagram-image {
-    width: 300px;
-    height: 300px;
-    max-width: 90vw;
-    max-height: 60vh;
+    width: 320px;
+    height: 320px;
+    max-width: 80vw;
+    max-height: 50vh;
     object-fit: contain;
     border-radius: 20px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
