@@ -1,173 +1,445 @@
-// Базовые переменные приложения
-let currentLines = [];
+/* Базовый сброс стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-// Функция переключения экранов
-function showScreen(screenId) {
-    console.log('Переключаем на:', screenId);
-    
-    // Скрываем все экраны
-    const screens = document.querySelectorAll('.screen');
-    screens.forEach(screen => {
-        screen.classList.remove('active');
-    });
-    
-    // Показываем нужный экран
-    const targetScreen = document.getElementById(screenId);
-    if (targetScreen) {
-        targetScreen.classList.add('active');
-        
-        // Если переходим на экран гадания - инициализируем
-        if (screenId === 'divination-screen') {
-            initializeRandomCoins();
-            resetDivinationState();
-        }
+/* Отключаем скролл на всей странице */
+html, body {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+}
+
+/* Статичный фон - ЗАПОЛНЯЕТ ВЕСЬ ЭКРАН */
+#static-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    background: #1a1a2e;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #e6e6e6;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    overflow: hidden;
+}
+
+/* Контейнер приложения */
+.app-container {
+    width: 100%;
+    height: 100vh;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* Стили для всех экранов */
+.screen {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* Главное меню - кнопки внизу экрана */
+#main-menu {
+    justify-content: flex-end;
+    padding-bottom: 80px;
+}
+
+.header {
+    position: absolute;
+    top: 60px;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.menu-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.menu-buttons-container button {
+    width: 80%;
+    max-width: 300px;
+    margin: 0;
+}
+
+/* Заголовки */
+h1 {
+    color: #f0f0f0;
+    margin-bottom: 20px;
+    font-size: 2em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    flex-shrink: 0;
+}
+
+h2 {
+    color: #cccccc;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    flex-shrink: 0;
+}
+
+/* Кнопки */
+button {
+    background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px;
+    width: 80%;
+    max-width: 300px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    flex-shrink: 0;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Контейнер для монет */
+.coins-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+    flex-shrink: 0;
+}
+
+.coin {
+    width: 100px;
+    height: 100px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+/* Анимации для монет */
+@keyframes coinFlip {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(90deg); }
+    100% { transform: rotateY(0deg); }
+}
+
+.coin.animating {
+    animation: coinFlip 0.6s ease-in-out;
+}
+
+/* ФИКСИРОВАННОЕ окно для гексаграммы */
+.hexagram-fixed-container {
+    height: 330px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 15px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    margin: 15px 0;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+#hexagram-lines {
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+/* Стили для линий гексаграммы */
+.hexagram-line {
+    margin: 6px 0;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    min-height: 25px;
+}
+
+.yang-static {
+    background: linear-gradient(90deg, rgba(255,215,0,0.1), rgba(255,215,0,0.3));
+    color: #ffd700;
+    border-left: 4px solid #ffd700;
+}
+
+.yin-static {
+    background: linear-gradient(90deg, rgba(192,192,192,0.1), rgba(192,192,192,0.3));
+    color: #c0c0c0;
+    border-left: 4px solid #c0c0c0;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* Анимация появления линии */
+@keyframes lineAppear {
+    from { 
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 
-// Функция инициализации монет
-function initializeRandomCoins() {
-    const coins = document.querySelectorAll('.coin');
-    const coinTypes = ['ruble', 'dollar', 'yuan'];
-    
-    coins.forEach((coin, index) => {
-        const isHeads = Math.random() > 0.5;
-        const coinType = coinTypes[index];
-        
-        if (isHeads) {
-            coin.src = `assets/coins/${coinType}-heads.png`;
-        } else {
-            coin.src = `assets/coins/${coinType}-tails.png`;
-        }
-        coin.alt = 'Монета';
-    });
+.hexagram-line {
+    animation: lineAppear 0.5s ease-out;
 }
 
-// Функция сброса состояния
-function resetDivinationState() {
-    currentLines = [];
-    const hexagramContainer = document.getElementById('hexagram-lines');
-    hexagramContainer.innerHTML = '<p>Бросьте монеты 6 раз чтобы построить гексаграмму</p>';
-    
-    const actionButton = document.getElementById('action-button');
-    actionButton.disabled = false;
-    actionButton.textContent = 'Бросить монеты (6 из 6)';
+/* Утилитарный класс для скрытия элементов */
+.hidden {
+    display: none !important;
 }
 
-// Функция обработки действия
-function handleAction() {
-    if (currentLines.length < 6) {
-        throwCoins();
-    } else {
-        showResult();
-    }
+/* Красивый рукописный шрифт с поддержкой кириллицы */
+.text-content {
+    font-family: 'Caveat', 'Segoe Script', cursive;
+    text-align: justify;
+    line-height: 1.8;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 25px;
+    border-radius: 15px;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    font-weight: 500;
+    overflow-y: auto;
 }
 
-// Функция броска монет
-function throwCoins() {
-    const throwResult = calculateThrowResult();
-    currentLines.push(throwResult);
-    
-    // Анимация
-    const coins = document.querySelectorAll('.coin');
-    const actionButton = document.getElementById('action-button');
-    
-    actionButton.disabled = true;
-    coins.forEach((coin) => {
-        coin.classList.add('animating');
-        setTimeout(() => {
-            coin.classList.remove('animating');
-        }, 600);
-    });
-    
-    // Обновляем интерфейс
-    updateInterface();
-    
-    // Рисуем линию
-    setTimeout(() => {
-        drawHexagramLine(throwResult);
-        actionButton.disabled = false;
-    }, 800);
+.text-content p {
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    color: #e6e6e6;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-// Функция расчета результата броска
-function calculateThrowResult() {
-    const coinTypes = ['ruble', 'dollar', 'yuan'];
-    const coins = document.querySelectorAll('.coin');
-    let eagles = 0;
-    
-    coins.forEach((coin, index) => {
-        const coinType = coinTypes[index];
-        const isHeads = Math.random() > 0.5;
-        
-        if (isHeads) {
-            coin.src = `assets/coins/${coinType}-heads.png`;
-            eagles++;
-        } else {
-            coin.src = `assets/coins/${coinType}-tails.png`;
-        }
-    });
-    
-    return eagles >= 2 ? 'yang' : 'yin';
+.text-content strong {
+    color: #ffd700;
+    font-weight: 600;
+    font-size: 1.4em;
 }
 
-// Функция отрисовки линии
-function drawHexagramLine(lineValue) {
-    const hexagramContainer = document.getElementById('hexagram-lines');
-    
-    if (currentLines.length === 1) {
-        hexagramContainer.innerHTML = '';
-    }
-    
-    const lineElement = document.createElement('div');
-    lineElement.className = `hexagram-line ${lineValue === 'yang' ? 'yang-static' : 'yin-static'}`;
-    lineElement.textContent = lineValue === 'yang' ? '⚊ Ян' : '⚋ Инь';
-    
-    hexagramContainer.appendChild(lineElement);
-    hexagramContainer.scrollTop = hexagramContainer.scrollHeight;
+.text-content em {
+    color: #c0c0c0;
+    font-style: italic;
 }
 
-// Функция обновления интерфейса
-function updateInterface() {
-    const actionButton = document.getElementById('action-button');
-    const remainingThrows = 6 - currentLines.length;
-    
-    if (remainingThrows > 0) {
-        actionButton.textContent = `Бросить монеты (${remainingThrows} из 6)`;
-    } else {
-        actionButton.textContent = 'Показать результат';
-    }
+/* Стили для заголовков внутри текстового контента */
+.text-content h3 {
+    color: #ffd700;
+    margin: 25px 0 15px 0;
+    font-size: 1.4em;
+    text-align: center;
+    font-weight: 600;
 }
 
-// Функция показа результата - ТОЛЬКО 5-Й ЭКРАН
-function showResult() {
-    const hexagramNumber = 1; // Пока тестовый номер
-    
-    // Показываем экран гексаграммы
-    showScreen('result-screen');
-    
-    // Отображаем гексаграмму
-    showHexagram(hexagramNumber);
+.text-content ol, .text-content ul {
+    margin: 15px 0;
+    padding-left: 25px;
+    text-align: left;
 }
 
-// Функция отображения гексаграммы - КНОПКА В ГЛАВНОЕ МЕНЮ
-function showHexagram(hexagramNumber) {
-    const hexagramContainer = document.getElementById('final-hexagram');
-    hexagramContainer.innerHTML = `
-        <div class="hexagram-image-container">
-            <img src="assets/hexagrams/hexagram-${hexagramNumber}.png" 
-                 alt="Гексаграмма ${hexagramNumber}" class="hexagram-image">
-        </div>
-        <button onclick="showScreen('main-menu')" style="margin-top: 20px;">
-            В главное меню
-        </button>
-    `;
+.text-content li {
+    margin-bottom: 8px;
+    font-size: 1.1em;
 }
 
-// Делаем функции глобальными
-window.showScreen = showScreen;
-window.handleAction = handleAction;
-window.resetDivination = function() {
-    currentLines = [];
-    document.getElementById('final-hexagram').innerHTML = '';
-    showScreen('main-menu');
-};
+/* Стили для экрана О Ицзин */
+#about-screen {
+    padding: 15px;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+#about-screen h1 {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+#about-screen .text-content {
+    flex: 0 1 auto;
+    max-height: 75vh;
+    overflow-y: auto;
+    margin: 0;
+}
+
+#about-screen button {
+    margin: 0;
+    align-self: center;
+    width: 80%;
+    max-width: 300px;
+    flex-shrink: 0;
+}
+
+/* Стили для экрана Предупреждение */
+#warning-screen {
+    padding: 15px;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+#warning-screen h1 {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+#warning-screen .text-content {
+    flex: 0 1 auto;
+    max-height: 75vh;
+    overflow-y: auto;
+    margin: 0;
+}
+
+#warning-screen button {
+    margin: 0;
+    align-self: center;
+    width: 80%;
+    max-width: 300px;
+    flex-shrink: 0;
+}
+
+/* Главное предупреждение */
+.main-warning {
+    font-size: 1.3em;
+    text-align: center;
+    margin-bottom: 20px !important;
+    color: #ffd700;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Стили для экрана гадания */
+#divination-screen {
+    padding: 15px;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+#divination-screen h2 {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+#divination-screen .hexagram-fixed-container {
+    flex: 0 1 auto;
+    max-height: 75vh;
+    overflow-y: auto;
+    margin: 0;
+}
+
+#divination-screen button {
+    margin: 0;
+    align-self: center;
+    width: 80%;
+    max-width: 300px;
+    flex-shrink: 0;
+}
+
+/* Стили для экрана гексаграммы */
+#result-screen {
+    padding: 20px;
+    justify-content: center;
+    gap: 20px;
+}
+
+#result-screen h1 {
+    margin-bottom: 20px;
+}
+
+.hexagram-image-container {
+    text-align: center;
+}
+
+.hexagram-image {
+    max-width: 90%;
+    max-height: 400px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Стили для экрана толкования */
+#interpretation-screen {
+    padding: 15px;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+#interpretation-screen h1 {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+#interpretation-content {
+    flex: 0 1 auto;
+    max-height: 75vh;
+    overflow-y: auto;
+    margin: 0;
+}
+
+#interpretation-screen button {
+    margin: 0;
+    align-self: center;
+    width: 80%;
+    max-width: 300px;
+    flex-shrink: 0;
+}
+
+.meaning-image-container {
+    text-align: center;
+}
+
+.meaning-image {
+    max-width: 90%;
+    max-height: 300px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+}
