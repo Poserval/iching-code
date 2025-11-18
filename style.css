@@ -164,17 +164,70 @@ button:disabled {
     animation: coinFlip 0.6s ease-in-out;
 }
 
-/* Контейнер для гексаграммы */
-.hexagram-container {
-    margin: 15px 0;
-    min-height: 150px;
+/* ФИКСИРОВАННОЕ окно для гексаграммы */
+.hexagram-fixed-container {
+    height: 330px;
     border: 1px solid rgba(255,255,255,0.2);
     border-radius: 10px;
     padding: 15px;
     background: rgba(255,255,255,0.05);
     backdrop-filter: blur(10px);
-    flex-grow: 1;
+    margin: 15px 0;
     overflow-y: auto;
+    flex-shrink: 0;
+}
+
+#hexagram-lines {
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+/* Стили для линий гексаграммы */
+.hexagram-line {
+    margin: 6px 0;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    min-height: 25px;
+}
+
+.yang-static {
+    background: linear-gradient(90deg, rgba(255,215,0,0.1), rgba(255,215,0,0.3));
+    color: #ffd700;
+    border-left: 4px solid #ffd700;
+}
+
+.yin-static {
+    background: linear-gradient(90deg, rgba(192,192,192,0.1), rgba(192,192,192,0.3));
+    color: #c0c0c0;
+    border-left: 4px solid #c0c0c0;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* Анимация появления линии */
+@keyframes lineAppear {
+    from { 
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.hexagram-line {
+    animation: lineAppear 0.5s ease-out;
 }
 
 /* Утилитарный класс для скрытия элементов */
@@ -235,69 +288,10 @@ button:disabled {
     font-size: 1.1em;
 }
 
-/* Стили для линий гексаграммы */
-.hexagram-line {
-    margin: 6px 0;
-    padding: 8px;
-    border-radius: 6px;
-    font-size: 1.1em;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-}
-
-.yang-static {
-    background: linear-gradient(90deg, rgba(255,215,0,0.1), rgba(255,215,0,0.3));
-    color: #ffd700;
-    border-left: 4px solid #ffd700;
-}
-
-.yin-static {
-    background: linear-gradient(90deg, rgba(192,192,192,0.1), rgba(192,192,192,0.3));
-    color: #c0c0c0;
-    border-left: 4px solid #c0c0c0;
-}
-
-.yang-moving {
-    background: linear-gradient(90deg, rgba(255,100,0,0.1), rgba(255,100,0,0.3));
-    color: #ff6600;
-    border-left: 4px solid #ff6600;
-    animation: pulse 2s infinite;
-}
-
-.yin-moving {
-    background: linear-gradient(90deg, rgba(128,128,128,0.1), rgba(128,128,128,0.3));
-    color: #808080;
-    border-left: 4px solid #808080;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.7; }
-    100% { opacity: 1; }
-}
-
-/* Анимация появления линии */
-@keyframes lineAppear {
-    from { 
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-    to { 
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.hexagram-line {
-    animation: lineAppear 0.5s ease-out;
-}
-
 /* Стили для экрана О Ицзин */
 #about-screen {
     padding: 15px;
-    justify-content: flex-start; /* 👈 ИЗМЕНИЛ НА flex-start */
+    justify-content: flex-start;
     gap: 10px;
 }
 
@@ -308,14 +302,14 @@ button:disabled {
 }
 
 #about-screen .text-content {
-    flex: 0 1 auto; /* 👈 ИЗМЕНИЛ НА auto */
-    max-height: 75vh; /* 👈 ПРОЦЕНТЫ ВМЕСТО calc */
+    flex: 0 1 auto;
+    max-height: 75vh;
     overflow-y: auto;
     margin: 0;
 }
 
 #about-screen button {
-    margin: 0; /* 👈 УБРАЛ ВСЕ ОТСТУПЫ */
+    margin: 0;
     align-self: center;
     width: 80%;
     max-width: 300px;
@@ -350,6 +344,16 @@ button:disabled {
     flex-shrink: 0;
 }
 
+/* Главное предупреждение */
+.main-warning {
+    font-size: 1.3em;
+    text-align: center;
+    margin-bottom: 20px !important;
+    color: #ffd700;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
 /* Стили для экрана гадания */
 #divination-screen {
     padding: 15px;
@@ -363,7 +367,7 @@ button:disabled {
     flex-shrink: 0;
 }
 
-#divination-screen .hexagram-container {
+#divination-screen .hexagram-fixed-container {
     flex: 0 1 auto;
     max-height: 75vh;
     overflow-y: auto;
@@ -372,6 +376,16 @@ button:disabled {
 
 #divination-screen button {
     margin: 0;
+    align-self: center;
+    width: 80%;
+    max-width: 300px;
+    flex-shrink: 0;
+}
+
+/* Кнопка внизу экрана */
+.bottom-button {
+    margin-top: auto;
+    margin-bottom: 20px;
     align-self: center;
     width: 80%;
     max-width: 300px;
@@ -420,106 +434,42 @@ button:disabled {
     border: 3px solid rgba(255, 215, 0, 0.4);
 }
 
-/* Главное предупреждение */
-.main-warning {
-    font-size: 1.3em;
-    text-align: center;
-    margin-bottom: 20px !important;
-    color: #ffd700;
-    font-weight: bold;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-
-/* Стили для других экранов */
-#divination-screen,
-#result-screen {
-    padding: 20px;
-    justify-content: flex-start;
-    gap: 15px;
-}
-
-#divination-screen button,
-#result-screen button {
-    align-self: center;
-    width: 80%;
-    max-width: 300px;
-    margin-bottom: 20px;
-}
-/* ФИКСИРОВАННОЕ окно для гексаграммы */
-.hexagram-fixed-container {
-    height: 330px;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 10px;
-    padding: 15px;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
-    margin: 15px 0;
-    overflow-y: auto;
-    flex-shrink: 0;
-}
-
-#hexagram-lines {
-    min-height: 220px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end; /* Линии появляются снизу */
-}
-
-/* Увеличиваем отступ между линиями для лучшей читаемости */
-.hexagram-line {
-    margin: 6px 0;
-    padding: 8px;
-    border-radius: 6px;
-    font-size: 1.1em;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-    min-height: 25px;
-}
-
-/* Кнопка внизу экрана */
-.bottom-button {
-    margin-top: auto;
-    margin-bottom: 20px;
-    align-self: center;
-    width: 80%;
-    max-width: 300px;
-    flex-shrink: 0;
-}
-
-/* Стили для экрана гадания */
-#divination-screen {
+/* Стили для экрана толкования */
+#interpretation-screen {
     padding: 15px;
     justify-content: flex-start;
     gap: 10px;
 }
 
-#divination-screen h2 {
+#interpretation-screen h1 {
     margin-top: 5px;
     margin-bottom: 10px;
     flex-shrink: 0;
 }
-/* Стили для изображений гексаграмм и толкований */
-.hexagram-image-container, 
-.meaning-image-container {
-    text-align: center;
-    margin: 20px 0;
+
+#interpretation-content {
+    flex: 0 1 auto;
+    max-height: 75vh;
+    overflow-y: auto;
+    margin: 0;
 }
 
-.hexagram-image,
+#interpretation-screen button {
+    margin: 0;
+    align-self: center;
+    width: 80%;
+    max-width: 300px;
+    flex-shrink: 0;
+}
+
+.meaning-image-container {
+    text-align: center;
+}
+
 .meaning-image {
     max-width: 90%;
     max-height: 300px;
     border-radius: 15px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     border: 2px solid rgba(255, 215, 0, 0.3);
-}
-
-.meaning-image-container {
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-}
-
-.meaning-image-container:hover {
-    opacity: 0.9;
 }
