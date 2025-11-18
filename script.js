@@ -1,6 +1,5 @@
 // Базовые переменные приложения
-let currentLines = []; // Здесь будем хранить результаты бросков [6,7,8,9]
-let movingLines = [];  // Здесь будем хранить индексы движущихся линий
+let currentLines = []; // Здесь будем хранить результаты бросков ['yang', 'yin']
 
 // Функция для переключения между экранами
 function showScreen(screenId) {
@@ -47,7 +46,6 @@ function initializeRandomCoins() {
 // Функция сброса состояния гадания при новом входе
 function resetDivinationState() {
     currentLines = [];
-    movingLines = [];
     
     // Очищаем область гексаграммы
     const hexagramContainer = document.getElementById('hexagram-lines');
@@ -72,7 +70,7 @@ function handleAction() {
 
 // Функция броска монет
 function throwCoins() {
-    // 1. Генерируем результат броска (6,7,8,9)
+    // 1. Генерируем результат броска ('yang' или 'yin')
     const throwResult = calculateThrowResult();
     
     // 2. Добавляем результат в массив
@@ -90,21 +88,23 @@ function throwCoins() {
     }, 800);
 }
 
-// Функция расчета результата броска (возвращает 6,7,8,9)
+// Функция расчета результата броска
 function calculateThrowResult() {
-    let totalValue = 0;
+    let eagles = 0;
     
-    // Бросаем 3 монеты
+    // Считаем количество орлов
     for (let i = 0; i < 3; i++) {
-        // Случайное значение: 2 (решка) или 3 (орел)
-        const coinValue = Math.random() > 0.5 ? 3 : 2;
-        totalValue += coinValue;
+        if (Math.random() > 0.5) {
+            eagles++; // Орел
+        }
     }
     
-    // Конвертируем в значения Ицзин:
-    // 6=2+2+2 (Старая Инь), 7=2+2+3 (Молодой Ян), 
-    // 8=2+3+3 (Молодая Инь), 9=3+3+3 (Старый Ян)
-    return totalValue;
+    // Упрощенная логика:
+    if (eagles >= 2) {
+        return 'yang'; // 2 или 3 орла = Ян
+    } else {
+        return 'yin';  // 0 или 1 орел = Инь
+    }
 }
 
 // Функция анимации броска монет
@@ -174,31 +174,21 @@ function drawHexagramLine(lineValue) {
     // Добавляем линию ВНИЗУ контейнера (строим снизу вверх)
     hexagramContainer.appendChild(lineElement);
     
-    // Сохраняем движущиеся линии
-    if (lineValue === 6 || lineValue === 9) {
-        movingLines.push(currentLines.length - 1); // сохраняем индекс линии
-    }
+    // Прокручиваем вниз чтобы видеть новую линию
+    hexagramContainer.scrollTop = hexagramContainer.scrollHeight;
 }
 
 // Функция определения типа линии
 function getLineType(lineValue) {
-    switch(lineValue) {
-        case 6: return 'yin-moving';   // Старая Инь (движущаяся)
-        case 7: return 'yang-static';  // Молодой Ян (стабильный)
-        case 8: return 'yin-static';   // Молодая Инь (стабильная)
-        case 9: return 'yang-moving';  // Старый Ян (движущийся)
-        default: return '';
-    }
+    return lineValue === 'yang' ? 'yang-static' : 'yin-static';
 }
 
 // Функция получения информации о линии
 function getLineInfo(lineValue) {
-    switch(lineValue) {
-        case 6: return { symbol: '⚋', name: 'Старая Инь' };
-        case 7: return { symbol: '⚊', name: 'Молодой Ян' };
-        case 8: return { symbol: '⚋', name: 'Молодая Инь' };
-        case 9: return { symbol: '⚊', name: 'Старый Ян' };
-        default: return { symbol: '?', name: 'Неизвестно' };
+    if (lineValue === 'yang') {
+        return { symbol: '⚊', name: 'Ян' };
+    } else {
+        return { symbol: '⚋', name: 'Инь' };
     }
 }
 
@@ -216,7 +206,7 @@ function updateInterface() {
 
 // Функция показа результата (заглушка - будет дорабатываться)
 function showResult() {
-    alert(`Готово! Получены линии: ${currentLines.join(', ')}\nДвижущиеся линии: ${movingLines.length > 0 ? movingLines.join(', ') : 'нет'}\n\nФункция показа толкования будет реализована в следующем шаге!`);
+    alert(`Готово! Получены линии: ${currentLines.join(', ')}\n\nФункция показа толкования будет реализована в следующем шаге!`);
 }
 
 // Функция сброса гадания
