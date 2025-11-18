@@ -428,7 +428,7 @@ button:disabled {
     margin: 4px 0;
     padding: 6px;
     border-radius: 6px;
-    font-size: 1.2em;
+    font-size: 1.1em;
     font-weight: bold;
     transition: all 0.3s ease;
     flex-shrink: 0;
