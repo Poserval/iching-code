@@ -1,3 +1,4 @@
+
 // Базовые переменные приложения
 let currentLines = []; // Здесь будем хранить результаты бросков ['yang', 'yin']
 
@@ -197,15 +198,15 @@ function showResult() {
     // 1. Определяем номер гексаграммы (пока тестовый - №1)
     const hexagramNumber = 1; // TODO: Заменить на реальный расчет
     
-    // 2. Показываем экран гексаграммы
+    // 2. Показываем экран результата
     showScreen('result-screen');
     
     // 3. Отображаем гексаграмму
     showHexagram(hexagramNumber);
     
-    // 4. Через 3 секунды переходим к толкованию
+    // 4. Через 3 секунды показываем толкование
     setTimeout(() => {
-        showInterpretationScreen(hexagramNumber);
+        showMeaning(hexagramNumber);
     }, 3000);
 }
 
@@ -220,24 +221,21 @@ function showHexagram(hexagramNumber) {
     `;
 }
 
-// Функция перехода к экрану толкования
-function showInterpretationScreen(hexagramNumber) {
-    // Показываем экран толкования
-    showScreen('interpretation-screen');
-    
-    // Отображаем толкование
-    showMeaning(hexagramNumber);
-}
-
 // Функция отображения толкования
 function showMeaning(hexagramNumber) {
-    const interpretationContainer = document.getElementById('interpretation-content');
+    const interpretationContainer = document.getElementById('interpretation-text');
     interpretationContainer.innerHTML = `
         <div class="meaning-image-container">
             <img src="assets/meanings/meaning-${hexagramNumber}.png" 
                  alt="Толкование ${hexagramNumber}" class="meaning-image">
         </div>
     `;
+    
+    // Добавляем обработчик клика для быстрого показа
+    interpretationContainer.style.cursor = 'pointer';
+    interpretationContainer.onclick = () => {
+        showMeaning(hexagramNumber);
+    };
 }
 
 // Функция сброса гадания
@@ -245,10 +243,10 @@ function resetDivination() {
     // Сбрасываем все переменные
     currentLines = [];
     
-    // Очищаем экраны
+    // Очищаем экран результата
     document.getElementById('final-hexagram').innerHTML = '';
-    document.getElementById('interpretation-content').innerHTML = '';
+    document.getElementById('interpretation-text').innerHTML = '';
     
-    // Возвращаемся в главное меню
-    showScreen('main-menu');
+    // Возвращаемся к гаданию
+    showScreen('divination-screen');
 }
