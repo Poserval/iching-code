@@ -38,7 +38,6 @@ function initializeRandomCoins() {
             coin.src = `assets/coins/${coinType}-tails.png`;
         }
         
-        // Убираем alt текст чтобы не показывалось при наведении
         coin.alt = 'Монета';
     });
 }
@@ -70,7 +69,7 @@ function handleAction() {
 
 // Функция броска монет
 function throwCoins() {
-    // 1. Генерируем результат броска ('yang' или 'yin')
+    // 1. Генерируем результат броска и сразу обновляем монеты
     const throwResult = calculateThrowResult();
     
     // 2. Добавляем результат в массив
@@ -88,18 +87,29 @@ function throwCoins() {
     }, 800);
 }
 
-// Функция расчета результата броска
+// Функция расчета результата броска и обновления монет
 function calculateThrowResult() {
+    const coinTypes = ['ruble', 'dollar', 'yuan'];
+    const coins = document.querySelectorAll('.coin');
     let eagles = 0;
     
-    // Считаем количество орлов
-    for (let i = 0; i < 3; i++) {
-        if (Math.random() > 0.5) {
-            eagles++; // Орел
+    // ОДНОВРЕМЕННО рассчитываем и показываем результат
+    coins.forEach((coin, index) => {
+        const coinType = coinTypes[index];
+        const isHeads = Math.random() > 0.5;
+        
+        // Сразу обновляем отображение монеты
+        if (isHeads) {
+            coin.src = `assets/coins/${coinType}-heads.png`;
+            eagles++; // Считаем орлы
+        } else {
+            coin.src = `assets/coins/${coinType}-tails.png`;
         }
-    }
+        
+        coin.alt = 'Монета';
+    });
     
-    // Упрощенная логика:
+    // Возвращаем результат на основе РЕАЛЬНОГО отображения
     if (eagles >= 2) {
         return 'yang'; // 2 или 3 орла = Ян
     } else {
@@ -126,32 +136,10 @@ function animateCoinThrow() {
         }, 600);
     });
     
-    // Обновляем отображение монет после анимации
+    // Разблокируем кнопку после анимации
     setTimeout(() => {
-        updateCoinsDisplay();
         actionButton.disabled = false;
     }, 800);
-}
-
-// Функция для обновления отображения монет после броска
-function updateCoinsDisplay() {
-    const coins = document.querySelectorAll('.coin');
-    const coinTypes = ['ruble', 'dollar', 'yuan'];
-    
-    coins.forEach((coin, index) => {
-        // Случайно определяем орел или решка для каждой монеты
-        const isHeads = Math.random() > 0.5;
-        const coinType = coinTypes[index];
-        
-        if (isHeads) {
-            coin.src = `assets/coins/${coinType}-heads.png`;
-        } else {
-            coin.src = `assets/coins/${coinType}-tails.png`;
-        }
-        
-        // Убираем alt текст чтобы не показывалось при наведении
-        coin.alt = 'Монета';
-    });
 }
 
 // Функция отрисовки линии гексаграммы
