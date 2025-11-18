@@ -140,27 +140,54 @@ function updateInterface() {
 
 // Функция показа результата - ТОЛЬКО 5-Й ЭКРАН
 function showResult() {
-    const hexagramNumber = 1; // Пока тестовый номер
-    
     // Показываем экран гексаграммы
     showScreen('result-screen');
     
-    // Отображаем гексаграмму
-    showHexagram(hexagramNumber);
+    // Отображаем гексаграмму (передаем текущие линии)
+    showHexagram(currentLines);
 }
 
 // Функция отображения гексаграммы - КНОПКА В ГЛАВНОЕ МЕНЮ
-function showHexagram(hexagramNumber) {
+function showHexagram(lines) {
     const hexagramContainer = document.getElementById('final-hexagram');
+    
+    // Создаем визуальное представление гексаграммы
+    const hexagramVisual = createHexagramVisual(lines);
+    
     hexagramContainer.innerHTML = `
         <div class="hexagram-image-container">
-            <img src="assets/hexagrams/hexagram-${hexagramNumber}.png" 
-                 alt="Гексаграмма ${hexagramNumber}" class="hexagram-image">
+            ${hexagramVisual}
         </div>
         <button onclick="showScreen('main-menu')" style="margin-top: 20px;">
             В главное меню
         </button>
     `;
+}
+
+// Функция создания визуального представления гексаграммы
+function createHexagramVisual(lines) {
+    // Создаем контейнер для гексаграммы
+    const container = document.createElement('div');
+    container.className = 'hexagram-visual';
+    
+    // Создаем линии гексаграммы (снизу вверх)
+    lines.forEach(line => {
+        const lineElement = document.createElement('div');
+        lineElement.className = `visual-line ${line === 'yang' ? 'yang-line' : 'yin-line'}`;
+        container.appendChild(lineElement);
+    });
+    
+    return container.outerHTML;
+}
+
+// Функция расчета номера гексаграммы (для будущего использования)
+function calculateHexagramNumber(lines) {
+    // Преобразуем линии в бинарный код (ян = 1, инь = 0)
+    const binaryCode = lines.map(line => line === 'yang' ? '1' : '0').join('');
+    
+    // Конвертируем бинарный код в десятичное число (1-64)
+    // Пока возвращаем тестовый номер
+    return 1;
 }
 
 // Делаем функции глобальными
