@@ -378,6 +378,42 @@ button:disabled {
     flex-shrink: 0;
 }
 
+/* Стили для экрана гексаграммы */
+#result-screen {
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+}
+
+#result-screen h1 {
+    margin-bottom: 30px;
+    flex-shrink: 0;
+}
+
+#final-hexagram {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    width: 100%;
+}
+
+.hexagram-image-container {
+    text-align: center;
+}
+
+.hexagram-image {
+    width: 300px;
+    height: 300px;
+    max-width: 90vw;
+    max-height: 60vh;
+    object-fit: contain;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    border: 3px solid rgba(255, 215, 0, 0.4);
+}
+
 /* Главное предупреждение */
 .main-warning {
     font-size: 1.3em;
