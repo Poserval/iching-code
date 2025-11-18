@@ -147,6 +147,9 @@ function updateCoinsDisplay() {
         } else {
             coin.src = `assets/coins/${coinType}-tails.png`;
         }
+        
+        // Убираем alt текст чтобы не показывалось при наведении
+        coin.alt = 'Монета';
     });
 }
 
