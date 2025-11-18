@@ -246,6 +246,6 @@ function resetDivination() {
     document.getElementById('final-hexagram').innerHTML = '';
     document.getElementById('interpretation-text').innerHTML = '';
     
-    // Возвращаемся к гаданию
-    showScreen('divination-screen');
+    // Возвращаемся в главное меню
+    showScreen('main-menu');
 }
