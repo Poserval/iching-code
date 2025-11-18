@@ -140,12 +140,15 @@
     <!-- Единая кнопка для всего процесса -->
     <button id="action-button" onclick="handleAction()">Бросить монеты (6 из 6)</button>
 
-    <!-- Область для построения гексаграммы -->
-    <div id="hexagram-lines" class="hexagram-container">
-        <p>Бросьте монеты 6 раз чтобы построить гексаграмму</p>
+    <!-- ФИКСИРОВАННОЕ окно для гексаграммы -->
+    <div class="hexagram-fixed-container">
+        <div id="hexagram-lines">
+            <p>Бросьте монеты 6 раз чтобы построить гексаграмму</p>
+        </div>
     </div>
 
-    <button onclick="showScreen('main-menu')">Назад в меню</button>
+    <!-- Кнопка Назад в меню - ВНИЗУ -->
+    <button class="bottom-button" onclick="showScreen('main-menu')">Назад в меню</button>
 </div>
 
         <!-- ЭКРАН 5: Результат -->
