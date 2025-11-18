@@ -438,13 +438,13 @@ button:disabled {
     flex-direction: column-reverse;
     justify-content: space-between;
     align-items: center;
-    padding: 50px 30px; /* ЭТОТ параметр будем менять для точной подгонки */
+    padding: 50px 30px;
 }
 
 .overlay-line {
-    width: 60%; /* ЭТОТ параметр будем менять */
-    height: 8px; /* ЭТОТ параметр будем менять */
-    margin: 5px 0; /* ЭТОТ параметр будем менять */
+    width: 60%;
+    height: 8px;
+    margin: 5px 0;
 }
 
 .overlay-yang {
