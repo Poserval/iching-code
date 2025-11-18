@@ -153,7 +153,17 @@
         <!-- ЭКРАН 5: Гексаграмма -->
 <div id="result-screen" class="screen">
     <h1>Ваша гексаграмма</h1>
-    <div id="final-hexagram"></div>
+    <div id="final-hexagram">
+        <!-- Картинка-подложка (всегда видна) -->
+        <div class="hexagram-background-container">
+            <img src="assets/backgrounds/hexagram-base.png" alt="Основа гексаграммы" class="hexagram-background">
+            <!-- Контейнер для визуального отображения гексаграммы -->
+            <div id="hexagram-visual-container" class="hexagram-visual-container"></div>
+        </div>
+    </div>
+    <button onclick="showScreen('main-menu')" style="margin-top: 20px;">
+        В главное меню
+    </button>
 </div>
 
     </div>
