@@ -127,29 +127,26 @@
         </div>
 
         <!-- ЭКРАН 4: Процесс гадания -->
-        <div id="divination-screen" class="screen">
-            <h2>Задайте свой вопрос мысленно</h2>
+<div id="divination-screen" class="screen">
+    <h2>Задайте свой вопрос мысленно</h2>
 
-            <!-- Контейнер для монет -->
-<div class="coins-container">
-    <img id="coin1" class="coin" src="assets/coins/ruble-heads.png" alt="Монета">
-    <img id="coin2" class="coin" src="assets/coins/dollar-heads.png" alt="Монета">
-    <img id="coin3" class="coin" src="assets/coins/yuan-heads.png" alt="Монета">
+    <!-- Контейнер для монет -->
+    <div class="coins-container">
+        <img id="coin1" class="coin" src="assets/coins/ruble-heads.png" alt="Монета">
+        <img id="coin2" class="coin" src="assets/coins/dollar-heads.png" alt="Монета">
+        <img id="coin3" class="coin" src="assets/coins/yuan-heads.png" alt="Монета">
+    </div>
+
+    <!-- Единая кнопка для всего процесса -->
+    <button id="action-button" onclick="handleAction()">Бросить монеты (6 из 6)</button>
+
+    <!-- Область для построения гексаграммы -->
+    <div id="hexagram-lines" class="hexagram-container">
+        <p>Бросьте монеты 6 раз чтобы построить гексаграмму</p>
+    </div>
+
+    <button onclick="showScreen('main-menu')">Назад в меню</button>
 </div>
-
-            <!-- Кнопка броска -->
-            <button id="throw-button" onclick="throwCoins()">Бросить монеты</button>
-
-            <!-- Область для построения гексаграммы -->
-            <div id="hexagram-lines" class="hexagram-container">
-                <p>Бросьте монеты 6 раз чтобы построить гексаграмму</p>
-            </div>
-
-            <!-- Кнопка результата (изначально скрыта) -->
-            <button id="result-button" class="hidden" onclick="showResult()">Показать результат</button>
-
-            <button onclick="showScreen('main-menu')">Назад в меню</button>
-        </div>
 
         <!-- ЭКРАН 5: Результат -->
         <div id="result-screen" class="screen">
