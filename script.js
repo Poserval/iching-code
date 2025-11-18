@@ -26,17 +26,17 @@ function showScreen(screenId) {
 // Функция инициализации случайного положения монет при входе в гадание
 function initializeRandomCoins() {
     const coins = document.querySelectorAll('.coin');
+    const coinTypes = ['ruble', 'dollar', 'yuan'];
     
-    coins.forEach(coin => {
+    coins.forEach((coin, index) => {
         // Случайно выбираем орел или решка (50/50)
         const isHeads = Math.random() > 0.5;
+        const coinType = coinTypes[index];
         
         if (isHeads) {
-            coin.src = 'assets/coins/coin-heads.png';
-            coin.setAttribute('data-value', 'heads');
+            coin.src = `assets/coins/${coinType}-heads.png`;
         } else {
-            coin.src = 'assets/coins/coin-tails.png';
-            coin.setAttribute('data-value', 'tails');
+            coin.src = `assets/coins/${coinType}-tails.png`;
         }
     });
 }
@@ -73,7 +73,7 @@ function throwCoins() {
     currentLines.push(throwResult);
     
     // 3. Визуализируем бросок монет
-    animateCoinThrow(throwResult);
+    animateCoinThrow();
     
     // 4. Обновляем интерфейс
     updateInterface();
@@ -107,7 +107,7 @@ function calculateThrowResult() {
 }
 
 // Функция анимации броска монет
-function animateCoinThrow(throwResult) {
+function animateCoinThrow() {
     const coins = document.querySelectorAll('.coin');
     const throwButton = document.getElementById('throw-button');
     
@@ -115,34 +115,49 @@ function animateCoinThrow(throwResult) {
     throwButton.disabled = true;
     
     // Анимируем каждую монету
-    coins.forEach((coin, index) => {
+    coins.forEach((coin) => {
         // Добавляем класс анимации
         coin.classList.add('animating');
         
         // После анимации устанавливаем финальное положение
         setTimeout(() => {
             coin.classList.remove('animating');
-            
-            // Устанавливаем финальное изображение на основе результата
-            // Для простоты делаем случайное, но соответствующее общему результату
-            const isHeads = Math.random() > 0.5;
-            if (isHeads) {
-                coin.src = 'assets/coins/coin-heads.png';
-            } else {
-                coin.src = 'assets/coins/coin-tails.png';
-            }
         }, 600);
     });
     
-    // Разблокируем кнопку после анимации
+    // Обновляем отображение монет после анимации
     setTimeout(() => {
+        updateCoinsDisplay();
         throwButton.disabled = false;
     }, 800);
+}
+
+// Функция для обновления отображения монет после броска
+function updateCoinsDisplay() {
+    const coins = document.querySelectorAll('.coin');
+    const coinTypes = ['ruble', 'dollar', 'yuan'];
+    
+    coins.forEach((coin, index) => {
+        // Случайно определяем орел или решка для каждой монеты
+        const isHeads = Math.random() > 0.5;
+        const coinType = coinTypes[index];
+        
+        if (isHeads) {
+            coin.src = `assets/coins/${coinType}-heads.png`;
+        } else {
+            coin.src = `assets/coins/${coinType}-tails.png`;
+        }
+    });
 }
 
 // Функция отрисовки линии гексаграммы
 function drawHexagramLine(lineValue) {
     const hexagramContainer = document.getElementById('hexagram-lines');
+    
+    // Очищаем начальный текст при первом броске
+    if (currentLines.length === 1) {
+        hexagramContainer.innerHTML = '';
+    }
     
     // Создаем элемент для линии
     const lineElement = document.createElement('div');
