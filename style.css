@@ -384,31 +384,34 @@ button:disabled {
     max-width: 300px; /* ← РАЗМЕР ОБЛАСТИ НАЛОЖЕНИЯ */
 }
 
-/* НИЖНЯЯ КАРТИНКА - управляется отдельно */
-.hexagram-base-image {
-    width: 100%;
-    max-width: 400px; /* ← ШИРИНА НИЖНЕЙ КАРТИНКИ */
-    max-height: 500px; /* ← ВЫСОТА НИЖНЕЙ КАРТИНКИ */
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    display: block;
-}
-
-/* ВЕРХНЯЯ ГЕКСАГРАММА - управляется отдельно */
+/* ВЕРХНЯЯ ГЕКСАГРАММА - должна быть поверх картинки */
 .hexagram-lines-overlay {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 200px; /* ← ШИРИНА ГЕКСАГРАММЫ (фиксированная) */
-    height: 300px; /* ← ВЫСОТА ГЕКСАГРАММЫ (фиксированная) */
+    width: 200px;
+    height: 300px;
     display: flex;
     flex-direction: column-reverse;
     justify-content: space-between;
     align-items: center;
-    background: transparent; /* ← УБИРАЕМ ФОН */
-    border: none; /* ← УБИРАЕМ РАМКУ */
-    backdrop-filter: none; /* ← УБИРАЕМ РАЗМЫТИЕ */
+    background: transparent;
+    border: none;
+    backdrop-filter: none;
+    z-index: 2; /* ← ДОБАВЛЯЕМ z-index чтобы была ПОВЕРХ картинки */
+}
+
+/* НИЖНЯЯ КАРТИНКА - должна быть под гексаграммой */
+.hexagram-base-image {
+    width: 100%;
+    max-width: 400px;
+    max-height: 500px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    display: block;
+    z-index: 1; /* ← ДОБАВЛЯЕМ z-index чтобы была ПОД гексаграммой */
+    position: relative; /* ← Нужно для работы z-index */
 }
 
 .overlay-line {
