@@ -207,11 +207,14 @@ function showMeaningImage() {
     const interpretationContent = document.getElementById('interpretation-content');
     const hexagramNumber = calculateHexagramNumber(currentLines);
     
+    console.log('Загружаем изображение толкования:', hexagramNumber);
+    
     interpretationContent.innerHTML = `
         <div class="meaning-fullscreen-container">
             <img src="assets/meanings/meaning-${hexagramNumber}.png" 
                  alt="Толкование гексаграммы ${hexagramNumber}" 
-                 class="meaning-fullscreen-image">
+                 class="meaning-fullscreen-image"
+                 onerror="console.log('Ошибка загрузки изображения:', this.src)">
         </div>
     `;
 }
