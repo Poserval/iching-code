@@ -414,7 +414,7 @@ button:disabled {
 
 .hexagram-base-image {
     width: 100%;
-    max-height: 350px; /* ← УМЕНЬШАЕМ высоту */
+    max-height: 500px; /* ← УМЕНЬШАЕМ высоту */
     border-radius: 15px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     display: block; /* ← УБЕДИТЕСЬ что картинка отображается */
