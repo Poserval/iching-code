@@ -156,12 +156,15 @@ function showHexagram(lines) {
     const hexagramContainer = document.getElementById('final-hexagram');
     console.log('Контейнер найден:', hexagramContainer);
     
-    // Создаем overlay-структуру с базовой картинкой
+    // Создаем раздельную структуру
     hexagramContainer.innerHTML = `
-        <div class="hexagram-overlay-container">
-            <img src="assets/hexagrams/hexagram-1.png" alt="База гексаграммы" class="hexagram-base-image">
-            <div class="hexagram-lines-overlay" id="lines-overlay">
-                <!-- Линии будут добавлены сюда -->
+        <div class="hexagram-image-container">
+            <!-- Картинка отдельно -->
+            <img src="assets/backgrounds/background-1.png" alt="База гексаграммы" class="hexagram-base-image">
+            
+            <!-- Гексаграмма отдельно -->
+            <div class="hexagram-visual-container" id="lines-overlay">
+                <!-- Линии будут здесь -->
             </div>
         </div>
         <button onclick="showScreen('main-menu')" style="margin-top: 20px;">
@@ -169,17 +172,17 @@ function showHexagram(lines) {
         </button>
     `;
     
-    // Добавляем линии поверх картинки
+    // Добавляем линии в отдельный контейнер
     const overlay = document.getElementById('lines-overlay');
     createHexagramOverlay(lines, overlay);
 }
 
-// Функция создания линий поверх картинки
+// Функция создания линий гексаграммы
 function createHexagramOverlay(lines, overlayContainer) {
     // Очищаем контейнер
     overlayContainer.innerHTML = '';
     
-    console.log('Создаем overlay гексаграмму из линий:', lines);
+    console.log('Создаем гексаграмму из линий:', lines);
     
     // lines[0] - ПЕРВАЯ линия (верхняя на 4-м экране)
     // lines[5] - ПОСЛЕДНЯЯ линия (нижняя на 4-м экране)
