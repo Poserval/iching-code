@@ -160,7 +160,7 @@ function showHexagram(lines) {
     hexagramContainer.innerHTML = `
         <div class="hexagram-image-container">
             <!-- Картинка отдельно -->
-            <img src="assets/backgrounds/background-1.png" alt="База гексаграммы" class="hexagram-base-image">
+            <img src="assets/hexagrams/hexagram-1.png" alt="База гексаграммы" class="hexagram-base-image">
             
             <!-- Гексаграмма отдельно -->
             <div class="hexagram-visual-container" id="lines-overlay">
