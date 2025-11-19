@@ -382,50 +382,42 @@ button:disabled {
     flex-shrink: 0;
 }
 
-/* Стили для экрана гексаграммы - ИСПРАВЛЕННЫЕ */
+/* Стили для экрана гексаграммы - ЦЕНТРИРОВАННЫЕ */
 #result-screen {
     padding: 15px;
-    justify-content: padding-top;
-    gap: 10px;
+    justify-content: center; /* ← ЦЕНТРИРУЕМ ВСЁ ПО ВЕРТИКАЛИ */
+    align-items: center; /* ← ЦЕНТРИРУЕМ ПО ГОРИЗОНТАЛИ */
+    gap: 20px;
 }
 
 #result-screen h1 {
-    margin-top: 5px;
-    margin-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
     flex-shrink: 0;
 }
 
 .hexagram-image-container {
     flex: 0 1 auto;
-    max-height: 75vh;
-    overflow-y: auto;
-    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 30px;
+    padding-top: 0; /* ← УБИРАЕМ лишние отступы */
 }
 
-.hexagram-image {
-    max-width: 100%;
-    max-height: 500px;
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
-
-/* Стили для отображения гексаграммы поверх картинки */
+/* Стили для отображения гексаграммы поверх картинки - ОБНОВЛЕННЫЕ */
 .hexagram-overlay-container {
     position: relative;
     width: 100%;
-    max-width: 300px;
+    max-width: 280px; /* ← УМЕНЬШАЕМ для гарантии видимости */
     margin: 0 auto;
 }
 
 .hexagram-base-image {
     width: 100%;
-    max-height: 400px;
+    max-height: 350px; /* ← УМЕНЬШАЕМ высоту */
     border-radius: 15px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    display: block; /* ← УБЕДИТЕСЬ что картинка отображается */
 }
 
 .hexagram-lines-overlay {
@@ -438,18 +430,18 @@ button:disabled {
     flex-direction: column-reverse;
     justify-content: space-between;
     align-items: center;
-    padding: 50px 30px; /* Этот параметр можно менять для точной подгонки */
+    padding: 40px 25px; /* ← УМЕНЬШАЕМ отступы */
 }
 
 .overlay-line {
-    width: 80%; /* Общая ширина линии */
-    height: 12px;
-    margin: 8px 0;
+    width: 75%; /* ← УМЕНЬШАЕМ ширину линий */
+    height: 10px; /* ← УМЕНЬШАЕМ толщину */
+    margin: 6px 0; /* ← УМЕНЬШАЕМ отступы между линиями */
 }
 
 .overlay-yang {
     background: #000000;
-    border-radius: 6px;
+    border-radius: 5px;
 }
 
 .overlay-yin {
@@ -462,10 +454,10 @@ button:disabled {
 .overlay-yin::before,
 .overlay-yin::after {
     content: '';
-    width: 45%; /* Две короткие линии */
-    height: 12px;
+    width: 45%;
+    height: 10px;
     background: #000000;
-    border-radius: 6px;
+    border-radius: 5px;
 }
 
 /* Стили для экрана толкования */
