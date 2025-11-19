@@ -412,6 +412,7 @@ button:disabled {
     display: block;
     z-index: 1; /* ← ДОБАВЛЯЕМ z-index чтобы была ПОД гексаграммой */
     position: relative; /* ← Нужно для работы z-index */
+    opacity: 0.3;
 }
 
 .overlay-line {
