@@ -449,7 +449,7 @@ button:disabled {
     flex-shrink: 0;
 }
 
-#interpretation-content {
+.interpretation-container {
     flex: 1;
     width: 100%;
     display: flex;
