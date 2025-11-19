@@ -390,7 +390,7 @@ button:disabled {
     width: 65%;
     height: 45%;
     display: flex;
-    flex-direction: column; /* ← МЕНЯЕМ НА column (без reverse) */
+    flex-direction: column-reverse; /* ← Обратно на reverse */
     justify-content: space-between;
     align-items: center;
 }
