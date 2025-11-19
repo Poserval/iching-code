@@ -110,7 +110,7 @@ function calculateThrowResult() {
     return eagles >= 2 ? 'yang' : 'yin';
 }
 
-// Функция отрисовки линии
+// Функция отрисовки линии - ИСПРАВЛЕННАЯ (сверху вниз)
 function drawHexagramLine(lineValue) {
     const hexagramContainer = document.getElementById('hexagram-lines');
     
@@ -122,10 +122,11 @@ function drawHexagramLine(lineValue) {
     lineElement.className = `hexagram-line ${lineValue === 'yang' ? 'yang-static' : 'yin-static'}`;
     lineElement.textContent = `${currentLines.length} - ${lineValue === 'yang' ? '⚊ Ян' : '⚋ Инь'}`;
     
-    // ВСТАВЛЯЕМ НОВУЮ ЛИНИЮ В НАЧАЛО (сверху)
-    hexagramContainer.insertBefore(lineElement, hexagramContainer.firstChild);
+    // ДОБАВЛЯЕМ ЛИНИЮ В КОНЕЦ (снизу)
+    hexagramContainer.appendChild(lineElement);
     
-    hexagramContainer.scrollTop = 0; // Прокручиваем к верху
+    // Прокручиваем к низу чтобы видеть новые линии
+    hexagramContainer.scrollTop = hexagramContainer.scrollHeight;
 }
 
 // Функция обновления интерфейса
@@ -158,7 +159,7 @@ function showHexagram(lines) {
     // Создаем overlay-структуру с базовой картинкой
     hexagramContainer.innerHTML = `
         <div class="hexagram-overlay-container">
-            <img src="assets/hexagrams/hexagram-1.png" alt="База гексаграммы" class="hexagram-base-image">
+            <img src="assets/backgrounds/background-1.png" alt="База гексаграммы" class="hexagram-base-image">
             <div class="hexagram-lines-overlay" id="lines-overlay">
                 <!-- Линии будут добавлены сюда -->
             </div>
