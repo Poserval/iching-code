@@ -21,6 +21,11 @@ function showScreen(screenId) {
             initializeRandomCoins();
             resetDivinationState();
         }
+        
+        // Если переходим на экран толкования - показываем изображение
+        if (screenId === 'interpretation-screen') {
+            showMeaningImage();
+        }
     }
 }
 
@@ -197,7 +202,21 @@ function showInterpretationScreen() {
     showScreen('interpretation-screen');
 }
 
-// Функция расчета номера гексаграммы (для будущего использования)
+// Функция отображения изображения толкования
+function showMeaningImage() {
+    const interpretationContent = document.getElementById('interpretation-content');
+    const hexagramNumber = calculateHexagramNumber(currentLines);
+    
+    interpretationContent.innerHTML = `
+        <div class="meaning-fullscreen-container">
+            <img src="assets/meanings/meaning-${hexagramNumber}.png" 
+                 alt="Толкование гексаграммы ${hexagramNumber}" 
+                 class="meaning-fullscreen-image">
+        </div>
+    `;
+}
+
+// Функция расчета номера гексаграммы
 function calculateHexagramNumber(lines) {
     // Преобразуем линии в бинарный код (ян = 1, инь = 0)
     const binaryCode = lines.map(line => line === 'yang' ? '1' : '0').join('');
