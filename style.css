@@ -408,7 +408,7 @@ button:disabled {
 .hexagram-overlay-container {
     position: relative;
     width: 100%;
-    max-width: 280px; /* ← УМЕНЬШАЕМ для гарантии видимости */
+    max-width: 200px; /* ← УМЕНЬШАЕМ для гарантии видимости */
     margin: 0 auto;
 }
 
