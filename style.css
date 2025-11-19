@@ -363,7 +363,7 @@ button:disabled {
     max-width: 300px;
 }
 
-/* ЭКРАН 5: РАЗДЕЛЕННАЯ СТРУКТУРА */
+/* ЭКРАН 5: НАЛОЖЕНИЕ С РАЗДЕЛЬНЫМ УПРАВЛЕНИЕМ */
 #result-screen {
     padding: 15px;
     justify-content: center;
@@ -375,44 +375,46 @@ button:disabled {
     margin: 0;
 }
 
-/* Контейнер для картинки и гексаграммы */
 .hexagram-image-container {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 30px; /* Расстояние между картинкой и гексаграммой */
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    max-width: 300px; /* ← РАЗМЕР ОБЛАСТИ НАЛОЖЕНИЯ */
 }
 
-/* Картинка отдельно */
+/* НИЖНЯЯ КАРТИНКА - управляется отдельно */
 .hexagram-base-image {
     width: 100%;
-    max-width: 300px; /* Ширина картинки */
-    max-height: 400px; /* Высота картинки */
+    max-width: 400px; /* ← ШИРИНА НИЖНЕЙ КАРТИНКИ */
+    max-height: 500px; /* ← ВЫСОТА НИЖНЕЙ КАРТИНКИ */
     border-radius: 15px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    display: block;
 }
 
-/* Контейнер для гексаграммы отдельно */
-.hexagram-visual-container {
-    width: 100%;
-    max-width: 300px; /* Ширина гексаграммы */
-    height: 400px; /* Высота гексаграммы */
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    padding: 40px 20px;
+/* ВЕРХНЯЯ ГЕКСАГРАММА - управляется отдельно */
+.hexagram-lines-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px; /* ← ШИРИНА ГЕКСАГРАММЫ (фиксированная) */
+    height: 300px; /* ← ВЫСОТА ГЕКСАГРАММЫ (фиксированная) */
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    background: transparent; /* ← УБИРАЕМ ФОН */
+    border: none; /* ← УБИРАЕМ РАМКУ */
+    backdrop-filter: none; /* ← УБИРАЕМ РАЗМЫТИЕ */
 }
 
-/* Линии гексаграммы */
 .overlay-line {
-    width: 80%; /* Ширина линий */
-    height: 12px; /* Толщина линий */
-    margin: 6px 0; /* Расстояние между линиями */
+    width: 80%;
+    height: 12px;
+    margin: 6px 0;
 }
 
 .overlay-yang {
@@ -429,8 +431,8 @@ button:disabled {
 .overlay-yin::before,
 .overlay-yin::after {
     content: '';
-    width: 45%; /* Длина коротких линий */
-    height: 12px; /* Толщина линий */
+    width: 45%;
+    height: 12px;
     background: #000000;
     border-radius: 6px;
 }
