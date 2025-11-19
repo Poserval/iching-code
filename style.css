@@ -427,7 +427,7 @@ button:disabled {
     left: 50%; /* ЦЕНТРИРУЕМ ПО ГОРИЗОНТАЛИ */
     transform: translate(-50%, -50%); /* ТОЧНОЕ ЦЕНТРИРОВАНИЕ */
     width: 65%; /* ШИРИНА ГЕКСАГРАММЫ ОТНОСИТЕЛЬНО КАРТИНКИ */
-    height: 50%; /* ВЫСОТА ГЕКСАГРАММЫ ОТНОСИТЕЛЬНО КАРТИНКИ */
+    height: 45%; /* ВЫСОТА ГЕКСАГРАММЫ ОТНОСИТЕЛЬНО КАРТИНКИ */
     display: flex;
     flex-direction: column-reverse;
     justify-content: space-between;
