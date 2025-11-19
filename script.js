@@ -210,12 +210,10 @@ function showMeaningImage() {
     console.log('Загружаем изображение толкования:', hexagramNumber);
     
     interpretationContent.innerHTML = `
-        <div class="meaning-fullscreen-container">
-            <img src="assets/meanings/meaning-${hexagramNumber}.png" 
-                 alt="Толкование гексаграммы ${hexagramNumber}" 
-                 class="meaning-fullscreen-image"
-                 onerror="console.log('Ошибка загрузки изображения:', this.src)">
-        </div>
+        <img src="assets/meanings/meaning-${hexagramNumber}.png" 
+             alt="Толкование гексаграммы ${hexagramNumber}" 
+             class="meaning-background-image"
+             onerror="console.log('Ошибка загрузки изображения:', this.src)">
     `;
 }
 
