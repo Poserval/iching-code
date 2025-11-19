@@ -110,7 +110,7 @@ function calculateThrowResult() {
     return eagles >= 2 ? 'yang' : 'yin';
 }
 
-// Функция отрисовки линии - ИСПРАВЛЕННАЯ (сверху вниз)
+// Функция отрисовки линии
 function drawHexagramLine(lineValue) {
     const hexagramContainer = document.getElementById('hexagram-lines');
     
@@ -122,7 +122,7 @@ function drawHexagramLine(lineValue) {
     lineElement.className = `hexagram-line ${lineValue === 'yang' ? 'yang-static' : 'yin-static'}`;
     lineElement.textContent = `${currentLines.length} - ${lineValue === 'yang' ? '⚊ Ян' : '⚋ Инь'}`;
     
-    // ДОБАВЛЯЕМ ЛИНИЮ В КОНЕЦ (снизу)
+    // ВСТАВЛЯЕМ НОВУЮ ЛИНИЮ В КОНЕЦ (снизу)
     hexagramContainer.appendChild(lineElement);
     
     // Прокручиваем к низу чтобы видеть новые линии
@@ -159,7 +159,7 @@ function showHexagram(lines) {
     // Создаем overlay-структуру с базовой картинкой
     hexagramContainer.innerHTML = `
         <div class="hexagram-overlay-container">
-            <img src="assets/hexagrams/hexagram-1.png" alt="База гексаграммы" class="hexagram-base-image">
+            <img src="assets/backgrounds/background-1.png" alt="База гексаграммы" class="hexagram-base-image">
             <div class="hexagram-lines-overlay" id="lines-overlay">
                 <!-- Линии будут добавлены сюда -->
             </div>
@@ -181,12 +181,15 @@ function createHexagramOverlay(lines, overlayContainer) {
     
     console.log('Создаем overlay гексаграмму из линий:', lines);
     
-    // lines[0] - верхняя линия (первая брошенная)
-    // lines[5] - нижняя линия (последняя брошенная)
-    // Отображаем в правильном порядке
-    for (let i = 0; i < lines.length; i++) {
+    // lines[0] - ПЕРВАЯ линия (верхняя на 4-м экране)
+    // lines[5] - ПОСЛЕДНЯЯ линия (нижняя на 4-м экране)
+    // Нужно перевернуть массив чтобы получить правильный порядок
+    const reversedLines = [...lines].reverse();
+    
+    // Отображаем в правильном порядке: сверху вниз
+    for (let i = 0; i < reversedLines.length; i++) {
         const lineElement = document.createElement('div');
-        lineElement.className = `overlay-line ${lines[i] === 'yang' ? 'overlay-yang' : 'overlay-yin'}`;
+        lineElement.className = `overlay-line ${reversedLines[i] === 'yang' ? 'overlay-yang' : 'overlay-yin'}`;
         overlayContainer.appendChild(lineElement);
     }
 }
