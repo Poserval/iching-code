@@ -142,6 +142,7 @@ function updateInterface() {
 
 // Функция показа результата - ТОЛЬКО 5-Й ЭКРАН
 function showResult() {
+    console.log('Переход на 5 экран, линии:', currentLines);
     // Показываем экран гексаграммы
     showScreen('result-screen');
     
@@ -152,36 +153,41 @@ function showResult() {
 // Функция отображения гексаграммы - КНОПКА В ГЛАВНОЕ МЕНЮ
 function showHexagram(lines) {
     const hexagramContainer = document.getElementById('final-hexagram');
+    console.log('Контейнер найден:', hexagramContainer);
     
-    // Создаем визуальное представление гексаграммы
-    const hexagramVisual = createHexagramVisual(lines);
-    
+    // Создаем overlay-структуру
     hexagramContainer.innerHTML = `
-        <div class="hexagram-image-container">
-            ${hexagramVisual}
+        <div class="hexagram-overlay-container">
+            <img src="assets/hexagrams/hexagram-base.png" alt="База гексаграммы" class="hexagram-base-image">
+            <div class="hexagram-lines-overlay" id="lines-overlay">
+                <!-- Линии будут добавлены сюда -->
+            </div>
         </div>
         <button onclick="showScreen('main-menu')" style="margin-top: 20px;">
             В главное меню
         </button>
     `;
+    
+    // Добавляем линии поверх картинки
+    const overlay = document.getElementById('lines-overlay');
+    createHexagramOverlay(lines, overlay);
 }
 
-// Функция создания визуального представления гексаграммы
-function createHexagramVisual(lines) {
-    // Создаем контейнер для гексаграммы
-    const container = document.createElement('div');
-    container.className = 'hexagram-visual';
+// Функция создания линий поверх картинки
+function createHexagramOverlay(lines, overlayContainer) {
+    // Очищаем контейнер
+    overlayContainer.innerHTML = '';
+    
+    console.log('Создаем overlay гексаграмму из линий:', lines);
     
     // lines[0] - верхняя линия (первая брошенная)
     // lines[5] - нижняя линия (последняя брошенная)
-    // Отображаем в том же порядке: сверху вниз
+    // Отображаем в правильном порядке
     for (let i = 0; i < lines.length; i++) {
         const lineElement = document.createElement('div');
-        lineElement.className = `visual-line ${lines[i] === 'yang' ? 'yang-line' : 'yin-line'}`;
-        container.appendChild(lineElement);
+        lineElement.className = `overlay-line ${lines[i] === 'yang' ? 'overlay-yang' : 'overlay-yin'}`;
+        overlayContainer.appendChild(lineElement);
     }
-    
-    return container.outerHTML;
 }
 
 // Функция расчета номера гексаграммы (для будущего использования)
