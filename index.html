@@ -158,11 +158,15 @@
 
 <!-- ЭКРАН 6: Толкование -->
 <div id="interpretation-screen" class="screen">
-    <h1>Толкование гексаграммы</h1>
-    <div id="interpretation-content" class="interpretation-container">
-        <!-- Сюда будет вставляться изображение -->
+    <div class="meaning-overlay-container">
+        <div id="interpretation-content" class="interpretation-background">
+            <!-- Сюда будет вставляться фон -->
+        </div>
+        <div class="meaning-content-overlay">
+            <h1>Толкование гексаграммы</h1>
+            <button onclick="showScreen('main-menu')">В главное меню</button>
+        </div>
     </div>
-    <button onclick="showScreen('main-menu')">В главное меню</button>
 </div>
 
     </div>
