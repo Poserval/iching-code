@@ -110,7 +110,7 @@ function calculateThrowResult() {
     return eagles >= 2 ? 'yang' : 'yin';
 }
 
-// Функция отрисовки линии
+// Функция отрисовки линии - ИСПРАВЛЕННАЯ (сверху вниз)
 function drawHexagramLine(lineValue) {
     const hexagramContainer = document.getElementById('hexagram-lines');
     
@@ -122,7 +122,7 @@ function drawHexagramLine(lineValue) {
     lineElement.className = `hexagram-line ${lineValue === 'yang' ? 'yang-static' : 'yin-static'}`;
     lineElement.textContent = `${currentLines.length} - ${lineValue === 'yang' ? '⚊ Ян' : '⚋ Инь'}`;
     
-    // ВСТАВЛЯЕМ НОВУЮ ЛИНИЮ В КОНЕЦ (снизу)
+    // ДОБАВЛЯЕМ ЛИНИЮ В КОНЕЦ (снизу)
     hexagramContainer.appendChild(lineElement);
     
     // Прокручиваем к низу чтобы видеть новые линии
@@ -156,15 +156,12 @@ function showHexagram(lines) {
     const hexagramContainer = document.getElementById('final-hexagram');
     console.log('Контейнер найден:', hexagramContainer);
     
-    // Создаем раздельную структуру
+    // Создаем overlay-структуру с базовой картинкой
     hexagramContainer.innerHTML = `
-        <div class="hexagram-image-container">
-            <!-- Картинка отдельно -->
+        <div class="hexagram-overlay-container">
             <img src="assets/hexagrams/hexagram-1.png" alt="База гексаграммы" class="hexagram-base-image">
-            
-            <!-- Гексаграмма отдельно -->
-            <div class="hexagram-visual-container" id="lines-overlay">
-                <!-- Линии будут здесь -->
+            <div class="hexagram-lines-overlay" id="lines-overlay">
+                <!-- Линии будут добавлены сюда -->
             </div>
         </div>
         <button onclick="showScreen('main-menu')" style="margin-top: 20px;">
@@ -172,27 +169,24 @@ function showHexagram(lines) {
         </button>
     `;
     
-    // Добавляем линии в отдельный контейнер
+    // Добавляем линии поверх картинки
     const overlay = document.getElementById('lines-overlay');
     createHexagramOverlay(lines, overlay);
 }
 
-// Функция создания линий гексаграммы
+// Функция создания линий поверх картинки
 function createHexagramOverlay(lines, overlayContainer) {
     // Очищаем контейнер
     overlayContainer.innerHTML = '';
     
-    console.log('Создаем гексаграмму из линий:', lines);
+    console.log('Создаем overlay гексаграмму из линий:', lines);
     
-    // lines[0] - ПЕРВАЯ линия (верхняя на 4-м экране)
-    // lines[5] - ПОСЛЕДНЯЯ линия (нижняя на 4-м экране)
-    // Нужно перевернуть массив чтобы получить правильный порядок
-    const reversedLines = [...lines].reverse();
-    
-    // Отображаем в правильном порядке: сверху вниз
-    for (let i = 0; i < reversedLines.length; i++) {
+    // lines[0] - верхняя линия (первая брошенная)
+    // lines[5] - нижняя линия (последняя брошенная)
+    // Отображаем в правильном порядке
+    for (let i = 0; i < lines.length; i++) {
         const lineElement = document.createElement('div');
-        lineElement.className = `overlay-line ${reversedLines[i] === 'yang' ? 'overlay-yang' : 'overlay-yin'}`;
+        lineElement.className = `overlay-line ${lines[i] === 'yang' ? 'overlay-yang' : 'overlay-yin'}`;
         overlayContainer.appendChild(lineElement);
     }
 }
