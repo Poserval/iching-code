@@ -120,10 +120,12 @@ function drawHexagramLine(lineValue) {
     
     const lineElement = document.createElement('div');
     lineElement.className = `hexagram-line ${lineValue === 'yang' ? 'yang-static' : 'yin-static'}`;
-    lineElement.textContent = lineValue === 'yang' ? '⚊ Ян' : '⚋ Инь';
+    lineElement.textContent = `${currentLines.length} - ${lineValue === 'yang' ? '⚊ Ян' : '⚋ Инь'}`;
     
-    hexagramContainer.appendChild(lineElement);
-    hexagramContainer.scrollTop = hexagramContainer.scrollHeight;
+    // ВСТАВЛЯЕМ НОВУЮ ЛИНИЮ В НАЧАЛО (сверху)
+    hexagramContainer.insertBefore(lineElement, hexagramContainer.firstChild);
+    
+    hexagramContainer.scrollTop = 0; // Прокручиваем к верху
 }
 
 // Функция обновления интерфейса
@@ -151,37 +153,45 @@ function showResult() {
 function showHexagram(lines) {
     const hexagramContainer = document.getElementById('final-hexagram');
     
-    // Создаем контейнер с картинкой-подложкой и overlay для линий
+    // Создаем визуальное представление гексаграммы
+    const hexagramVisual = createHexagramVisual(lines);
+    
     hexagramContainer.innerHTML = `
-        <div class="hexagram-overlay-container">
-            <!-- Картинка-подложка (рамка) -->
-            <img src="assets/hexagrams/hexagram-1.png" 
-                 alt="Основа гексаграммы" class="hexagram-base-image">
-            <!-- Контейнер для линий гексаграммы поверх картинки -->
-            <div class="hexagram-lines-overlay" id="hexagram-lines-overlay"></div>
+        <div class="hexagram-image-container">
+            ${hexagramVisual}
         </div>
         <button onclick="showScreen('main-menu')" style="margin-top: 20px;">
             В главное меню
         </button>
     `;
-    
-    // Отрисовываем линии гексаграммы поверх картинки
-    drawHexagramOverlay(lines);
 }
 
-// Функция отрисовки гексаграммы поверх картинки
-function drawHexagramOverlay(lines) {
-    const overlayContainer = document.getElementById('hexagram-lines-overlay');
+// Функция создания визуального представления гексаграммы
+function createHexagramVisual(lines) {
+    // Создаем контейнер для гексаграммы
+    const container = document.createElement('div');
+    container.className = 'hexagram-visual';
     
-    // Очищаем контейнер
-    overlayContainer.innerHTML = '';
-    
-    // Создаем линии (снизу вверх)
-    lines.forEach(line => {
+    // lines[0] - верхняя линия (первая брошенная)
+    // lines[5] - нижняя линия (последняя брошенная)
+    // Отображаем в том же порядке: сверху вниз
+    for (let i = 0; i < lines.length; i++) {
         const lineElement = document.createElement('div');
-        lineElement.className = `overlay-line ${line === 'yang' ? 'overlay-yang' : 'overlay-yin'}`;
-        overlayContainer.appendChild(lineElement);
-    });
+        lineElement.className = `visual-line ${lines[i] === 'yang' ? 'yang-line' : 'yin-line'}`;
+        container.appendChild(lineElement);
+    }
+    
+    return container.outerHTML;
+}
+
+// Функция расчета номера гексаграммы (для будущего использования)
+function calculateHexagramNumber(lines) {
+    // Преобразуем линии в бинарный код (ян = 1, инь = 0)
+    const binaryCode = lines.map(line => line === 'yang' ? '1' : '0').join('');
+    
+    // Конвертируем бинарный код в десятичное число (1-64)
+    // Пока возвращаем тестовый номер
+    return 1;
 }
 
 // Делаем функции глобальными
