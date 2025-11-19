@@ -151,7 +151,7 @@ function showResult() {
     showHexagram(currentLines);
 }
 
-// Функция отображения гексаграммы - КНОПКА В ГЛАВНОЕ МЕНЮ
+// Функция отображения гексаграммы - КНОПКА ТОЛКОВАНИЕ
 function showHexagram(lines) {
     const hexagramContainer = document.getElementById('final-hexagram');
     console.log('Контейнер найден:', hexagramContainer);
@@ -164,8 +164,8 @@ function showHexagram(lines) {
                 <!-- Линии будут добавлены сюда -->
             </div>
         </div>
-        <button onclick="showScreen('main-menu')" style="margin-top: 20px;">
-            В главное меню
+        <button onclick="showInterpretationScreen()" style="margin-top: 20px;">
+            Толкование
         </button>
     `;
     
@@ -191,6 +191,12 @@ function createHexagramOverlay(lines, overlayContainer) {
     }
 }
 
+// Функция перехода на экран толкования
+function showInterpretationScreen() {
+    console.log('Переход на 6 экран');
+    showScreen('interpretation-screen');
+}
+
 // Функция расчета номера гексаграммы (для будущего использования)
 function calculateHexagramNumber(lines) {
     // Преобразуем линии в бинарный код (ян = 1, инь = 0)
@@ -204,6 +210,7 @@ function calculateHexagramNumber(lines) {
 // Делаем функции глобальными
 window.showScreen = showScreen;
 window.handleAction = handleAction;
+window.showInterpretationScreen = showInterpretationScreen;
 window.resetDivination = function() {
     currentLines = [];
     document.getElementById('final-hexagram').innerHTML = '';
