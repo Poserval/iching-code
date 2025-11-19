@@ -155,10 +155,10 @@ function showHexagram(lines) {
     const hexagramContainer = document.getElementById('final-hexagram');
     console.log('Контейнер найден:', hexagramContainer);
     
-    // Создаем overlay-структуру
+    // Создаем overlay-структуру с базовой картинкой
     hexagramContainer.innerHTML = `
         <div class="hexagram-overlay-container">
-            <img src="assets/hexagrams/hexagram-base.png" alt="База гексаграммы" class="hexagram-base-image">
+            <img src="assets/backgrounds/background-1.png" alt="База гексаграммы" class="hexagram-base-image">
             <div class="hexagram-lines-overlay" id="lines-overlay">
                 <!-- Линии будут добавлены сюда -->
             </div>
