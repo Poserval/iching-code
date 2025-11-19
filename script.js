@@ -183,7 +183,7 @@ function createHexagramOverlay(lines, overlayContainer) {
     
     // lines[0] - верхняя линия (первая брошенная)
     // lines[5] - нижняя линия (последняя брошенная)
-    // Отображаем в правильном порядке
+    // Отображаем в правильном порядке - БЕЗ РЕВЕРСА
     for (let i = 0; i < lines.length; i++) {
         const lineElement = document.createElement('div');
         lineElement.className = `overlay-line ${lines[i] === 'yang' ? 'overlay-yang' : 'overlay-yin'}`;
