@@ -116,7 +116,7 @@ function calculateThrowResult() {
     return eagles >= 2 ? 'yang' : 'yin';
 }
 
-// Функция отрисовки линии
+// Функция отрисовки линии - ОБНОВЛЕННАЯ
 function drawHexagramLine(lineValue) {
     const hexagramContainer = document.getElementById('hexagram-lines');
     
@@ -126,7 +126,26 @@ function drawHexagramLine(lineValue) {
     
     const lineElement = document.createElement('div');
     lineElement.className = `hexagram-line ${lineValue === 'yang' ? 'yang-static' : 'yin-static'}`;
-    lineElement.textContent = `${currentLines.length} - ${lineValue === 'yang' ? '⚊ Ян' : '⚋ Инь'}`;
+    
+    // НОВОЕ ОТОБРАЖЕНИЕ ЛИНИЙ
+    if (lineValue === 'yang') {
+        lineElement.innerHTML = `
+            <div class="line-visual">
+                <div class="full-line"></div>
+            </div>
+            <span class="line-label">Ян</span>
+        `;
+    } else {
+        lineElement.innerHTML = `
+            <div class="line-visual">
+                <div class="broken-line">
+                    <div class="line-part"></div>
+                    <div class="line-part"></div>
+                </div>
+            </div>
+            <span class="line-label">Инь</span>
+        `;
+    }
     
     // ДОБАВЛЯЕМ ЛИНИЮ В КОНЕЦ (снизу)
     hexagramContainer.appendChild(lineElement);
