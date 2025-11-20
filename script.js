@@ -1,5 +1,6 @@
 // Базовые переменные приложения
 let currentLines = [];
+let hexagramsData = {};
 
 // Функция переключения экранов
 function showScreen(screenId) {
@@ -22,9 +23,9 @@ function showScreen(screenId) {
             resetDivinationState();
         }
         
-        // Если переходим на экран толкования - показываем изображение
+        // Если переходим на экран толкования - показываем текст
         if (screenId === 'interpretation-screen') {
-            showMeaningImage();
+            showMeaningText();
         }
     }
 }
@@ -115,7 +116,7 @@ function calculateThrowResult() {
     return eagles >= 2 ? 'yang' : 'yin';
 }
 
-// Функция отрисовки линии - ИСПРАВЛЕННАЯ (сверху вниз)
+// Функция отрисовки линии
 function drawHexagramLine(lineValue) {
     const hexagramContainer = document.getElementById('hexagram-lines');
     
@@ -202,30 +203,62 @@ function showInterpretationScreen() {
     showScreen('interpretation-screen');
 }
 
-// Функция отображения изображения толкования
-function showMeaningImage() {
-    const interpretationContent = document.getElementById('interpretation-content');
+// Функция загрузки данных из JSON
+async function loadHexagramsData() {
+    try {
+        const response = await fetch('data.json');
+        hexagramsData = await response.json();
+        console.log('Данные гексаграмм загружены');
+    } catch (error) {
+        console.error('Ошибка загрузки данных:', error);
+        // Создаем тестовые данные если файл не найден
+        hexagramsData = {
+            hexagrams: {
+                "1": {
+                    "name": "Цянь / Творчество",
+                    "description": "Это могучий знак великого начала. Шесть сплошных черт Ян символизируют творческую энергию Неба, весенние надежды и период огромных возможностей. Вы подобны дракону, парящему в небесах, или достигли вершины горы.\n\nНо будьте осмотрительны! На вершине легко потерять бдительность. Пока вы наверху, сохраняйте ясность ума и благородство помыслов. Успех придет через упорство и мудрое руководство.\n\nВремя благоприятствует вашим начинаниям. Если желание разумно, оно непременно исполнится. В личной жизни может быть некоторая неопределенность — внесите в неё ясность. Кто-то может противостоять вам, но решительность и непреклонность принесут успех.\n\nНе позднее чем через шесть месяцев ждите значительных перемен. Помните: даже дракон не проявляет безрассудства. Испытание вы выдержите, если сохраните связь со своими истинными целями."
+                }
+            }
+        };
+    }
+}
+
+// Функция отображения текста толкования
+function showMeaningText() {
     const hexagramNumber = calculateHexagramNumber(currentLines);
+    const hexagramData = hexagramsData.hexagrams[hexagramNumber];
     
-    console.log('Загружаем изображение толкования:', hexagramNumber);
+    console.log('Показываем толкование для гексаграммы:', hexagramNumber);
     
-    interpretationContent.innerHTML = `
-        <img src="assets/meanings/meaning-${hexagramNumber}.png" 
-             alt="Толкование гексаграммы ${hexagramNumber}" 
-             class="meaning-background-image"
-             onerror="console.log('Ошибка загрузки изображения:', this.src)">
-    `;
+    if (hexagramData) {
+        // Обновляем интерфейс данными из JSON
+        document.getElementById('hexagram-name').textContent = hexagramData.name;
+        
+        // Форматируем текст с абзацами
+        const formattedText = hexagramData.description
+            .split('\n\n')
+            .map(paragraph => `<p>${paragraph}</p>`)
+            .join('');
+            
+        document.getElementById('hexagram-description').innerHTML = formattedText;
+    } else {
+        // Запасной вариант если данных нет
+        document.getElementById('hexagram-name').textContent = 'Гексаграмма ' + hexagramNumber;
+        document.getElementById('hexagram-description').innerHTML = '<p>Толкование пока не готово...</p>';
+    }
 }
 
 // Функция расчета номера гексаграммы
 function calculateHexagramNumber(lines) {
     // Преобразуем линии в бинарный код (ян = 1, инь = 0)
     const binaryCode = lines.map(line => line === 'yang' ? '1' : '0').join('');
-    
     // Конвертируем бинарный код в десятичное число (1-64)
-    // Пока возвращаем тестовый номер
-    return 1;
+    const decimalNumber = parseInt(binaryCode, 2);
+    return decimalNumber + 1;
 }
+
+// Загружаем данные при старте
+loadHexagramsData();
 
 // Делаем функции глобальными
 window.showScreen = showScreen;
