@@ -486,6 +486,14 @@ button:disabled {
     flex-direction: column;
 }
 
+.test-text p {
+    margin-bottom: 12px;
+    font-size: 0.95em;
+    line-height: 1.5;
+    text-align: justify;
+    color: #000000; /* ← МЕНЯЕМ НА ЧЁРНЫЙ */
+}
+
 /* ЗАГОЛОВОК И КНОПКА ПОВЕРХ */
 .meaning-content-overlay {
     position: absolute;
