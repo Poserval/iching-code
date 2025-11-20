@@ -186,27 +186,64 @@ button:disabled {
 
 /* Стили для линий гексаграммы */
 .hexagram-line {
-    margin: 6px 0;
-    padding: 8px;
-    border-radius: 6px;
-    font-size: 1.1em;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 8px;
     font-weight: bold;
     transition: all 0.3s ease;
     flex-shrink: 0;
-    min-height: 25px;
+    min-height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     animation: lineAppear 0.5s ease-out;
 }
 
 .yang-static {
-    background: linear-gradient(90deg, rgba(255,215,0,0.1), rgba(255,215,0,0.3));
-    color: #ffd700;
+    background: linear-gradient(90deg, rgba(255,215,0,0.1), rgba(255,215,0,0.2));
     border-left: 4px solid #ffd700;
 }
 
 .yin-static {
-    background: linear-gradient(90deg, rgba(192,192,192,0.1), rgba(192,192,192,0.3));
-    color: #c0c0c0;
+    background: linear-gradient(90deg, rgba(192,192,192,0.1), rgba(192,192,192,0.2));
     border-left: 4px solid #c0c0c0;
+}
+
+/* Стили для визуального отображения линий */
+.line-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.full-line {
+    width: 90%;
+    height: 12px;
+    background: #ffd700;
+    border-radius: 6px;
+    margin: 0 10px;
+}
+
+.broken-line {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 10px;
+}
+
+.line-part {
+    width: 45%;
+    height: 12px;
+    background: #c0c0c0;
+    border-radius: 6px;
+}
+
+.line-label {
+    font-weight: bold;
+    font-size: 1.1em;
+    min-width: 40px;
+    text-align: center;
 }
 
 @keyframes lineAppear {
@@ -404,7 +441,7 @@ button:disabled {
     width: 65%;
     height: 45%;
     display: flex;
-    flex-direction: column; /* ИЗМЕНЕНО: column-reverse → column */
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
@@ -456,7 +493,7 @@ button:disabled {
     left: 50;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Заполняет весь экран */
+    object-fit: cover;
     z-index: 1;
 }
 
@@ -468,7 +505,7 @@ button:disabled {
     transform: translate(-50%, -50%);
     width: 230px;
     height: 590px;
-    z-index: 2; /* ПОВЕРХ картинки */
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -491,13 +528,13 @@ button:disabled {
     font-size: 0.95em;
     line-height: 1.5;
     text-align: justify;
-    color: #000000; /* ← МЕНЯЕМ НА ЧЁРНЫЙ */
+    color: #000000;
 }
 
 /* ЗАГОЛОВОК И КНОПКА ПОВЕРХ */
 .meaning-content-overlay {
     position: absolute;
-    z-index: 3; /* САМЫЙ ВЕРХНИЙ СЛОЙ */
+    z-index: 3;
     display: flex;
     flex-direction: column;
     align-items: center;
