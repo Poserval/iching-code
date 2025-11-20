@@ -464,7 +464,7 @@ button:disabled {
 .text-overlay-test {
     position: absolute;
     top: 50%;
-    left: 45%;
+    left: 55%;
     transform: translate(-50%, -50%);
     width: 225px;
     height: 590px;
