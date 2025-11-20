@@ -449,61 +449,13 @@ button:disabled {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-image: url('assets/meanings/meaning-1.png'); /* ← ФОН ЗДЕСЬ */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-.interpretation-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
-
-.meaning-background-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Заполняет весь экран, может обрезать края */
-    object-position: center;
-}
-
-.meaning-content-overlay {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-    width: 100%;
-    padding: 20px;
-    text-align: center;
-}
-
-.meaning-content-overlay h1 {
-    color: #f0f0f0;
-    font-size: 2em;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
-    margin-top: 10px;
-    flex-shrink: 0;
-}
-
-.meaning-content-overlay button {
-    background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.1em;
-    border-radius: 25px;
-    cursor: pointer;
-    margin-bottom: 40px;
-    width: 80%;
-    max-width: 300px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    flex-shrink: 0;
-}
-
-/* ТЕСТОВАЯ ПОДЛОЖКА ДЛЯ НАСТРОЙКИ */
+/* ТЕКСТОВАЯ ПОДЛОЖКА */
 .text-overlay-test {
     position: absolute;
     top: 50%;
@@ -520,7 +472,7 @@ button:disabled {
 .text-content-test {
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.95); /* Белая подложка */
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 15px;
     padding: 25px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -548,4 +500,40 @@ button:disabled {
     line-height: 1.5;
     text-align: justify;
     color: #333;
+}
+
+.meaning-content-overlay {
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+}
+
+.meaning-content-overlay h1 {
+    color: #f0f0f0;
+    font-size: 2em;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    margin-top: 40px;
+    flex-shrink: 0;
+}
+
+.meaning-content-overlay button {
+    background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-bottom: 40px;
+    width: 80%;
+    max-width: 300px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    flex-shrink: 0;
 }
