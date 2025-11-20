@@ -159,22 +159,26 @@
 <!-- ЭКРАН 6: Толкование -->
 <div id="interpretation-screen" class="screen">
     <div class="meaning-overlay-container">
-        <div id="interpretation-content" class="interpretation-background">
-            <!-- Сюда будет вставляться фон -->
+        <!-- Фон-рамка -->
+        <img src="assets/meanings/meaning-1.png" class="meaning-background-image">
+        
+        <!-- ПОДЛОЖКА ДЛЯ ТЕКСТА ИЗ JSON -->
+        <div class="text-overlay-test">
+            <div class="text-content-test">
+                <h3 id="hexagram-name">Название гексаграммы</h3>
+                <div id="hexagram-description" class="test-text">
+                    <!-- Текст будет загружен из JSON -->
+                </div>
+            </div>
         </div>
+        
+        <!-- Кнопка -->
         <div class="meaning-content-overlay">
             <h1>Толкование гексаграммы</h1>
             <button onclick="showScreen('main-menu')">В главное меню</button>
         </div>
     </div>
 </div>
-
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
-    </div>
 
     <script src="script.js"></script>
 </body>
