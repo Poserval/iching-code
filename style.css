@@ -504,7 +504,7 @@ button:disabled {
     color: #f0f0f0;
     font-size: 2em;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .meaning-content-overlay button {
