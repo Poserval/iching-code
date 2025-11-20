@@ -438,8 +438,6 @@ button:disabled {
 /* Экран толкования - полноэкранный фон */
 #interpretation-screen {
     padding: 0;
-    justify-content: center;
-    align-items: center;
 }
 
 .meaning-overlay-container {
@@ -449,10 +447,17 @@ button:disabled {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url('assets/meanings/meaning-1.png'); /* ← ФОН ЗДЕСЬ */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+}
+
+/* ФОН-РАМКА */
+.meaning-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Заполняет весь экран */
+    z-index: 1;
 }
 
 /* ТЕКСТОВАЯ ПОДЛОЖКА */
@@ -461,9 +466,9 @@ button:disabled {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 280px; /* ← ШИРИНА ПОДЛОЖКИ */
-    height: 420px; /* ← ВЫСОТА ПОДЛОЖКИ */
-    z-index: 2;
+    width: 280px;
+    height: 420px;
+    z-index: 2; /* ПОВЕРХ картинки */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -481,30 +486,10 @@ button:disabled {
     flex-direction: column;
 }
 
-.text-content-test h3 {
-    color: #8b4513;
-    text-align: center;
-    margin-bottom: 15px;
-    font-size: 1.4em;
-    font-weight: bold;
-}
-
-.test-text {
-    flex: 1;
-    overflow-y: auto;
-}
-
-.test-text p {
-    margin-bottom: 12px;
-    font-size: 0.95em;
-    line-height: 1.5;
-    text-align: justify;
-    color: #333;
-}
-
+/* ЗАГОЛОВОК И КНОПКА ПОВЕРХ */
 .meaning-content-overlay {
     position: absolute;
-    z-index: 3;
+    z-index: 3; /* САМЫЙ ВЕРХНИЙ СЛОЙ */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -520,7 +505,6 @@ button:disabled {
     font-size: 2em;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
     margin-top: 40px;
-    flex-shrink: 0;
 }
 
 .meaning-content-overlay button {
@@ -535,5 +519,4 @@ button:disabled {
     width: 80%;
     max-width: 300px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    flex-shrink: 0;
 }
