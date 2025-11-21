@@ -310,7 +310,7 @@ async function loadHexagramsData() {
     }
 }
 
-// Функция отображения текста толкования
+// Функция отображения текста толкования - ОБНОВЛЕННАЯ
 function showMeaningText() {
     const hexagramNumber = calculateHexagramNumber(currentLines);
     const hexagramData = hexagramsData.hexagrams[hexagramNumber];
@@ -321,17 +321,25 @@ function showMeaningText() {
         // Обновляем интерфейс данными из JSON
         document.getElementById('hexagram-name').textContent = hexagramData.name;
         
-        // Форматируем текст с абзацами
+        // Форматируем текст с компактными абзацами
         const formattedText = hexagramData.description
             .split('\n\n')
-            .map(paragraph => `<p>${paragraph}</p>`)
+            .map(paragraph => {
+                // Убираем лишние переносы и пробелы
+                const cleanParagraph = paragraph.replace(/\n/g, ' ').trim();
+                return `<p>${cleanParagraph}</p>`;
+            })
             .join('');
             
         document.getElementById('hexagram-description').innerHTML = formattedText;
+        
+        // Добавляем класс для рукописного шрифта
+        document.getElementById('hexagram-description').classList.add('interpretation-content');
     } else {
         // Запасной вариант если данных нет
         document.getElementById('hexagram-name').textContent = 'Гексаграмма ' + hexagramNumber;
         document.getElementById('hexagram-description').innerHTML = '<p>Толкование пока не готово...</p>';
+        document.getElementById('hexagram-description').classList.add('interpretation-content');
     }
 }
 
