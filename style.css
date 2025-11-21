@@ -530,20 +530,22 @@ button:disabled {
     text-align: justify;
     color: #000000;
 }
+
 /* Подключаем рукописный шрифт */
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap');
 
-/* Стили для текста толкования */
+/* Стили для текста толкования с прокруткой */
 .interpretation-content {
     font-family: 'Caveat', cursive;
-    font-size: 18px;
-    line-height: 1.4;
+    font-size: 16px;
+    line-height: 1.3;
     text-align: left;
-    padding: 0 10px;
+    padding: 0 8px;
+    color: #000000;
 }
 
 .interpretation-content p {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     text-indent: 0;
 }
 
@@ -551,24 +553,72 @@ button:disabled {
     margin-bottom: 0;
 }
 
-/* Уменьшаем отступы в контейнере */
+/* Контейнер для текста толкования с прокруткой */
+.meaning-text-container {
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 8px 4px;
+    margin: 8px 0;
+    scrollbar-width: thin;
+    scrollbar-color: #8B4513 #F5F5DC;
+    flex: 1;
+}
+
+/* Стили для скроллбара в Webkit браузерах */
+.meaning-text-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+.meaning-text-container::-webkit-scrollbar-track {
+    background: #F5F5DC;
+    border-radius: 3px;
+}
+
+.meaning-text-container::-webkit-scrollbar-thumb {
+    background: #8B4513;
+    border-radius: 3px;
+}
+
+.meaning-text-container::-webkit-scrollbar-thumb:hover {
+    background: #A0522D;
+}
+
+/* Основной контейнер */
 .meaning-container {
     padding: 15px 20px;
-    max-height: 75vh;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Заголовок гексаграммы */
+.hexagram-title {
+    margin-bottom: 10px;
+    flex-shrink: 0;
+    color: #000000;
+    font-size: 1.3em;
+    text-align: center;
 }
 
 /* Для мобильных устройств */
 @media (max-width: 480px) {
     .interpretation-content {
-        font-size: 16px;
-        line-height: 1.3;
+        font-size: 14px;
+        line-height: 1.2;
         padding: 0 5px;
     }
     
     .meaning-container {
-        padding: 12px 15px;
-        max-height: 70vh;
+        padding: 10px 15px;
+    }
+    
+    .meaning-text-container {
+        max-height: 450px;
+        padding: 6px 3px;
+    }
+    
+    .hexagram-title {
+        font-size: 1.1em;
     }
 }
 
