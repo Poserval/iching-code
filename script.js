@@ -370,3 +370,20 @@ window.resetDivination = function() {
     document.getElementById('final-hexagram').innerHTML = '';
     showScreen('main-menu');
 };
+
+// Функции для выбора режима
+function selectAutoMode() {
+    console.log('Выбран автоматический режим');
+    showScreen('divination-screen'); // Переходим на экран 5 (старый 4)
+}
+
+function selectManualMode() {
+    console.log('Выбран ручной режим');
+    // Пока просто переходим на автоматический режим
+    // Позже заменим на ручной ввод
+    showScreen('divination-screen');
+}
+
+// Обновляем старую кнопку "Начнём" в главном меню:
+// Было: showScreen('divination-screen')
+// Стало: showScreen('mode-selection-screen')
