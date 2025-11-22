@@ -22,7 +22,7 @@
             <div class="menu-buttons-container">
                 <button onclick="showScreen('about-screen')">О Ицзин</button>
                 <button onclick="showScreen('warning-screen')">Предупреждение</button>
-                <button onclick="showScreen('divination-screen')">Начнём</button>
+                <button onclick="showScreen('mode-selection-screen')">Начнём</button>
             </div>
         </div>
 
@@ -126,7 +126,32 @@
             <button onclick="showScreen('main-menu')">Понятно</button>
         </div>
 
-        <!-- ЭКРАН 4: Процесс гадания -->
+        <!-- ЭКРАН 4: Выбор режима гадания -->
+        <div id="mode-selection-screen" class="screen">
+            <div class="header">
+                <h1>Выберите способ гадания</h1>
+            </div>
+            
+            <div class="mode-buttons-container">
+                <div class="mode-button" onclick="selectAutoMode()">
+                    <div class="mode-title">Бросить монеты</div>
+                    <div class="mode-subtitle">(Алгоритмом)</div>
+                    <div class="mode-description">Монеты будут брошены программными установками</div>
+                </div>
+                
+                <div class="mode-button" onclick="selectManualMode()">
+                    <div class="mode-title">Бросить монеты</div>
+                    <div class="mode-subtitle">(Вручную)</div>
+                    <div class="mode-description">Вы бросаете монеты сами</div>
+                </div>
+            </div>
+
+            <button onclick="showScreen('main-menu')" class="back-button">
+                Назад
+            </button>
+        </div>
+
+        <!-- ЭКРАН 5: Процесс гадания -->
         <div id="divination-screen" class="screen">
             <h2>Задайте свой вопрос мысленно</h2>
 
@@ -148,38 +173,41 @@
             </div>
 
             <!-- Кнопка Назад в меню - ВНИЗУ -->
-            <button class="bottom-button" onclick="showScreen('main-menu')">Назад в меню</button>
+            <button class="bottom-button" onclick="showScreen('mode-selection-screen')">Назад</button>
         </div>
-        <!-- ЭКРАН 5: Гексаграмма -->
-<div id="result-screen" class="screen">
-    <h1>Ваша гексаграмма</h1>
-    <div id="final-hexagram"></div>
-</div>
 
-<!-- ЭКРАН 6: Толкование -->
-<div id="interpretation-screen" class="screen">
-    <div class="meaning-overlay-container">
-        <!-- ФОН-РАМКА (ВЕРНУТЬ ЭТУ СТРОКУ) -->
-        <img src="assets/meanings/meaning-1.png" class="meaning-background-image">
-        
-        <!-- ТЕКСТОВАЯ ПОДЛОЖКА -->
-        <div class="text-overlay-test">
-            <div class="text-content-test">
-                <h3 id="hexagram-name">Название гексаграммы</h3>
-                <div id="hexagram-description" class="test-text">
-                    <!-- Текст будет загружен из JSON -->
+        <!-- ЭКРАН 6: Гексаграмма -->
+        <div id="result-screen" class="screen">
+            <h1>Ваша гексаграмма</h1>
+            <div id="final-hexagram"></div>
+        </div>
+
+        <!-- ЭКРАН 7: Толкование -->
+        <div id="interpretation-screen" class="screen">
+            <div class="meaning-overlay-container">
+                <!-- ФОН-РАМКА -->
+                <img src="assets/meanings/meaning-1.png" class="meaning-background-image">
+                
+                <!-- ТЕКСТОВАЯ ПОДЛОЖКА -->
+                <div class="text-overlay-test">
+                    <div class="text-content-test">
+                        <h3 id="hexagram-name">Название гексаграммы</h3>
+                        <div id="hexagram-description" class="test-text">
+                            <!-- Текст будет загружен из JSON -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Кнопка и заголовок -->
+                <div class="meaning-content-overlay">
+                    <h1>Толкование гексаграммы</h1>
+                    <button onclick="showScreen('main-menu')">В главное меню</button>
                 </div>
             </div>
         </div>
-        
-        <!-- Кнопка и заголовок -->
-        <div class="meaning-content-overlay">
-            <h1>Толкование гексаграммы</h1>
-            <button onclick="showScreen('main-menu')">В главное меню</button>
-        </div>
+
     </div>
-</div>
 
     <script src="script.js"></script>
 </body>
-</html>
+    </html>
