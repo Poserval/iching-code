@@ -736,7 +736,7 @@ button:disabled {
 .mode-selection-back-button {
     margin-top: auto;
     width: 80%;
-    max-width: 300px;
+    max-width: 100px;
     align-self: center;
     /* Управление кнопкой Назад */
     margin-top: 30px;           /* ← Отступ сверху */
