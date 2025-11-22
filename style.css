@@ -722,3 +722,88 @@ button:disabled {
     max-width: 300px;
     align-self: center;
 }
+/* Стили для ручного ввода */
+#manual-input-screen {
+    padding: 20px;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.manual-instructions {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.manual-instructions p {
+    margin-bottom: 10px;
+}
+
+.manual-lines-container {
+    min-height: 200px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    margin: 10px 0;
+}
+
+.manual-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.manual-yang {
+    background: linear-gradient(90deg, rgba(255,215,0,0.1), rgba(255,215,0,0.2));
+    border-left: 4px solid #ffd700;
+}
+
+.manual-yin {
+    background: linear-gradient(90deg, rgba(192,192,192,0.1), rgba(192,192,192,0.2));
+    border-left: 4px solid #c0c0c0;
+}
+
+.line-number {
+    font-size: 0.9em;
+    color: #cccccc;
+}
+
+.line-symbol {
+    font-size: 1.5em;
+}
+
+.line-name {
+    font-weight: bold;
+}
+
+.manual-placeholder {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+}
+
+.manual-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.manual-action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
