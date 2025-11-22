@@ -1,5 +1,7 @@
 // Базовые переменные приложения
 let currentLines = [];
+let manualLines = [];
+let isManualMode = false;
 let hexagramsData = {};
 
 // Карта соответствия бинарных кодов номерам гексаграмм
@@ -98,6 +100,75 @@ function showScreen(screenId) {
     }
 }
 
+// Функции для выбора режима
+function selectAutoMode() {
+    console.log('Выбран автоматический режим');
+    isManualMode = false;
+    showScreen('divination-screen');
+}
+
+function selectManualMode() {
+    console.log('Выбран ручной режим');
+    isManualMode = true;
+    manualLines = [];
+    showScreen('manual-input-screen');
+    updateManualInterface();
+}
+
+// Функции для ручного ввода
+function addManualLine(lineType) {
+    if (manualLines.length < 6) {
+        manualLines.push(lineType);
+        updateManualInterface();
+    }
+}
+
+function clearManualLines() {
+    manualLines = [];
+    updateManualInterface();
+}
+
+function updateManualInterface() {
+    const container = document.querySelector('.manual-lines-container');
+    const resultBtn = document.getElementById('show-result-btn');
+    
+    // Очищаем контейнер
+    container.innerHTML = '';
+    
+    // Добавляем текущие линии
+    manualLines.forEach((line, index) => {
+        const lineElement = document.createElement('div');
+        lineElement.className = `manual-line ${line === 'yang' ? 'manual-yang' : 'manual-yin'}`;
+        lineElement.innerHTML = `
+            <span class="line-number">${index + 1}</span>
+            <span class="line-symbol">${line === 'yang' ? '⚊' : '⚋'}</span>
+            <span class="line-name">${line === 'yang' ? 'Ян' : 'Инь'}</span>
+        `;
+        container.appendChild(lineElement);
+    });
+    
+    // Активируем кнопку когда есть 6 линий
+    resultBtn.disabled = manualLines.length !== 6;
+    
+    // Показываем сообщение о прогрессе
+    if (manualLines.length === 0) {
+        container.innerHTML = '<p class="manual-placeholder">Линии появятся здесь</p>';
+    }
+}
+
+function showManualResult() {
+    if (manualLines.length === 6) {
+        console.log('Ручной режим - линии:', manualLines);
+        // Сохраняем линии в глобальную переменную
+        currentLines = [...manualLines];
+        showScreen('result-screen');
+        // НЕМЕДЛЕННО показываем гексаграмму
+        setTimeout(() => {
+            showHexagram(currentLines);
+        }, 100);
+    }
+}
+
 // Функция инициализации монет
 function initializeRandomCoins() {
     const coins = document.querySelectorAll('.coin');
@@ -184,7 +255,7 @@ function calculateThrowResult() {
     return eagles >= 2 ? 'yang' : 'yin';
 }
 
-// Функция отрисовки линии - ОБНОВЛЕННАЯ
+// Функция отрисовки линии
 function drawHexagramLine(lineValue) {
     const hexagramContainer = document.getElementById('hexagram-lines');
     
@@ -195,7 +266,6 @@ function drawHexagramLine(lineValue) {
     const lineElement = document.createElement('div');
     lineElement.className = `hexagram-line ${lineValue === 'yang' ? 'yang-static' : 'yin-static'}`;
     
-    // НОВОЕ ОТОБРАЖЕНИЕ ЛИНИЙ
     if (lineValue === 'yang') {
         lineElement.innerHTML = `
             <div class="line-visual">
@@ -215,14 +285,11 @@ function drawHexagramLine(lineValue) {
         `;
     }
     
-    // ДОБАВЛЯЕМ ЛИНИЮ В КОНЕЦ (снизу)
     hexagramContainer.appendChild(lineElement);
-    
-    // Прокручиваем к низу чтобы видеть новые линии
     hexagramContainer.scrollTop = hexagramContainer.scrollHeight;
 }
 
-// Функция обновления интерфейс
+// Функция обновления интерфейса
 function updateInterface() {
     const actionButton = document.getElementById('action-button');
     const remainingThrows = 6 - currentLines.length;
@@ -234,22 +301,24 @@ function updateInterface() {
     }
 }
 
-// Функция показа результата - ТОЛЬКО 5-Й ЭКРАН
+// Функция показа результата
 function showResult() {
-    console.log('Переход на 5 экран, линии:', currentLines);
-    // Показываем экран гексаграммы
+    console.log('Переход на экран 6, линии:', currentLines);
     showScreen('result-screen');
-    
-    // Отображаем гексаграмму (передаем текущие линии)
     showHexagram(currentLines);
 }
 
-// Функция отображения гексаграммы - КНОПКА ТОЛКОВАНИЕ
+// Функция отображения гексаграммы
 function showHexagram(lines) {
     const hexagramContainer = document.getElementById('final-hexagram');
-    console.log('Контейнер найден:', hexagramContainer);
+    console.log('Контейнер найден:', hexagramContainer, 'Линии для отображения:', lines);
     
-    // Создаем overlay-структуру с базовой картинкой
+    if (!lines || lines.length === 0) {
+        console.error('Нет линий для отображения!');
+        hexagramContainer.innerHTML = '<p>Ошибка: нет данных гексаграммы</p>';
+        return;
+    }
+    
     hexagramContainer.innerHTML = `
         <div class="hexagram-overlay-container">
             <img src="assets/hexagrams/hexagram-1.png" alt="База гексаграммы" class="hexagram-base-image">
@@ -262,31 +331,36 @@ function showHexagram(lines) {
         </button>
     `;
     
-    // Добавляем линии поверх картинки
     const overlay = document.getElementById('lines-overlay');
     createHexagramOverlay(lines, overlay);
 }
 
 // Функция создания линий поверх картинки
 function createHexagramOverlay(lines, overlayContainer) {
-    // Очищаем контейнер
     overlayContainer.innerHTML = '';
     
     console.log('Создаем overlay гексаграмму из линий:', lines);
+    console.log('Количество линий:', lines.length);
     
-    // lines[0] - верхняя линия (первая брошенная)
-    // lines[5] - нижняя линия (последняя брошенная)
-    // Отображаем в правильном порядке - БЕЗ РЕВЕРСА
+    if (!lines || lines.length !== 6) {
+        console.error('Некорректное количество линий:', lines);
+        overlayContainer.innerHTML = '<p>Ошибка: должно быть 6 линий</p>';
+        return;
+    }
+    
     for (let i = 0; i < lines.length; i++) {
+        console.log(`Линия ${i}:`, lines[i]);
         const lineElement = document.createElement('div');
         lineElement.className = `overlay-line ${lines[i] === 'yang' ? 'overlay-yang' : 'overlay-yin'}`;
         overlayContainer.appendChild(lineElement);
     }
+    
+    console.log('Overlay создан успешно');
 }
 
 // Функция перехода на экран толкования
 function showInterpretationScreen() {
-    console.log('Переход на 6 экран');
+    console.log('Переход на экран 7, текущие линии:', currentLines);
     showScreen('interpretation-screen');
 }
 
@@ -298,7 +372,6 @@ async function loadHexagramsData() {
         console.log('Данные гексаграмм загружены');
     } catch (error) {
         console.error('Ошибка загрузки данных:', error);
-        // Создаем тестовые данные если файл не найден
         hexagramsData = {
             hexagrams: {
                 "1": {
@@ -310,7 +383,7 @@ async function loadHexagramsData() {
     }
 }
 
-// Функция отображения текста толкования - ОБНОВЛЕННАЯ
+// Функция отображения текста толкования
 function showMeaningText() {
     const hexagramNumber = calculateHexagramNumber(currentLines);
     const hexagramData = hexagramsData.hexagrams[hexagramNumber];
@@ -318,44 +391,34 @@ function showMeaningText() {
     console.log('Показываем толкование для гексаграммы:', hexagramNumber);
     
     if (hexagramData) {
-        // Обновляем интерфейс данными из JSON
         document.getElementById('hexagram-name').textContent = hexagramData.name;
         
-        // Форматируем текст с компактными абзацами
         const formattedText = hexagramData.description
             .split('\n\n')
             .map(paragraph => {
-                // Убираем лишние переносы и пробелы
                 const cleanParagraph = paragraph.replace(/\n/g, ' ').trim();
                 return `<p>${cleanParagraph}</p>`;
             })
             .join('');
             
         document.getElementById('hexagram-description').innerHTML = formattedText;
-        
-        // Добавляем класс для рукописного шрифта
         document.getElementById('hexagram-description').classList.add('interpretation-content');
     } else {
-        // Запасной вариант если данных нет
         document.getElementById('hexagram-name').textContent = 'Гексаграмма ' + hexagramNumber;
         document.getElementById('hexagram-description').innerHTML = '<p>Толкование пока не готово...</p>';
         document.getElementById('hexagram-description').classList.add('interpretation-content');
     }
 }
 
-// Функция расчета номера гексаграммы - ОБНОВЛЕННАЯ
+// Функция расчета номера гексаграммы
 function calculateHexagramNumber(lines) {
-    // lines[0] - верхняя линия (первая брошенная)
-    // lines[5] - нижняя линия (последняя брошенная)
-    // Сохраняем порядок сверху вниз
-    
     const binaryCode = lines.map(line => line === 'yang' ? '1' : '0').join('');
     console.log('Бинарный код гексаграммы:', binaryCode);
     
     const hexagramNumber = hexagramMap[binaryCode];
     console.log('Найдена гексаграмма №:', hexagramNumber);
     
-    return hexagramNumber || 1; // По умолчанию первая гексаграмма
+    return hexagramNumber || 1;
 }
 
 // Загружаем данные при старте
@@ -365,92 +428,13 @@ loadHexagramsData();
 window.showScreen = showScreen;
 window.handleAction = handleAction;
 window.showInterpretationScreen = showInterpretationScreen;
+window.selectAutoMode = selectAutoMode;
+window.selectManualMode = selectManualMode;
+window.addManualLine = addManualLine;
+window.clearManualLines = clearManualLines;
+window.showManualResult = showManualResult;
 window.resetDivination = function() {
     currentLines = [];
     document.getElementById('final-hexagram').innerHTML = '';
     showScreen('main-menu');
 };
-
-// Функции для выбора режима
-function selectAutoMode() {
-    console.log('Выбран автоматический режим');
-    showScreen('divination-screen'); // Переходим на экран 5 (старый 4)
-}
-
-function selectManualMode() {
-    console.log('Выбран ручной режим');
-    // Пока просто переходим на автоматический режим
-    // Позже заменим на ручной ввод
-    showScreen('divination-screen');
-}
-
-// Переменные для ручного режима
-let manualLines = [];
-let isManualMode = false;
-
-// Функции для выбора режима
-function selectAutoMode() {
-    console.log('Выбран автоматический режим');
-    isManualMode = false;
-    showScreen('divination-screen'); // Экран 5
-}
-
-function selectManualMode() {
-    console.log('Выбран ручной режим');
-    isManualMode = true;
-    manualLines = [];
-    showScreen('manual-input-screen'); // Экран 8
-    updateManualInterface();
-}
-
-// Функции для ручного ввода
-function addManualLine(lineType) {
-    if (manualLines.length < 6) {
-        manualLines.push(lineType);
-        updateManualInterface();
-    }
-}
-
-function clearManualLines() {
-    manualLines = [];
-    updateManualInterface();
-}
-
-function updateManualInterface() {
-    const container = document.querySelector('.manual-lines-container');
-    const resultBtn = document.getElementById('show-result-btn');
-    
-    // Очищаем контейнер
-    container.innerHTML = '';
-    
-    // Добавляем текущие линии
-    manualLines.forEach((line, index) => {
-        const lineElement = document.createElement('div');
-        lineElement.className = `manual-line ${line === 'yang' ? 'manual-yang' : 'manual-yin'}`;
-        lineElement.innerHTML = `
-            <span class="line-number">${index + 1}</span>
-            <span class="line-symbol">${line === 'yang' ? '⚊' : '⚋'}</span>
-            <span class="line-name">${line === 'yang' ? 'Ян' : 'Инь'}</span>
-        `;
-        container.appendChild(lineElement);
-    });
-    
-    // Активируем кнопку когда есть 6 линий
-    resultBtn.disabled = manualLines.length !== 6;
-    
-    // Показываем сообщение о прогрессе
-    if (manualLines.length === 0) {
-        container.innerHTML = '<p class="manual-placeholder">Линии появятся здесь</p>';
-    }
-}
-
-function showManualResult() {
-    if (manualLines.length === 6) {
-        // Используем существующую логику для автоматического режима
-        currentLines = [...manualLines];
-        showScreen('result-screen'); // Переходим к показу гексаграммы
-    }
-}
-// Обновляем старую кнопку "Начнём" в главном меню:
-// Было: showScreen('divination-screen')
-// Стало: showScreen('mode-selection-screen')
