@@ -659,7 +659,7 @@ button:disabled {
 
 /* Экран выбора режима */
 #mode-selection-screen {
-    padding: 20px;
+    padding: 100px;
     justify-content: center;
     gap: 30px;
 }
