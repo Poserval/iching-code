@@ -660,7 +660,7 @@ button:disabled {
 /* Экран выбора режима */
 #mode-selection-screen {
     padding: 20px;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 30px;
 }
 
