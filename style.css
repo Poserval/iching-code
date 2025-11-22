@@ -702,7 +702,7 @@ button:disabled {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
     /* Управление первой кнопкой */
-    margin-top: 0px;            /* ← Отступ сверху */
+    margin-top: 50px;            /* ← Отступ сверху */
     margin-bottom: 0px;         /* ← Отступ снизу */
     width: 100%;                /* ← Ширина кнопки */
     min-height: 120px;          /* ← Минимальная высота */
@@ -720,7 +720,7 @@ button:disabled {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
     /* Управление второй кнопкой */
-    margin-top: 0px;            /* ← Отступ сверху */
+    margin-top: 50px;            /* ← Отступ сверху */
     margin-bottom: 0px;         /* ← Отступ снизу */
     width: 100%;                /* ← Ширина кнопки */
     min-height: 120px;          /* ← Минимальная высота */
