@@ -656,3 +656,69 @@ button:disabled {
     max-width: 300px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
+
+/* Экран выбора режима */
+#mode-selection-screen {
+    padding: 20px;
+    justify-content: flex-start;
+    gap: 30px;
+}
+
+.mode-buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.mode-button {
+    background: linear-gradient(135deg, rgba(78, 84, 200, 0.8) 0%, rgba(143, 148, 251, 0.8) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.mode-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 215, 0, 0.5);
+}
+
+.mode-title {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.mode-subtitle {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.1em;
+    color: #ffd700;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.mode-description {
+    font-family: 'Caveat', cursive;
+    font-size: 1.3em;
+    color: #e6e6e6;
+    line-height: 1.4;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.back-button {
+    margin-top: auto;
+    width: 80%;
+    max-width: 300px;
+    align-self: center;
+}
