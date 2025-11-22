@@ -384,6 +384,73 @@ function selectManualMode() {
     showScreen('divination-screen');
 }
 
+// Переменные для ручного режима
+let manualLines = [];
+let isManualMode = false;
+
+// Функции для выбора режима
+function selectAutoMode() {
+    console.log('Выбран автоматический режим');
+    isManualMode = false;
+    showScreen('divination-screen'); // Экран 5
+}
+
+function selectManualMode() {
+    console.log('Выбран ручной режим');
+    isManualMode = true;
+    manualLines = [];
+    showScreen('manual-input-screen'); // Экран 8
+    updateManualInterface();
+}
+
+// Функции для ручного ввода
+function addManualLine(lineType) {
+    if (manualLines.length < 6) {
+        manualLines.push(lineType);
+        updateManualInterface();
+    }
+}
+
+function clearManualLines() {
+    manualLines = [];
+    updateManualInterface();
+}
+
+function updateManualInterface() {
+    const container = document.querySelector('.manual-lines-container');
+    const resultBtn = document.getElementById('show-result-btn');
+    
+    // Очищаем контейнер
+    container.innerHTML = '';
+    
+    // Добавляем текущие линии
+    manualLines.forEach((line, index) => {
+        const lineElement = document.createElement('div');
+        lineElement.className = `manual-line ${line === 'yang' ? 'manual-yang' : 'manual-yin'}`;
+        lineElement.innerHTML = `
+            <span class="line-number">${index + 1}</span>
+            <span class="line-symbol">${line === 'yang' ? '⚊' : '⚋'}</span>
+            <span class="line-name">${line === 'yang' ? 'Ян' : 'Инь'}</span>
+        `;
+        container.appendChild(lineElement);
+    });
+    
+    // Активируем кнопку когда есть 6 линий
+    resultBtn.disabled = manualLines.length !== 6;
+    
+    // Показываем сообщение о прогрессе
+    if (manualLines.length === 0) {
+        container.innerHTML = '<p class="manual-placeholder">Линии появятся здесь</p>';
+    }
+}
+
+function showManualResult() {
+    if (manualLines.length === 6) {
+        // Используем существующую логику для автоматического режима
+        currentLines = [...manualLines];
+        showScreen('result-screen'); // Переходим к показу гексаграммы
+    }
+}
 // Обновляем старую кнопку "Начнём" в главном меню:
 // Было: showScreen('divination-screen')
 // Стало: showScreen('mode-selection-screen')
