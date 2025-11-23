@@ -667,13 +667,16 @@ button:disabled {
 }
 
 /* ЗАГОЛОВОК экрана 4 */
-.mode-selection-title {
+/* Исправление для заголовка экрана 4 */
+#mode-selection-screen .header {
+    position: relative !important;
+    top: auto !important;
+    margin-top: 5px;  /* ← Регулируй этот отступ */
+}
+
+#mode-selection-screen h1 {
+    margin-top: 5px;
     margin-bottom: 5px;
-    flex-shrink: 0;
-    /* Управление положением заголовка */
-    margin-top: 5px;           /* ← Отступ сверху */
-    margin-bottom: 5px;        /* ← Отступ снизу */
-    text-align: center;         /* ← Выравнивание текста */
 }
 
 /* КОНТЕЙНЕР кнопок экрана 4 */
