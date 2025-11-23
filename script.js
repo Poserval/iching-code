@@ -115,7 +115,7 @@ function selectManualMode() {
     updateManualInterface();
 }
 
-// Функции для ручного ввода
+// Функции для ручного ввода - ОБНОВЛЕННЫЕ
 function addManualLine(lineType) {
     if (manualLines.length < 6) {
         manualLines.push(lineType);
@@ -124,13 +124,17 @@ function addManualLine(lineType) {
 }
 
 function clearManualLines() {
-    manualLines = [];
-    updateManualInterface();
+    // Удаляем только ПОСЛЕДНЮЮ линию (снизу вверх)
+    if (manualLines.length > 0) {
+        manualLines.pop(); // Удаляем последний элемент
+        updateManualInterface();
+    }
 }
 
 function updateManualInterface() {
     const container = document.querySelector('.manual-lines-container');
     const resultBtn = document.getElementById('show-result-btn');
+    const clearBtn = document.querySelector('.manual-buttons button[onclick="clearManualLines()"]');
     
     // Очищаем контейнер
     container.innerHTML = '';
@@ -149,6 +153,17 @@ function updateManualInterface() {
     
     // Активируем кнопку когда есть 6 линий
     resultBtn.disabled = manualLines.length !== 6;
+    
+    // Обновляем текст кнопки очистки
+    if (clearBtn) {
+        if (manualLines.length === 0) {
+            clearBtn.textContent = 'Очистить';
+            clearBtn.disabled = true;
+        } else {
+            clearBtn.textContent = `Удалить линию ${manualLines.length}`;
+            clearBtn.disabled = false;
+        }
+    }
     
     // Показываем сообщение о прогрессе
     if (manualLines.length === 0) {
