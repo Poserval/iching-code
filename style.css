@@ -736,14 +736,11 @@ button:disabled {
 }
 
 /* КНОПКА НАЗАД экрана 4 */
-.mode-selection-back-button {
+#mode-selection-screen .back-button {
+    margin-top: 30px !important;
+    margin-bottom: 500px !important;
     width: 80%;
     max-width: 100px;
-    align-self: center;
-    /* Управление кнопкой Назад */
-    margin-top: 30px;           /* ← Отступ сверху */
-    margin-bottom: 100px;        /* ← Отступ снизу */
-    width: 80%;                 /* ← Ширина кнопки */
 }
 
 /* Текст внутри кнопок - можно управлять отдельно */
