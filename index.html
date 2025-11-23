@@ -219,26 +219,23 @@
             <div class="manual-lines-container">
                 <!-- Линии будут добавляться здесь -->
             </div>
-                <!-- НОВАЯ КНОПКА ИНЬ-ЯН -->
-            <div class="yin-yang-button-container">
-            <button class="yin-yang-button yang-button" onclick="addManualLine('yang')">
+            
+               <!-- НОВАЯ КНОПКА ИНЬ-ЯН -->
+    <div class="yin-yang-button-container">
+        <button class="yin-yang-button yang-button" onclick="addManualLine('yang')">
             ⚊ Ян
-            </button>
-            <button class="yin-yang-button yin-button" onclick="addManualLine('yin')">
+        </button>
+        <button class="yin-yang-button yin-button" onclick="addManualLine('yin')">
             ⚋ Инь
-            </button>
+        </button>
     </div>
-            <div class="manual-buttons">
-                <button onclick="addManualLine('yang')">Добавить Ян (⚊)</button>
-                <button onclick="addManualLine('yin')">Добавить Инь (⚋)</button>
-                <button onclick="clearManualLines()">Очистить</button>
-            </div>
 
-            <div class="manual-action-buttons">
-                <button id="show-result-btn" onclick="showManualResult()" disabled>Показать результат</button>
-                <button onclick="showScreen('mode-selection-screen')">Назад к выбору режима</button>
-            </div>
-        </div>
+    <div class="manual-action-buttons">
+        <button onclick="clearManualLines()">Очистить</button>
+        <button id="show-result-btn" onclick="showManualResult()" disabled>Показать результат</button>
+        <button onclick="showScreen('mode-selection-screen')">Назад к выбору режима</button>
+    </div>
+</div>
 
     </div>
 
