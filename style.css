@@ -672,7 +672,7 @@ button:disabled {
     flex-shrink: 0;
     /* Управление положением заголовка */
     margin-top: 5px;           /* ← Отступ сверху */
-    margin-bottom: 10px;        /* ← Отступ снизу */
+    margin-bottom: 5px;        /* ← Отступ снизу */
     text-align: center;         /* ← Выравнивание текста */
 }
 
