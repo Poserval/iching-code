@@ -742,7 +742,7 @@ button:disabled {
     align-self: center;
     /* Управление кнопкой Назад */
     margin-top: 30px;           /* ← Отступ сверху */
-    margin-bottom: 500px;        /* ← Отступ снизу */
+    margin-bottom: 100px;        /* ← Отступ снизу */
     width: 80%;                 /* ← Ширина кнопки */
 }
 
