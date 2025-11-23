@@ -739,7 +739,7 @@ button:disabled {
 #mode-selection-screen .back-button {
     margin-top: 100px !important;
     margin-bottom: 100px !important;
-    width: 100%;
+    width: 10%;
     max-width: 50px;
 }
 
