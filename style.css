@@ -898,7 +898,7 @@ button:disabled {
     height: 70px;
     /* УПРАВЛЕНИЕ ПОЛОЖЕНИЕМ КОНТЕЙНЕРА */
     margin-top: 0px;            /* ← Поднять/опустить весь блок */
-    margin-bottom: 10px;         /* ← Отступ снизу */
+    margin-bottom: -10px;         /* ← Отступ снизу */
     margin-left: auto;          /* ← Центрирование */
     margin-right: auto;         /* ← Центрирование */
     position: relative;
