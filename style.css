@@ -840,7 +840,7 @@ button:disabled {
     margin: 8px 0;
     border-radius: 8px;
     font-weight: bold;
-    min-height: 10px;
+    min-height: 5px;
 }
 
 .manual-yang {
