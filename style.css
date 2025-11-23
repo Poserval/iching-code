@@ -823,7 +823,7 @@ button:disabled {
 }
 
 .manual-lines-container {
-    min-height: 200px;
+    min-height: 300px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     padding: 15px;
