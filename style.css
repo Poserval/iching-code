@@ -740,7 +740,7 @@ button:disabled {
     margin-top: 100px !important;
     margin-bottom: 100px !important;
     width: 100%;
-    max-width: 100px;
+    max-width: 50px;
 }
 
 /* Текст внутри кнопок - можно управлять отдельно */
