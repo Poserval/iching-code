@@ -894,7 +894,7 @@ button:disabled {
 .yin-yang-button-container {
     display: flex;
     width: 100%;
-    max-width: 400px;
+    max-width: 300px;
     height: 70px;
     margin: 20px auto;
     position: relative;
