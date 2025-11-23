@@ -738,7 +738,7 @@ button:disabled {
 /* КНОПКА НАЗАД экрана 4 */
 #mode-selection-screen .back-button {
     margin-top: 30px !important;
-    margin-bottom: 500px !important;
+    margin-bottom: 100px !important;
     width: 80%;
     max-width: 100px;
 }
