@@ -671,8 +671,8 @@ button:disabled {
     margin-bottom: 20px;
     flex-shrink: 0;
     /* Управление положением заголовка */
-    margin-top: 10px;           /* ← Отступ сверху */
-    margin-bottom: 300px;        /* ← Отступ снизу */
+    margin-top: 40px;           /* ← Отступ сверху */
+    margin-bottom: 50px;        /* ← Отступ снизу */
     text-align: center;         /* ← Выравнивание текста */
 }
 
