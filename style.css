@@ -735,12 +735,37 @@ button:disabled {
     border-color: rgba(255, 215, 0, 0.5);
 }
 
-/* КНОПКА НАЗАД экрана 4 */
+/* КНОПКА НАЗАД экрана 4 - ПОНЯТНЫЕ ПАРАМЕТРЫ */
 #mode-selection-screen .back-button {
-    margin-top: 100px !important;
-    margin-bottom: 100px !important;
-    width: 10%;
-    max-width: 200px;
+    /* ВЫСОТА ПОЛОЖЕНИЯ (отступ сверху) */
+    margin-top: auto;           /* ← Авто - прижимает к низу */
+    
+    /* ПРАВО/ЛЕВО (горизонтальное положение) */
+    align-self: center;         /* ← По центру */
+    margin-left: auto;          /* ← Центрирование */
+    margin-right: auto;         /* ← Центрирование */
+    
+    /* ШИРОКО/УЗКО (ширина кнопки) */
+    width: 80%;                 /* ← Ширина 80% от экрана */
+    max-width: 300px;           /* ← Максимальная ширина */
+    
+    /* ВЫСОТА РАЗМЕРА (размер кнопки) */
+    height: auto;               /* ← Автоматическая высота */
+    min-height: 50px;           /* ← Минимальная высота */
+    padding: 15px 30px;         /* ← Внутренние отступы */
+    
+    /* ДОПОЛНИТЕЛЬНО - отступ от низа */
+    margin-bottom: 40px;        /* ← Отступ от нижнего края */
+    
+    /* СТАНДАРТНЫЕ СТИЛИ КАК НА ЭКРАНЕ 1 */
+    background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
+    color: white;
+    border: none;
+    font-size: 1.1em;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    flex-shrink: 0;
 }
 
 /* Текст внутри кнопок - можно управлять отдельно */
