@@ -890,61 +890,48 @@ button:disabled {
     margin: 0 auto;
 }
 
-/* КНОПКИ ЯН/ИНЬ - ИСПРАВЛЕННЫЕ УГЛЫ */
+/* КНОПКИ ЯН/ИНЬ - НЕЗАВИСИМЫЕ ПАРАМЕТРЫ */
 .yin-yang-button-container {
     display: flex;
     width: 100%;
-    max-width: 300px;
+    max-width: 400px;
     height: 70px;
-    margin: 20px auto;
+    /* УПРАВЛЕНИЕ ПОЛОЖЕНИЕМ КОНТЕЙНЕРА */
+    margin-top: 0px;            /* ← Поднять/опустить весь блок */
+    margin-bottom: 0px;         /* ← Отступ снизу */
+    margin-left: auto;          /* ← Центрирование */
+    margin-right: auto;         /* ← Центрирование */
     position: relative;
 }
 
-.yin-yang-button {
-    flex: 1;
-    border: none;
-    font-size: 1.4em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Caveat', cursive;
-    position: relative;
-}
-
-/* Ян (белая) кнопка - ИСПРАВЛЕННЫЕ УГЛЫ */
+/* Ян (белая) кнопка - НЕЗАВИСИМЫЕ ПАРАМЕТРЫ */
 .yang-button {
     background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     color: #2c3e50;
     border: 2px solid #2c3e50;
-    /* ПРАВИЛЬНЫЕ УГЛЫ: внешние скошены, внутренние прямые как / */
     clip-path: polygon(
-        0 15%,    /* прямой внутренний верхний */
-        0 0,      /* внешний верхний левый */
-        100% 0,   /* внешний верхний правый */
-        85% 100%, /* внешний нижний правый */
-        0 100%,   /* внешний нижний левый */
-        0 85%     /* прямой внутренний нижний */
+        0 15%, 0 0, 100% 0, 85% 100%, 0 100%, 0 85%
     );
-    margin-right: -2px;
+    /* УПРАВЛЕНИЕ ПЕРВОЙ КНОПКОЙ */
+    margin-right: -2px;         /* ← Расстояние до второй кнопки */
+    flex: 1;                    /* ← Ширина кнопки */
+    height: 100%;               /* ← Высота кнопки */
+    transform: translateY(0px); /* ← Поднять/опустить отдельно */
 }
 
-/* Инь (чёрная) кнопка */
+/* Инь (чёрная) кнопка - НЕЗАВИСИМЫЕ ПАРАМЕТРЫ */
 .yin-button {
     background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
     color: #ffffff;
     border: 2px solid #2c3e50;
     clip-path: polygon(
-        15% 0,    /* внешний верхний левый */
-        100% 0,   /* внешний верхний правый */
-        100% 15%, /* прямой внутренний верхний */
-        100% 85%, /* прямой внутренний нижний */
-        100% 100%, /* внешний нижний правый */
-        0 100%    /* внешний нижний левый */
+        15% 0, 100% 0, 100% 15%, 100% 85%, 100% 100%, 0 100%
     );
-    margin-left: -2px;
+    /* УПРАВЛЕНИЕ ВТОРОЙ КНОПКОЙ */
+    margin-left: -2px;          /* ← Расстояние до первой кнопки */
+    flex: 1;                    /* ← Ширина кнопки */
+    height: 100%;               /* ← Высота кнопки */
+    transform: translateY(0px); /* ← Поднять/опустить отдельно */
 }
 
 /* Эффекты при наведении */
