@@ -668,7 +668,7 @@ button:disabled {
 
 /* ЗАГОЛОВОК экрана 4 */
 .mode-selection-title {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     flex-shrink: 0;
     /* Управление положением заголовка */
     margin-top: 5px;           /* ← Отступ сверху */
