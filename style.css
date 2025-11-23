@@ -737,7 +737,6 @@ button:disabled {
 
 /* КНОПКА НАЗАД экрана 4 */
 .mode-selection-back-button {
-    margin-top: auto;
     width: 80%;
     max-width: 100px;
     align-self: center;
