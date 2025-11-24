@@ -890,48 +890,48 @@ button:disabled {
     margin: 0 auto;
 }
 
-/* КНОПКИ ЯН/ИНЬ - НЕЗАВИСИМЫЕ ПАРАМЕТРЫ */
+/* ЭКРАН 8: Ручной ввод - ИСПРАВЛЕННОЕ РАСПОЛОЖЕНИЕ КНОПОК */
+
+/* Контейнер для кнопок Ян/Инь - расположен прямо под гексаграммой */
 .yin-yang-button-container {
     display: flex;
     width: 100%;
     max-width: 400px;
     height: 70px;
-    /* УПРАВЛЕНИЕ ПОЛОЖЕНИЕМ КОНТЕЙНЕРА */
-    margin-top: 50px;            /* ← Поднять/опустить весь блок */
-    margin-bottom: 10px;         /* ← Отступ снизу */
-    margin-left: auto;          /* ← Центрирование */
-    margin-right: auto;         /* ← Центрирование */
+    margin: 10px auto 20px auto; /* Отступ сверху и снизу */
+    margin-top: 10px; /* Прямо под гексаграммой */
+    margin-bottom: 20px;
     position: relative;
 }
 
-/* Ян (белая) кнопка - НЕЗАВИСИМЫЕ ПАРАМЕТРЫ */
-.yang-button {
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    color: #2c3e50;
-    border: 2px solid #2c3e50;
-    clip-path: polygon(
-        0 15%, 0 0, 100% 0, 85% 100%, 0 100%, 0 85%
-    );
-    /* УПРАВЛЕНИЕ ПЕРВОЙ КНОПКОЙ */
-    margin-right: 0px;         /* ← Расстояние до второй кнопки */
-    flex: 1;                    /* ← Ширина кнопки */
-    height: 90%;               /* ← Высота кнопки */
-    transform: translateY(0px); /* ← Поднять/опустить отдельно */
+/* Контейнер для кнопок ОЧИСТИТЬ и РЕЗУЛЬТАТ - расположен под кнопками Ян/Инь */
+.manual-action-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 20px auto;
 }
 
-/* Инь (чёрная) кнопка - НЕЗАВИСИМЫЕ ПАРАМЕТРЫ */
-.yin-button {
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-    color: #ffffff;
-    border: 2px solid #2c3e50;
-    clip-path: polygon(
-        15% 0, 100% 0, 100% 15%, 100% 85%, 100% 100%, 0 100%
-    );
-    /* УПРАВЛЕНИЕ ВТОРОЙ КНОПКОЙ */
-    margin-left: 0px;          /* ← Расстояние до первой кнопки */
-    flex: 1;                    /* ← Ширина кнопки */
-    height: 90%;               /* ← Высота кнопки */
-    transform: translateY(0px); /* ← Поднять/опустить отдельно */
+/* Кнопки ОЧИСТИТЬ и РЕЗУЛЬТАТ - размер как у Ян/Инь */
+#clear-manual,
+#confirm-manual {
+    flex: 1;
+    height: 70px;
+    padding: 0;
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+/* Кнопка НАЗАД - самая широкая внизу */
+#manual-input-screen .back-button {
+    width: 90%;
+    max-width: 400px;
+    margin: 10px auto 30px auto;
+    padding: 16px 30px;
+    font-size: 1.1em;
 }
 
 /* Эффекты при наведении */
