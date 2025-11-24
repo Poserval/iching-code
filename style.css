@@ -667,10 +667,11 @@ button:disabled {
 }
 
 /* ЗАГОЛОВОК экрана 4 */
+/* Исправление для заголовка экрана 4 */
 #mode-selection-screen .header {
     position: relative !important;
     top: auto !important;
-    margin-top: 5px;
+    margin-top: 5px;  /* ← Регулируй этот отступ */
 }
 
 #mode-selection-screen h1 {
@@ -686,9 +687,10 @@ button:disabled {
     width: 100%;
     max-width: 400px;
     margin: 0 auto;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    flex: 1;
+    /* Управление положением контейнера кнопок */
+    margin-top: 0px;            /* ← Отступ сверху */
+    margin-bottom: 0px;         /* ← Отступ снизу */
+    flex: 1;                    /* ← Занимает доступное пространство */
 }
 
 /* ПЕРВАЯ КНОПКА (Алгоритмом) */
@@ -702,10 +704,11 @@ button:disabled {
     text-align: center;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
-    margin-top: 30px;
-    margin-bottom: 0px;
-    width: 100%;
-    min-height: 120px;
+    /* Управление первой кнопкой */
+    margin-top: 30px;            /* ← Отступ сверху */
+    margin-bottom: 0px;         /* ← Отступ снизу */
+    width: 100%;                /* ← Ширина кнопки */
+    min-height: 120px;          /* ← Минимальная высота */
 }
 
 /* ВТОРАЯ КНОПКА (Вручную) */
@@ -719,10 +722,11 @@ button:disabled {
     text-align: center;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
-    margin-top: 60px;
-    margin-bottom: 0px;
-    width: 100%;
-    min-height: 120px;
+    /* Управление второй кнопкой */
+    margin-top: 60px;            /* ← Отступ сверху */
+    margin-bottom: 0px;         /* ← Отступ снизу */
+    width: 100%;                /* ← Ширина кнопки */
+    min-height: 120px;          /* ← Минимальная высота */
 }
 
 .mode-button:hover {
@@ -731,18 +735,29 @@ button:disabled {
     border-color: rgba(255, 215, 0, 0.5);
 }
 
-/* КНОПКА НАЗАД экрана 4 */
+/* КНОПКА НАЗАД экрана 4 - ПОНЯТНЫЕ ПАРАМЕТРЫ */
 #mode-selection-screen .back-button {
-    margin-top: auto;
-    align-self: center;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-    max-width: 300px;
-    height: auto;
-    min-height: 50px;
-    padding: 15px 30px;
-    margin-bottom: 40px;
+    /* ВЫСОТА ПОЛОЖЕНИЯ (отступ сверху) */
+    margin-top: auto;           /* ← Авто - прижимает к низу */
+    
+    /* ПРАВО/ЛЕВО (горизонтальное положение) */
+    align-self: center;         /* ← По центру */
+    margin-left: auto;          /* ← Центрирование */
+    margin-right: auto;         /* ← Центрирование */
+    
+    /* ШИРОКО/УЗКО (ширина кнопки) */
+    width: 80%;                 /* ← Ширина 80% от экрана */
+    max-width: 300px;           /* ← Максимальная ширина */
+    
+    /* ВЫСОТА РАЗМЕРА (размер кнопки) */
+    height: auto;               /* ← Автоматическая высота */
+    min-height: 50px;           /* ← Минимальная высота */
+    padding: 15px 30px;         /* ← Внутренние отступы */
+    
+    /* ДОПОЛНИТЕЛЬНО - отступ от низа */
+    margin-bottom: 40px;        /* ← Отступ от нижнего края */
+    
+    /* СТАНДАРТНЫЕ СТИЛИ КАК НА ЭКРАНЕ 1 */
     background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
     color: white;
     border: none;
@@ -753,7 +768,7 @@ button:disabled {
     flex-shrink: 0;
 }
 
-/* Текст внутри кнопок */
+/* Текст внутри кнопок - можно управлять отдельно */
 .mode-title {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1.8em;
@@ -761,6 +776,9 @@ button:disabled {
     color: #ffffff;
     margin-bottom: 5px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    /* Управление основным текстом */
+    font-size: 1.8em;           /* ← Размер шрифта */
+    margin-bottom: 5px;         /* ← Отступ снизу */
 }
 
 .mode-subtitle {
@@ -769,6 +787,9 @@ button:disabled {
     color: #ffd700;
     margin-bottom: 15px;
     font-weight: 600;
+    /* Управление подзаголовком */
+    font-size: 1.1em;           /* ← Размер шрифта */
+    margin-bottom: 15px;        /* ← Отступ снизу */
 }
 
 .mode-description {
@@ -777,15 +798,16 @@ button:disabled {
     color: #e6e6e6;
     line-height: 1.4;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    /* Управление описанием */
+    font-size: 1.3em;           /* ← Размер шрифта */
+    line-height: 1.4;           /* ← Межстрочный интервал */
 }
 
-/* ЭКРАН 8: Ручной ввод - ИСПРАВЛЕННЫЕ СТИЛИ */
+/* Стили для ручного ввода */
 #manual-input-screen {
     padding: 20px;
     justify-content: flex-start;
-    gap: 15px;
-    display: flex;
-    flex-direction: column;
+    gap: 20px;
 }
 
 .manual-instructions {
@@ -794,7 +816,6 @@ button:disabled {
     border-radius: 10px;
     text-align: center;
     backdrop-filter: blur(10px);
-    margin-bottom: 10px;
 }
 
 .manual-instructions p {
@@ -851,17 +872,39 @@ button:disabled {
     font-style: italic;
 }
 
-/* КНОПКИ ЯН/ИНЬ - расположены прямо под гексаграммой */
+.manual-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.manual-action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* КНОПКИ ЯН/ИНЬ - НЕЗАВИСИМЫЕ ПАРАМЕТРЫ */
 .yin-yang-button-container {
     display: flex;
     width: 100%;
     max-width: 400px;
     height: 70px;
-    margin: 10px auto 20px auto;
+    /* УПРАВЛЕНИЕ ПОЛОЖЕНИЕМ КОНТЕЙНЕРА */
+    margin-top: 50px;            /* ← Поднять/опустить весь блок */
+    margin-bottom: 10px;         /* ← Отступ снизу */
+    margin-left: auto;          /* ← Центрирование */
+    margin-right: auto;         /* ← Центрирование */
     position: relative;
 }
 
-/* Ян (белая) кнопка */
+/* Ян (белая) кнопка - НЕЗАВИСИМЫЕ ПАРАМЕТРЫ */
 .yang-button {
     background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     color: #2c3e50;
@@ -869,13 +912,14 @@ button:disabled {
     clip-path: polygon(
         0 15%, 0 0, 100% 0, 85% 100%, 0 100%, 0 85%
     );
-    margin-right: 0px;
-    flex: 1;
-    height: 90%;
-    transform: translateY(0px);
+    /* УПРАВЛЕНИЕ ПЕРВОЙ КНОПКОЙ */
+    margin-right: 0px;         /* ← Расстояние до второй кнопки */
+    flex: 1;                    /* ← Ширина кнопки */
+    height: 90%;               /* ← Высота кнопки */
+    transform: translateY(0px); /* ← Поднять/опустить отдельно */
 }
 
-/* Инь (чёрная) кнопка */
+/* Инь (чёрная) кнопка - НЕЗАВИСИМЫЕ ПАРАМЕТРЫ */
 .yin-button {
     background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
     color: #ffffff;
@@ -883,10 +927,11 @@ button:disabled {
     clip-path: polygon(
         15% 0, 100% 0, 100% 15%, 100% 85%, 100% 100%, 0 100%
     );
-    margin-left: 0px;
-    flex: 1;
-    height: 90%;
-    transform: translateY(0px);
+    /* УПРАВЛЕНИЕ ВТОРОЙ КНОПКОЙ */
+    margin-left: 0px;          /* ← Расстояние до первой кнопки */
+    flex: 1;                    /* ← Ширина кнопки */
+    height: 90%;               /* ← Высота кнопки */
+    transform: translateY(0px); /* ← Поднять/опустить отдельно */
 }
 
 /* Эффекты при наведении */
@@ -918,46 +963,4 @@ button:disabled {
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     border-radius: 8px;
     overflow: hidden;
-}
-
-/* КОНТЕЙНЕР ДЛЯ КНОПОК ОЧИСТИТЬ И РЕЗУЛЬТАТ - расположены под кнопками Ян/Инь */
-.manual-action-buttons {
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto 20px auto;
-}
-
-/* Кнопки ОЧИСТИТЬ и РЕЗУЛЬТАТ - размер как у Ян/Инь */
-#clear-manual,
-#confirm-manual {
-    flex: 1;
-    height: 70px;
-    padding: 0;
-    margin: 0;
-    font-size: 1.1em;
-    font-weight: bold;
-    background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
-    color: white;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-
-/* Кнопка НАЗАД - самая широкая внизу */
-#manual-input-screen .back-button {
-    width: 90%;
-    max-width: 400px;
-    margin: 10px auto 30px auto;
-    padding: 16px 30px;
-    font-size: 1.1em;
-    background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
-    color: white;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
