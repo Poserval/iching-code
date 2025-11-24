@@ -832,15 +832,17 @@ button:disabled {
     margin: 10px 0;
 }
 
+/* Стили для линий гексаграммы в ручном вводе (Экран 8) - единый дизайн */
 .manual-line {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0,1px;
-    margin: 2px 0;
+    padding: 5px;
+    margin: 8px 0;
     border-radius: 8px;
     font-weight: bold;
-    min-height: 1px;
+    min-height: 30px;
+    animation: lineAppear 0.5s ease-out;
 }
 
 .manual-yang {
@@ -853,6 +855,42 @@ button:disabled {
     border-left: 4px solid #c0c0c0;
 }
 
+/* Визуальное отображение линий в ручном вводе */
+.manual-line .line-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.manual-line .full-line {
+    width: 90%;
+    height: 12px;
+    background: #ffd700;
+    border-radius: 6px;
+    margin: 0 10px;
+}
+
+.manual-line .broken-line {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 10px;
+}
+
+.manual-line .line-part {
+    width: 45%;
+    height: 12px;
+    background: #c0c0c0;
+    border-radius: 6px;
+}
+
+.manual-line .line-label {
+    font-weight: bold;
+    font-size: 1.1em;
+    min-width: 40px;
+    text-align: center;
+}
 .line-number {
     font-size: 0.9em;
     color: #cccccc;
