@@ -997,7 +997,7 @@ button:disabled {
     display: flex;
     flex-direction: row;
     gap: 15px;
-    width: 50%;
+    width: 80%;
     max-width: 100px;
     height: 70px; /* ← ТАКАЯ ЖЕ ВЫСОТА КАК У КОНТЕЙНЕРА ЯН/ИНЬ */
     margin: 0 auto 20px auto;
