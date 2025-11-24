@@ -974,15 +974,6 @@ button:disabled {
     transform: translateY(0px); /* ← СМЕЩЕНИЕ ПО ВЕРТИКАЛИ */
 }
 
-/* КОНТЕЙНЕР ДЛЯ КНОПОК ОЧИСТИТЬ И РЕЗУЛЬТАТ - под кнопками Ян/Инь */
-.manual-action-buttons {
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto 20px auto;
-}
 /* КНОПКИ ОЧИСТИТЬ И РЕЗУЛЬТАТ - ТАКИЕ ЖЕ КАК ЯН/ИНЬ */
 #clear-manual,
 #confirm-manual {
