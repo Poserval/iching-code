@@ -937,8 +937,8 @@ button:disabled {
     max-width: 400px; /* ← МАКСИМАЛЬНАЯ ШИРИНА */
     height: 70px; /* ← ВЫСОТА контейнера */
     /* ПОЛОЖЕНИЕ ВЕРХ/НИЗ */
-    margin-top: 5px; /* ← ОТСТУП СВЕРХУ (регулируй) */
-    margin-bottom: 30px; /* ← ОТСТУП СНИЗУ (регулируй) */
+    margin-top: 1px; /* ← ОТСТУП СВЕРХУ (регулируй) */
+    margin-bottom: 50px; /* ← ОТСТУП СНИЗУ (регулируй) */
     margin-left: auto;
     margin-right: auto;
     position: relative;
