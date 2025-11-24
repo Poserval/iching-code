@@ -983,15 +983,33 @@ button:disabled {
     max-width: 400px;
     margin: 0 auto 20px auto;
 }
-/* Кнопки ОЧИСТИТЬ и РЕЗУЛЬТАТ - НАСТРАИВАЕМЫЕ ПАРАМЕТРЫ */
+/* КНОПКИ ОЧИСТИТЬ И РЕЗУЛЬТАТ - ТАКИЕ ЖЕ КАК ЯН/ИНЬ */
 #clear-manual,
 #confirm-manual {
-    flex: 0; /* ← ШИРИНА: равное распределение */
-    height: 50px; /* ← ВЫСОТА кнопки */
-    padding: 0; /* ← ВНУТРЕННИЕ ОТСТУПЫ */
-    margin: 0; /* ← ВНЕШНИЕ ОТСТУПЫ */
-    font-size: 1.1em; /* ← РАЗМЕР ШРИФТА */
+    flex: 1; /* ← ШИРИНА: равное распределение как у Ян/Инь */
+    height: 70px; /* ← ВЫСОТА: такая же как у контейнера Ян/Инь */
+    padding: 0; 
+    margin: 0;
+    font-size: 1.1em;
     font-weight: bold;
+    /* Стили как у кнопок Ян/Инь */
+    background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* КОНТЕЙНЕР ДЛЯ КНОПОК ОЧИСТИТЬ И РЕЗУЛЬТАТ - под кнопками Ян/Инь */
+.manual-action-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    height: 70px; /* ← ТАКАЯ ЖЕ ВЫСОТА КАК У КОНТЕЙНЕРА ЯН/ИНЬ */
+    margin: 0 auto 20px auto;
 }
 
 /* Кнопка НАЗАД - НАСТРАИВАЕМЫЕ ПАРАМЕТРЫ */
