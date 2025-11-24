@@ -938,7 +938,7 @@ button:disabled {
     height: 70px; /* ← ВЫСОТА контейнера */
     /* ПОЛОЖЕНИЕ ВЕРХ/НИЗ */
     margin-top: 10px; /* ← ОТСТУП СВЕРХУ (регулируй) */
-    margin-bottom: 20px; /* ← ОТСТУП СНИЗУ (регулируй) */
+    margin-bottom: 50px; /* ← ОТСТУП СНИЗУ (регулируй) */
     margin-left: auto;
     margin-right: auto;
     position: relative;
