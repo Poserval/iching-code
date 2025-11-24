@@ -837,7 +837,7 @@ button:disabled {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 5px;
+    padding: 2px;
     margin: 8px 0;
     border-radius: 8px;
     font-weight: bold;
@@ -938,7 +938,7 @@ button:disabled {
     height: 70px; /* ← ВЫСОТА контейнера */
     /* ПОЛОЖЕНИЕ ВЕРХ/НИЗ */
     margin-top: 10px; /* ← ОТСТУП СВЕРХУ (регулируй) */
-    margin-bottom: 20px; /* ← ОТСТУП СНИЗУ (регулируй) */
+    margin-bottom: 30px; /* ← ОТСТУП СНИЗУ (регулируй) */
     margin-left: auto;
     margin-right: auto;
     position: relative;
