@@ -989,7 +989,7 @@ button:disabled {
 #clear-manual,
 #confirm-manual {
     flex: -10; /* ← ШИРИНА: равное распределение */
-    height: 70px; /* ← ВЫСОТА кнопки */
+    height: 50px; /* ← ВЫСОТА кнопки */
     padding: 0; /* ← ВНУТРЕННИЕ ОТСТУПЫ */
     margin: 0; /* ← ВНЕШНИЕ ОТСТУПЫ */
     font-size: 1.1em; /* ← РАЗМЕР ШРИФТА */
