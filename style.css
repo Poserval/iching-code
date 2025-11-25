@@ -987,12 +987,12 @@ display: flex;
 
 /* Кнопка НАЗАД - НАСТРАИВАЕМЫЕ ПАРАМЕТРЫ */
 #manual-input-screen .back-button {
-    width: 90%; /* ← ШИРИНА: 90% от экрана */
-    max-width: 400px; /* ← МАКСИМАЛЬНАЯ ШИРИНА */
-    /* ПОЛОЖЕНИЕ ВЕРХ/НИЗ */
-    margin: 10px auto 30px auto; /* ← ОТСТУПЫ: сверху 10px, снизу 30px */
-    padding: 16px 30px; /* ← ВНУТРЕННИЕ ОТСТУПЫ */
-    font-size: 1.1em; /* ← РАЗМЕР ШРИФТА */
+    width: 90%;
+    max-width: 400px;
+    /* ПОДНИМАЕМ КНОПКУ НАЗАД */
+    margin: 5px auto 15px auto; /* ← Уменьшили отступы: сверху 5px, снизу 15px (было 10px/30px) */
+    padding: 16px 30px;
+    font-size: 1.1em;
 }
 
 /* Эффекты при наведении */
