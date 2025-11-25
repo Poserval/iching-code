@@ -877,14 +877,13 @@ button:disabled {
     display: flex;
     justify-content: space-between;
     width: 85%;
-    height: 2px;
     margin: 0 auto;
     gap: 10%; /* Расстояние между двумя полосами */
 }
 
 .manual-line .line-part {
     width: 42.5%; /* Каждая полоса занимает половину от 85% */
-    height: 8px;
+    height: 2px;
     background: #c0c0c0;
     border-radius: 4px;
 }
