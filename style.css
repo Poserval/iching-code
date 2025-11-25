@@ -838,7 +838,7 @@ button:disabled {
     align-items: center;
     justify-content: space-between;
     padding: 1px;
-    margin: 3px 0;
+    margin: 1px 0;
     border-radius: 8px;
     font-weight: bold;
     min-height: 1px;
@@ -938,7 +938,7 @@ button:disabled {
     height: 100px; /* ← ВЫСОТА контейнера */
     /* ПОЛОЖЕНИЕ ВЕРХ/НИЗ */
     margin-top: 1px; /* ← ОТСТУП СВЕРХУ (регулируй) */
-    margin-bottom: 50px; /* ← ОТСТУП СНИЗУ (регулируй) */
+    margin-bottom: 30px; /* ← ОТСТУП СНИЗУ (регулируй) */
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -956,7 +956,7 @@ button:disabled {
     margin-right: 0px;
     flex: 10; /* ← ШИРИНА: занимает доступное пространство */
     height: 50%; /* ← ВЫСОТА: 90% от контейнера */
-    transform: translateY(10px); /* ← СМЕЩЕНИЕ ПО ВЕРТИКАЛИ */
+    transform: translateY(-10px); /* ← СМЕЩЕНИЕ ПО ВЕРТИКАЛИ */
 }
 
 /* Инь (чёрная) кнопка - НАСТРАИВАЕМЫЕ ПАРАМЕТРЫ */
@@ -971,7 +971,7 @@ button:disabled {
     margin-left: 0px;
     flex: 10; /* ← ШИРИНА: занимает доступное пространство */
     height: 50%; /* ← ВЫСОТА: 90% от контейнера */
-    transform: translateY(10px); /* ← СМЕЩЕНИЕ ПО ВЕРТИКАЛИ */
+    transform: translateY(-10px); /* ← СМЕЩЕНИЕ ПО ВЕРТИКАЛИ */
 }
 
 /* КНОПКИ ОЧИСТИТЬ И РЕЗУЛЬТАТ - ТАКИЕ ЖЕ КАК ЯН/ИНЬ */
