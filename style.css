@@ -837,11 +837,11 @@ button:disabled {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1px;
-    margin: 1px 0;
+    padding: 8px;
+    margin: 6px 0;
     border-radius: 8px;
     font-weight: bold;
-    min-height: 1px;
+    min-height: 35px;
     animation: lineAppear 0.5s ease-out;
 }
 
@@ -863,26 +863,29 @@ button:disabled {
     flex: 1;
 }
 
+/* Ян - одна сплошная полоса почти на всю линию */
 .manual-line .full-line {
-    width: 90%;
-    height: 2px;
+    width: 85%;
+    height: 8px;
     background: #ffd700;
-    border-radius: 6px;
-    margin: 0 10px;
+    border-radius: 4px;
+    margin: 0 auto;
 }
 
+/* Инь - две полосы по длине как одна полоса Ян */
 .manual-line .broken-line {
     display: flex;
     justify-content: space-between;
-    width: 90%;
-    margin: 0 10px;
+    width: 85%;
+    margin: 0 auto;
+    gap: 15%; /* Расстояние между двумя полосами */
 }
 
 .manual-line .line-part {
-    width: 45%;
-    height: 10px;
+    width: 42.5%; /* Каждая полоса занимает половину от 85% */
+    height: 8px;
     background: #c0c0c0;
-    border-radius: 6px;
+    border-radius: 4px;
 }
 
 .manual-line .line-label {
@@ -890,42 +893,7 @@ button:disabled {
     font-size: 1.1em;
     min-width: 40px;
     text-align: center;
-}
-.line-number {
-    font-size: 0.9em;
-    color: #cccccc;
-}
-
-.line-symbol {
-    font-size: 1.5em;
-}
-
-.line-name {
-    font-weight: bold;
-}
-
-.manual-placeholder {
-    text-align: center;
-    color: #888;
-    font-style: italic;
-}
-
-.manual-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-}
-
-.manual-action-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
+    color: #e6e6e6;
 }
 
 /* ЭКРАН 8: Ручной ввод - ИСПРАВЛЕННОЕ РАСПОЛОЖЕНИЕ КНОПОК */
