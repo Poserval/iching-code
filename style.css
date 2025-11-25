@@ -866,7 +866,7 @@ button:disabled {
 /* Ян - одна сплошная полоса почти на всю линию */
 .manual-line .full-line {
     width: 85%;
-    height: 2px;
+    height: 1px;
     background: #ffd700;
     border-radius: 4px;
     margin: 0 auto;
@@ -883,7 +883,7 @@ button:disabled {
 
 .manual-line .line-part {
     width: 42.5%; /* Каждая полоса занимает половину от 85% */
-    height: 2px;
+    height: 1px;
     background: #c0c0c0;
     border-radius: 4px;
 }
