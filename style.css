@@ -957,6 +957,12 @@ button:disabled {
     flex: 10; /* ← ШИРИНА: занимает доступное пространство */
     height: 50%; /* ← ВЫСОТА: 90% от контейнера */
     transform: translateY(-15px); /* ← СМЕЩЕНИЕ ПО ВЕРТИКАЛИ */
+    /* ДОБАВЬ ЭТИ СТРОКИ ДЛЯ ВЫРАВНИВАНИЯ ТЕКСТА */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
 /* Инь (чёрная) кнопка - НАСТРАИВАЕМЫЕ ПАРАМЕТРЫ */
@@ -972,6 +978,12 @@ button:disabled {
     flex: 10; /* ← ШИРИНА: занимает доступное пространство */
     height: 50%; /* ← ВЫСОТА: 90% от контейнера */
     transform: translateY(-15px); /* ← СМЕЩЕНИЕ ПО ВЕРТИКАЛИ */
+    /* ДОБАВЬ ЭТИ СТРОКИ ДЛЯ ВЫРАВНИВАНИЯ ТЕКСТА */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
 /* КНОПКИ ОЧИСТИТЬ И РЕЗУЛЬТАТ - ТАКИЕ ЖЕ КАК ЯН/ИНЬ */
