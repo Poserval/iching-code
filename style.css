@@ -978,10 +978,10 @@ display: flex;
     flex-direction: column;
     align-items: center;
     gap: 12px;
-    width: 100%;
+    width: 80%;
     flex-shrink: 0;
     /* ПОДНИМАЕМ ВЫШЕ */
-    margin-top: 5px; /* ← Уменьшаем отступ сверху */
+    margin-top: 1px; /* ← Уменьшаем отступ сверху */
     margin-bottom: 40px; /* ← Уменьшаем отступ снизу */
 }
 
