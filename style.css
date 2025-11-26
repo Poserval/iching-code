@@ -997,11 +997,11 @@ display: flex;
 
 /* Конкретно для кнопок Очистить и Результат */
 #clear-manual {
-    margin-bottom: 20px !important;
+    margin-bottom: 25px !important;
 }
 
 #confirm-manual {
-    margin-bottom: 20px !important;
+    margin-bottom: 25px !important;
 }
 
 /* Эффекты при наведении */
