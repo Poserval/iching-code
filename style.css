@@ -926,7 +926,7 @@ button:disabled {
     border: none;
     padding: 10px 40px;
     font-size: 1.1em;
-    border-radius: 25px;
+    border-radius: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
     margin: 0;
