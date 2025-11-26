@@ -1,6 +1,6 @@
 {
   "appId": "com.iching.codeiching",
-  "appName": "Код Ицзин",
+  "appName": "Код Ицзин", 
   "webDir": ".",
   "server": {
     "androidScheme": "https"
