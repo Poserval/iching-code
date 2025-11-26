@@ -1,8 +1,6 @@
 name: Build APK
 
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -13,39 +11,11 @@ jobs:
     - name: 📥 Checkout code
       uses: actions/checkout@v4
       
-    - name: ⚙️ Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        
-    - name: 📦 Install dependencies
+    - name: ⚙️ Setup environment
       run: |
-        npm install
-        npm list @capacitor/cli || npm install @capacitor/cli
-        npm list @capacitor/android || npm install @capacitor/android
-        
-    - name: 🎯 Initialize Capacitor Android
-      run: |
-        # Удаляем старую папку android если есть
-        rm -rf android
-        
-        # Инициализируем Android платформу
+        npm install -g @capacitor/cli
+        npx cap init "Код Ицзин" "com.iching.codeiching" --web-dir .
         npx cap add android
-        
-    - name: ☕ Setup Java
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '17'
-        
-    - name: 🔧 Fix permissions and build
-      run: |
         cd android
         chmod +x ./gradlew
         ./gradlew assembleDebug
-        
-    - name: 📤 Upload APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: iching-app
-        path: android/app/build/outputs/apk/debug/app-debug.apk
