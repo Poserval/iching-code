@@ -2,8 +2,12 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Код Ицзин</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Древнекитайское гадание по Книге Перемен">
+    <title>Ицзин - Книга Перемен</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -163,7 +167,7 @@
             </div>
 
             <!-- Единая кнопка для всего процесса -->
-            <button id="action-button" onclick="handleAction()">Бросить монеты (6 из 6)</button>
+            <button id="action-button" onclick="handleAction()">Бросить монеты</button>
 
             <!-- ФИКСИРОВАННОЕ окно для гексаграммы -->
             <div class="hexagram-fixed-container">
@@ -186,7 +190,7 @@
         <div id="interpretation-screen" class="screen">
             <div class="meaning-overlay-container">
                 <!-- ФОН-РАМКА -->
-                <img src="assets/meanings/meaning-1.png" class="meaning-background-image">
+                <img src="assets/meanings/meaning-1.png" class="meaning-background-image" alt="Фон толкования">
                 
                 <!-- ТЕКСТОВАЯ ПОДЛОЖКА -->
                 <div class="text-overlay-test">
@@ -211,7 +215,7 @@
             <h2>Ручной ввод гексаграммы</h2>
             
             <div class="manual-instructions">
-                <p>Бросьте 3 монеты 6 раз и введите результаты:</p>
+                <p>Бросьте 3 монеты 6 раз:</p>
                 <p><strong>2-3 орла = Ян (⚊)</strong><br>
                    <strong>2-3 решки = Инь (⚋)</strong></p>
             </div>
@@ -220,24 +224,23 @@
                 <!-- Линии будут добавляться здесь -->
             </div>
             
-               <!-- НОВАЯ КНОПКА ИНЬ-ЯН -->
-    <div class="yin-yang-button-container">
-    <button class="yin-yang-button yang-button" onclick="addManualLine('yang')">
-        <span>⚊ Ян</span>
-    </button>
-    <button class="yin-yang-button yin-button" onclick="addManualLine('yin')">
-        <span>⚋ Инь</span>
-    </button>
-</div>
+            <div class="yin-yang-button-container">
+                <button class="yang-button" onclick="addManualLine('yang')">⚊ Ян</button>
+                <button class="yin-button" onclick="addManualLine('yin')">⚋ Инь</button>
+            </div>
 
-    <div class="manual-action-buttons">
-        <button onclick="clearManualLines()">Очистить</button>
-        <button id="show-result-btn" onclick="showManualResult()" disabled>Показать результат</button>
-        <button onclick="showScreen('mode-selection-screen')">Назад к выбору режима</button>
-    </div>
-</div>
+            <div class="manual-action-buttons">
+                <button onclick="clearManualLines()">Очистить</button>
+                <button id="show-result-btn" onclick="showManualResult()" disabled>Результат</button>
+            </div>
+            
+            <button onclick="showScreen('mode-selection-screen')" class="back-button">Назад</button>
+        </div>
 
     </div>
+
+    <!-- Сообщение об ошибках -->
+    <div id="error-message" style="display: none; position: fixed; top: 10px; left: 10px; right: 10px; background: #ff4444; color: white; padding: 10px; border-radius: 5px; z-index: 1000; text-align: center;"></div>
 
     <script src="script.js"></script>
 </body>
