@@ -1,10 +1,11 @@
 {
   "name": "code-iching",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "build": "echo 'Files are ready!'",
+    "build": "echo 'Building Iching app'",
     "cap:sync": "npx cap sync",
-    "cap:add:android": "npx cap add android"
+    "cap:android": "npx cap add android"
   },
   "devDependencies": {
     "@capacitor/cli": "^5.0.0",
