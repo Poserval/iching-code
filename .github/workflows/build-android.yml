@@ -22,14 +22,11 @@ jobs:
     - name: 📦 Install dependencies
       run: npm install
       
-    - name: 🏗️ Build web assets
+    - name: 🏗️ Check file structure
       run: |
-        # Создаём минимальную структуру если нет сборки
-        if [ ! -f "package.json" ]; then
-          echo '{"name": "code-iching", "version": "1.0.0"}' > package.json
-        fi
-        mkdir -p dist
-        echo "✅ Веб-ассеты готовы"
+        echo "📁 Проверяем структуру файлов:"
+        ls -la
+        echo "✅ Файлы готовы"
       
     - name: ☕ Setup Java
       uses: actions/setup-java@v4
@@ -46,13 +43,13 @@ jobs:
         npm install @capacitor/core @capacitor/cli
         npm install @capacitor/android
         
-        # Инициализируем если нет конфига
-        if [ ! -f "capacitor.config.json" ] && [ ! -f "capacitor.config.ts" ]; then
-          npx cap init "Код Ицзин" "com.iching.codeiching" --web-dir dist
-        fi
+        # ПРИНУДИТЕЛЬНО инициализируем с КОРНЕВОЙ папкой
+        npx cap init "Код Ицзин" "com.iching.codeiching" --web-dir .
         
         # Синхронизируем Android платформу
         npx cap sync android
+        
+        echo "✅ Capacitor настроен на корневую папку"
       
     - name: 🔐 Setup signing key
       run: |
