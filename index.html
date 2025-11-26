@@ -9,10 +9,10 @@
     <meta name="description" content="Древнекитайское гадание по Книге Перемен">
     <title>Ицзин - Книга Перемен</title>
     
-    <!-- 🔥 КРИТИЧНО ДЛЯ PWA - манифест -->
+    <!-- 🔥 PWA МАНИФЕСТ -->
     <link rel="manifest" href="manifest.json">
     
-    <!-- 🔥 Иконки для PWA -->
+    <!-- 🔥 ИКОНКИ ДЛЯ PWA -->
     <link rel="icon" href="assets/icons/icon-192.png" type="image/png">
     <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
     
@@ -180,7 +180,7 @@
             <!-- ФИКСИРОВАННОЕ окно для гексаграммы -->
             <div class="hexagram-fixed-container">
                 <div id="hexagram-lines">
-                    <p>Бросьте монеты 6 раз чтобы построить гексаграмма</p>
+                    <p>Бросьте монеты 6 раз чтобы построить гексаграмму</p>
                 </div>
             </div>
 
@@ -252,12 +252,12 @@
 
     <script src="script.js"></script>
     
-    <!-- 🔥 КРИТИЧНО ДЛЯ PWA - Service Worker -->
+    <!-- 🔥 PWA SERVICE WORKER -->
     <script>
         // Регистрация Service Worker для PWA
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js')
+                navigator.serviceWorker.register('sw.js')
                     .then(function(registration) {
                         console.log('✅ ServiceWorker зарегистрирован: ', registration.scope);
                     })
@@ -267,19 +267,18 @@
             });
         }
         
-        // Проверка PWA критериев
+        // Проверка PWA 
         window.addEventListener('DOMContentLoaded', () => {
-            // Проверяем запущено ли как PWA
             if (window.matchMedia('(display-mode: standalone)').matches) {
                 console.log('🚀 Запущено как PWA');
             } else {
                 console.log('🌐 Запущено в браузере');
-            }
-            
-            // Показываем кнопку установки если не PWA
-            if (!window.matchMedia('(display-mode: standalone)').matches && 
-                !window.navigator.standalone) {
-                console.log('📱 Можно установить как PWA');
+                // Показываем подсказку об установке
+                setTimeout(() => {
+                    if ('serviceWorker' in navigator && !window.matchMedia('(display-mode: standalone)').matches) {
+                        console.log('📱 Можно установить как PWA - ищи кнопку в меню браузера');
+                    }
+                }, 3000);
             }
         });
     </script>
