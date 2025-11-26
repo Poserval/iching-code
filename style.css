@@ -948,7 +948,7 @@ button:disabled {
 #manual-input-screen .back-button {
     width: 90%;
     max-width: 400px;
-    margin: -10px auto 15px auto;
+    margin: -20px auto 15px auto;
     padding: 16px 30px;
     font-size: 1.1em;
 }
