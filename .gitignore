@@ -1,0 +1,15 @@
+# Capacitor
+android/
+ios/
+
+# Ключи подписи
+*.jks
+*.keystore
+
+# Логи сборки
+build/
+dist/
+
+# Node.js
+node_modules/
+npm-debug.log*
