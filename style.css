@@ -966,7 +966,7 @@ button:disabled {
     border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin: 5px;
+    margin: 30px;
     width: 80%;
     max-width: 300px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
