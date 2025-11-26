@@ -1,0 +1,16 @@
+{
+  "name": "code-iching",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "your-build-command-here",
+    "cap:add:android": "npx cap add android",
+    "cap:sync": "npx cap sync",
+    "cap:build": "npm run build && npx cap sync",
+    "android:build": "npm run cap:build && cd android && ./gradlew assembleRelease",
+    "android:open": "npx cap open android"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^5.0.0",
+    "@capacitor/android": "^5.0.0"
+  }
+}
