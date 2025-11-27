@@ -1,8 +1,8 @@
-name: Build Android APK
+name: Build Signed Release APK for RuStore
 
 on:
   push:
-    branches: [main]
+    tags: ['v*']
   workflow_dispatch:
 
 jobs:
@@ -37,13 +37,10 @@ jobs:
     - name: Replace launcher icons
       run: |
         echo "🔄 Заменяем иконки запуска..."
-        
-        # Жестко заменяем все иконки в Android проекте
         find android -name "ic_launcher*.png" -type f | while read file; do
           echo "Заменяем: $file"
           cp ./icons/icon-192.png "$file" 2>/dev/null || true
         done
-        
         echo "✅ Иконки заменены!"
       
     - name: Setup Java
@@ -52,15 +49,26 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
         
-    - name: Build APK
+    - name: Setup signing key
+      run: |
+        echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > code_iching.jks
+        echo "✅ Ключ подписи установлен"
+        
+    - name: Build Release APK
       run: |
         cd android
         chmod +x gradlew
-        ./gradlew assembleDebug --no-daemon
         
-    - name: Upload APK to Artifacts
+        # Собираем РЕЛИЗНЫЙ APK с подписью
+        ./gradlew assembleRelease \
+          -Pandroid.injected.signing.store.file=../code_iching.jks \
+          -Pandroid.injected.signing.store.password=${{ secrets.KEYSTORE_PASSWORD }} \
+          -Pandroid.injected.signing.key.alias=${{ secrets.KEY_ALIAS }} \
+          -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
+        
+    - name: Upload Release APK
       uses: actions/upload-artifact@v4
       with:
-        name: iching-app
-        path: android/app/build/outputs/apk/debug/app-debug.apk
+        name: code-iching-release-apk
+        path: android/app/build/outputs/apk/release/app-release.apk
         retention-days: 30
