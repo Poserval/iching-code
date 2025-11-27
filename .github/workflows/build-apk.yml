@@ -1,8 +1,8 @@
-name: Build APK
+name: Build Android APK
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -10,36 +10,44 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: 📥 Checkout code
+    - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: ⚙️ Setup Node.js
+    - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '18'
         
-    - name: 📦 Install dependencies
+    - name: Clean previous build
+      run: rm -rf capacitor-web android
+      
+    - name: Install dependencies
+      run: npm install --package-lock=false
+      
+    - name: Build web assets
       run: |
-        npm install
+        mkdir -p capacitor-web
+        cp index.html style.css script.js data.json capacitor-web/
+        cp -r assets capacitor-web/
         
-    - name: 🎯 Add Android platform
-      run: |
-        npx cap add android
-        
-    - name: ☕ Setup Java
+    - name: Generate Android project
+      run: npx cap add android && npx cap sync android
+      
+    - name: Setup Java
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '17'
         
-    - name: 🏗️ Build APK
+    - name: Build APK
       run: |
         cd android
-        chmod +x ./gradlew
-        ./gradlew assembleDebug
+        chmod +x gradlew
+        ./gradlew assembleDebug --no-daemon
         
-    - name: 📤 Upload APK
+    - name: Upload APK to Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: iching-app
         path: android/app/build/outputs/apk/debug/app-debug.apk
+        retention-days: 30
