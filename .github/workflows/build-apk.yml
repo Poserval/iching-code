@@ -1,8 +1,8 @@
-name: Build Signed APK for RuStore
+name: Build Android APK
 
 on:
   push:
-    tags: ['v*']
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -27,21 +27,68 @@ jobs:
     - name: Build web assets
       run: |
         mkdir -p capacitor-web
-        cp *.html *.css *.js *.json capacitor-web/
+        cp index.html style.css script.js data.json manifest.json capacitor-web/
         cp -r icons capacitor-web/
         cp -r assets capacitor-web/assets/
         
     - name: Generate Android project
       run: npx cap add android && npx cap sync android
       
-    - name: Replace launcher icons
+    - name: Replace launcher icons with proper scaling
       run: |
-        echo "🔄 Заменяем иконки запуска..."
+        echo "🔄 Заменяем иконки с правильным масштабированием..."
+        
+        # Создаем уменьшенную версию иконки 108x108 для лучшего отображения
+        convert ./icons/icon-192.png -resize 108x108 ./icons/icon-108.png 2>/dev/null || echo "ImageMagick не установлен, используем исходную иконку"
+        
+        # Заменяем иконки на уменьшенную версию
         find android -name "ic_launcher*.png" -type f | while read file; do
           echo "Заменяем: $file"
-          cp ./icons/icon-192.png "$file" 2>/dev/null || true
+          if [ -f "./icons/icon-108.png" ]; then
+            cp ./icons/icon-108.png "$file" 2>/dev/null || true
+          else
+            cp ./icons/icon-192.png "$file" 2>/dev/null || true
+          fi
         done
-        echo "✅ Иконки заменены!"
+        
+        echo "✅ Иконки заменены с правильным масштабированием!"
+      
+    - name: Configure Android signing
+      run: |
+        echo "🔐 Настраиваем подпись в Android..."
+        cd android/app
+        
+        keytool -genkeypair -v \
+          -keystore release.keystore \
+          -alias release_key \
+          -keyalg RSA \
+          -keysize 2048 \
+          -validity 10000 \
+          -storepass "android123" \
+          -keypass "android123" \
+          -dname "CN=Code Iching, O=CodeIching, C=RU"
+        
+        cat > signing-config.gradle << 'EOF'
+        android {
+            signingConfigs {
+                release {
+                    storeFile file("release.keystore")
+                    storePassword "android123"
+                    keyAlias "release_key"
+                    keyPassword "android123"
+                }
+            }
+            buildTypes {
+                release {
+                    signingConfig signingConfigs.release
+                    minifyEnabled false
+                }
+            }
+        }
+        EOF
+        
+        echo "apply from: 'signing-config.gradle'" >> build.gradle
+        echo "✅ Подпись настроена!"
       
     - name: Setup Java
       uses: actions/setup-java@v4
@@ -49,28 +96,15 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
         
-    - name: Setup signing key
-      run: |
-        echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > code_iching.jks
-        
-    - name: Build Unsigned Release APK
+    - name: Build Signed Release APK
       run: |
         cd android
         chmod +x gradlew
-        ./gradlew assembleRelease -Pandroid.injected.signing.store.file="" --no-daemon
+        ./gradlew assembleRelease --no-daemon
         
-    - name: Sign APK manually
-      run: |
-        cd android/app/build/outputs/apk/release/
-        jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 \
-          -keystore ../../../../../../code_iching.jks \
-          -storepass "${{ secrets.KEYSTORE_PASSWORD }}" \
-          -keypass "${{ secrets.KEY_PASSWORD }}" \
-          app-release-unsigned.apk \
-          "${{ secrets.KEY_ALIAS }}"
-        
-    - name: Upload Signed APK
+    - name: Upload APK to Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: code-iching-signed-apk
-        path: android/app/build/outputs/apk/release/app-release-unsigned.apk
+        name: code-iching-apk
+        path: android/app/build/outputs/apk/release/*.apk
+        retention-days: 30
