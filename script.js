@@ -5,6 +5,7 @@ let isManualMode = false;
 let hexagramsData = {};
 let sacredProtectionActive = false;
 let interpretationShown = false;
+let distortionInterval;
 
 // Карта соответствия бинарных кодов номерам гексаграмм
 const hexagramMap = {
@@ -79,6 +80,96 @@ function initializeSacredProtection() {
             -o-user-drag: none !important;
             user-drag: none !important;
         }
+        
+        /* Стили для искажений */
+        .distortion-wave {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(139, 69, 19, 0.1) 20%,
+                rgba(26, 26, 46, 0.2) 50%,
+                rgba(139, 69, 19, 0.1) 80%,
+                transparent 100%);
+            pointer-events: none;
+            z-index: 999;
+            animation: waveDistortion 2s ease-in-out;
+        }
+        
+        .static-noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(0deg, 
+                    transparent 0px, 
+                    transparent 1px, 
+                    rgba(139, 69, 19, 0.02) 1px, 
+                    rgba(139, 69, 19, 0.02) 2px),
+                repeating-linear-gradient(90deg, 
+                    transparent 0px, 
+                    transparent 1px, 
+                    rgba(26, 26, 46, 0.02) 1px, 
+                    rgba(26, 26, 46, 0.02) 2px);
+            pointer-events: none;
+            z-index: 996;
+            opacity: 0.3;
+            animation: staticFlicker 0.1s infinite;
+        }
+        
+        .text-glitch {
+            animation: textGlitch 0.5s ease-in-out;
+        }
+        
+        .blur-effect {
+            animation: blurPulse 3s ease-in-out;
+        }
+        
+        @keyframes waveDistortion {
+            0% { left: -100%; opacity: 0; }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.3; }
+            100% { left: 100%; opacity: 0; }
+        }
+        
+        @keyframes staticFlicker {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.4; }
+        }
+        
+        @keyframes textGlitch {
+            0% { transform: translateX(0px) skewX(0deg); filter: blur(0px); }
+            25% { transform: translateX(-2px) skewX(-1deg); filter: blur(0.5px); }
+            50% { transform: translateX(2px) skewX(1deg); filter: blur(0.3px); }
+            75% { transform: translateX(-1px) skewX(-0.5deg); filter: blur(0.2px); }
+            100% { transform: translateX(0px) skewX(0deg); filter: blur(0px); }
+        }
+        
+        @keyframes blurPulse {
+            0%, 100% { filter: blur(0px); opacity: 1; }
+            50% { filter: blur(1px); opacity: 0.8; }
+        }
+        
+        /* Фон с текстурой для искажения скриншотов */
+        .sacred-background {
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(139, 69, 19, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(26, 26, 46, 0.05) 0%, transparent 50%),
+                linear-gradient(45deg, transparent 49%, rgba(139, 69, 19, 0.02) 50%, transparent 51%),
+                linear-gradient(-45deg, transparent 49%, rgba(26, 26, 46, 0.02) 50%, transparent 51%);
+            background-size: 100% 100%, 100% 100%, 20px 20px, 20px 20px;
+            animation: backgroundShift 10s infinite linear;
+        }
+        
+        @keyframes backgroundShift {
+            0% { background-position: 0% 0%, 0% 0%, 0px 0px, 0px 0px; }
+            100% { background-position: 0% 0%, 0% 0%, 20px 20px, 20px 20px; }
+        }
     `;
     document.head.appendChild(style);
     
@@ -124,54 +215,118 @@ function showSacredWarning() {
         if (document.body.contains(warning)) {
             document.body.removeChild(warning);
         }
+    }, 2000);
+}
+
+// 🌊 ФУНКЦИИ ИСКАЖЕНИЙ
+function createDistortionWave() {
+    const wave = document.createElement('div');
+    wave.className = 'distortion-wave';
+    document.getElementById('interpretation-screen').appendChild(wave);
+    
+    setTimeout(() => {
+        if (wave.parentNode) {
+            wave.parentNode.removeChild(wave);
+        }
+    }, 2000);
+}
+
+function addStaticNoise() {
+    const noise = document.createElement('div');
+    noise.className = 'static-noise';
+    document.getElementById('interpretation-screen').appendChild(noise);
+    
+    setTimeout(() => {
+        if (noise.parentNode) {
+            noise.parentNode.removeChild(noise);
+        }
+    }, 1000);
+}
+
+function glitchText() {
+    const textElements = [
+        document.getElementById('hexagram-name'),
+        document.getElementById('hexagram-description')
+    ];
+    
+    textElements.forEach(element => {
+        if (element) {
+            element.classList.add('text-glitch');
+            setTimeout(() => {
+                element.classList.remove('text-glitch');
+            }, 500);
+        }
+    });
+}
+
+function applyBlurEffect() {
+    const screen = document.getElementById('interpretation-screen');
+    screen.classList.add('blur-effect');
+    
+    setTimeout(() => {
+        screen.classList.remove('blur-effect');
     }, 3000);
+}
+
+// 🎪 СЛУЧАЙНЫЕ ИСКАЖЕНИЯ КАЖДЫЕ 20-40 СЕКУНД
+function startRandomDistortions() {
+    distortionInterval = setInterval(() => {
+        if (!sacredProtectionActive) return;
+        
+        const effects = [
+            () => createDistortionWave(),
+            () => addStaticNoise(),
+            () => glitchText(),
+            () => applyBlurEffect()
+        ];
+        
+        // Случайно выбираем 1-2 эффекта
+        const numEffects = Math.floor(Math.random() * 2) + 1;
+        for (let i = 0; i < numEffects; i++) {
+            const randomEffect = effects[Math.floor(Math.random() * effects.length)];
+            setTimeout(randomEffect, i * 500); // Растягиваем эффекты
+        }
+        
+    }, 20000 + Math.random() * 20000); // 20-40 секунд
 }
 
 // 🔒 Активация защиты при показе толкования
 function activateSacredProtection() {
     sacredProtectionActive = true;
     const interpretationScreen = document.getElementById('interpretation-screen');
-    interpretationScreen.classList.add('sacred-protection');
+    interpretationScreen.classList.add('sacred-protection', 'sacred-background');
     
-    // Добавляем затемнение для затруднения скриншотов
-    const overlay = document.createElement('div');
-    overlay.id = 'sacred-overlay';
-    overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(45deg, 
-            rgba(26, 26, 46, 0.1) 0%, 
-            rgba(139, 69, 19, 0.05) 50%, 
-            rgba(26, 26, 46, 0.1) 100%);
-        pointer-events: none;
-        z-index: 998;
-        animation: sacredPulse 3s infinite;
-    `;
+    // Добавляем постоянный статический шум
+    const permanentNoise = document.createElement('div');
+    permanentNoise.id = 'permanent-noise';
+    permanentNoise.className = 'static-noise';
+    permanentNoise.style.opacity = '0.1';
+    interpretationScreen.appendChild(permanentNoise);
     
-    const pulseStyle = document.createElement('style');
-    pulseStyle.textContent = `
-        @keyframes sacredPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.1; }
-        }
-    `;
-    document.head.appendChild(pulseStyle);
+    // Запускаем случайные искажения
+    startRandomDistortions();
     
-    interpretationScreen.appendChild(overlay);
+    // Первое искажение через 5 секунд
+    setTimeout(() => {
+        createDistortionWave();
+    }, 5000);
 }
 
 // 🔒 Деактивация защиты
 function deactivateSacredProtection() {
     sacredProtectionActive = false;
     const interpretationScreen = document.getElementById('interpretation-screen');
-    interpretationScreen.classList.remove('sacred-protection');
+    interpretationScreen.classList.remove('sacred-protection', 'sacred-background');
     
-    const overlay = document.getElementById('sacred-overlay');
-    if (overlay) {
-        overlay.remove();
+    // Останавливаем искажения
+    if (distortionInterval) {
+        clearInterval(distortionInterval);
+    }
+    
+    // Убираем шум
+    const noise = document.getElementById('permanent-noise');
+    if (noise) {
+        noise.remove();
     }
 }
 
@@ -225,8 +380,7 @@ function showScreen(screenId) {
             // 🔒 АКТИВИРУЕМ ЗАЩИТУ ПРИ ПОКАЗЕ ТОЛКОВАНИЯ
             setTimeout(() => {
                 activateSacredProtection();
-                showSacredWarning();
-            }, 500);
+            }, 100);
         } else if (screenId === 'manual-input-screen') {
             manualLines = [];
             updateManualInterface();
@@ -253,15 +407,32 @@ function showMeaningText() {
         // 🔒 ПОМЕЧАЕМ ЧТО ТОЛКОВАНИЕ БЫЛО ПОКАЗАНО
         interpretationShown = true;
         
-        // 🔒 ТАЙМЕР АВТООЧИСТКИ (5 минут)
+        // 🔒 ТАЙМЕР АВТООЧИСТКИ (3 минуты)
         setTimeout(() => {
             if (sacredProtectionActive) {
-                showSacredWarning();
+                const warning = document.createElement('div');
+                warning.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: rgba(139, 69, 19, 0.9);
+                    color: white;
+                    padding: 15px;
+                    border-radius: 5px;
+                    z-index: 10001;
+                    text-align: center;
+                    font-family: 'Caveat', cursive;
+                `;
+                warning.textContent = 'Время мудрости истекло...';
+                document.body.appendChild(warning);
+                
                 setTimeout(() => {
+                    warning.remove();
                     showScreen('main-menu');
                 }, 2000);
             }
-        }, 300000); // 5 минут
+        }, 180000); // 3 минуты
         
     } else {
         document.getElementById('hexagram-name').textContent = 'Гексаграмма ' + hexagramNumber;
@@ -269,9 +440,8 @@ function showMeaningText() {
     }
 }
 
-// ОСТАЛЬНЫЕ ФУНКЦИИ БЕЗ ИЗМЕНЕНИЙ (они работают как надо)
+// ОСТАЛЬНЫЕ ФУНКЦИИ БЕЗ ИЗМЕНЕНИЙ
 
-// Функции для выбора режима
 function selectAutoMode() {
     isManualMode = false;
     showScreen('divination-screen');
@@ -282,7 +452,6 @@ function selectManualMode() {
     showScreen('manual-input-screen');
 }
 
-// Функции для ручного ввода
 function addManualLine(lineType) {
     if (manualLines.length < 6) {
         manualLines.push(lineType);
