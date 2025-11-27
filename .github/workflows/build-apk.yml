@@ -1,4 +1,4 @@
-name: Build Signed APK for RuStore
+name: Build Signed APK with Fixed Icons
 
 on:
   push:
@@ -34,6 +34,28 @@ jobs:
     - name: Generate Android project
       run: npx cap add android && npx cap sync android
       
+    - name: 🎨 NUCLEAR ICON REPLACEMENT
+      run: |
+        echo "💣 ЖЕСТКО ЗАМЕНЯЕМ ВСЕ ИКОНКИ..."
+        mkdir -p android/app/src/main/res/mipmap-hdpi
+        mkdir -p android/app/src/main/res/mipmap-mdpi
+        mkdir -p android/app/src/main/res/mipmap-xhdpi
+        mkdir -p android/app/src/main/res/mipmap-xxhdpi
+        mkdir -p android/app/src/main/res/mipmap-xxxhdpi
+        
+        cp icons/icon-192.png android/app/src/main/res/mipmap-hdpi/ic_launcher.png
+        cp icons/icon-192.png android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png
+        cp icons/icon-192.png android/app/src/main/res/mipmap-mdpi/ic_launcher.png
+        cp icons/icon-192.png android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png
+        cp icons/icon-192.png android/app/src/main/res/mipmap-xhdpi/ic_launcher.png
+        cp icons/icon-192.png android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png
+        cp icons/icon-192.png android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png
+        cp icons/icon-192.png android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png
+        cp icons/icon-192.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+        cp icons/icon-192.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png
+        
+        echo "✅ Иконки заменены!"
+      
     - name: Setup Java
       uses: actions/setup-java@v4
       with:
@@ -43,20 +65,16 @@ jobs:
     - name: Setup signing key
       run: |
         echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > code_iching.jks
-        echo "✅ Ключ подписи установлен"
         
     - name: Build Unsigned Release APK
       run: |
         cd android
         chmod +x gradlew
         ./gradlew assembleRelease -Pandroid.injected.signing.store.file="" --no-daemon
-        echo "✅ Неподписанный APK собран"
         
     - name: Sign APK manually
       run: |
         cd android/app/build/outputs/apk/release/
-        
-        # Подписываем APK
         jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 \
           -keystore ../../../../../../code_iching.jks \
           -storepass "${{ secrets.KEYSTORE_PASSWORD }}" \
@@ -64,11 +82,8 @@ jobs:
           app-release-unsigned.apk \
           "${{ secrets.KEY_ALIAS }}"
         
-        echo "✅ APK подписан!"
-        
     - name: Upload Signed APK
       uses: actions/upload-artifact@v4
       with:
         name: code-iching-signed-apk
         path: android/app/build/outputs/apk/release/app-release-unsigned.apk
-        retention-days: 30
