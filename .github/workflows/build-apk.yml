@@ -1,4 +1,4 @@
-name: Build Signed APK with Fixed Icons
+name: Build Signed Android APK for RuStore
 
 on:
   push:
@@ -34,26 +34,13 @@ jobs:
     - name: Generate Android project
       run: npx cap add android && npx cap sync android
       
-    - name: 🎨 NUCLEAR ICON REPLACEMENT
+    - name: Replace launcher icons
       run: |
-        echo "💣 ЖЕСТКО ЗАМЕНЯЕМ ВСЕ ИКОНКИ..."
-        mkdir -p android/app/src/main/res/mipmap-hdpi
-        mkdir -p android/app/src/main/res/mipmap-mdpi
-        mkdir -p android/app/src/main/res/mipmap-xhdpi
-        mkdir -p android/app/src/main/res/mipmap-xxhdpi
-        mkdir -p android/app/src/main/res/mipmap-xxxhdpi
-        
-        cp icons/icon-192.png android/app/src/main/res/mipmap-hdpi/ic_launcher.png
-        cp icons/icon-192.png android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png
-        cp icons/icon-192.png android/app/src/main/res/mipmap-mdpi/ic_launcher.png
-        cp icons/icon-192.png android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png
-        cp icons/icon-192.png android/app/src/main/res/mipmap-xhdpi/ic_launcher.png
-        cp icons/icon-192.png android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png
-        cp icons/icon-192.png android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png
-        cp icons/icon-192.png android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png
-        cp icons/icon-192.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
-        cp icons/icon-192.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png
-        
+        echo "🔄 Заменяем иконки запуска..."
+        find android -name "ic_launcher*.png" -type f | while read file; do
+          echo "Заменяем: $file"
+          cp ./icons/icon-192.png "$file" 2>/dev/null || true
+        done
         echo "✅ Иконки заменены!"
       
     - name: Setup Java
@@ -65,25 +52,37 @@ jobs:
     - name: Setup signing key
       run: |
         echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > code_iching.jks
+        echo "✅ Ключ подписи установлен"
         
-    - name: Build Unsigned Release APK
+    - name: Build Signed Release APK
       run: |
         cd android
         chmod +x gradlew
-        ./gradlew assembleRelease -Pandroid.injected.signing.store.file="" --no-daemon
         
-    - name: Sign APK manually
-      run: |
-        cd android/app/build/outputs/apk/release/
-        jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 \
-          -keystore ../../../../../../code_iching.jks \
-          -storepass "${{ secrets.KEYSTORE_PASSWORD }}" \
-          -keypass "${{ secrets.KEY_PASSWORD }}" \
-          app-release-unsigned.apk \
-          "${{ secrets.KEY_ALIAS }}"
+        # Собираем подписанный APK
+        ./gradlew assembleRelease \
+          -Pandroid.injected.signing.store.file=../code_iching.jks \
+          -Pandroid.injected.signing.store.password=${{ secrets.KEYSTORE_PASSWORD }} \
+          -Pandroid.injected.signing.key.alias=${{ secrets.KEY_ALIAS }} \
+          -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
         
-    - name: Upload Signed APK
+    - name: Upload Signed APK to Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: code-iching-signed-apk
-        path: android/app/build/outputs/apk/release/app-release-unsigned.apk
+        path: android/app/build/outputs/apk/release/app-release.apk
+        retention-days: 30
+        
+    - name: Create GitHub Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v2
+      with:
+        files: android/app/build/outputs/apk/release/app-release.apk
+        body: |
+          🎉 Подписанный APK для RuStore
+          
+          📱 **Код Ицзин** - сакральное гадание по древнекитайской Книге Перемен
+          
+          🔐 APK подписан и готов к публикации
+          ⏳ Толкования самоочищаются через 3 минуты
+          📸 Защита от скриншотов и сохранения
