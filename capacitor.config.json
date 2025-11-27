@@ -1,7 +1,7 @@
 {
   "appId": "com.iching.codeiching",
   "appName": "Код Ицзин",
-  "webDir": ".",
+  "webDir": "capacitor-web",
   "server": {
     "androidScheme": "https"
   }
